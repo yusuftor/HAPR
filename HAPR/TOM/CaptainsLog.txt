@@ -1,0 +1,8 @@
+Ver 0.0
+> created project workspace, initial research completed
+
+Ver 0.1
+> move functions created
+
+Ver 0.2
+> move functions fine-tuned
