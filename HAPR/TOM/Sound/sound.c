@@ -1,0 +1,63 @@
+#include "lpc17xx_uart.h"
+#include "lpc17xx_pinsel.h"
+#include "lpc_types.h"
+#include <string.h>
+
+#define _ALARM "T240O8MSCCC"
+#define _AMERICANIDIOT "T176L8MSG#G#G#>C#4>C#>C#F#4F#>C#.G#.F#."
+#define _CRAZYFROG "T240MSFG#FFA#FD#F>CFF>C#>CG#F>C>FFD#D#GF"
+
+void Init_Serial();
+void Write(char* str, int l);
+void WriteByte(char c);
+
+void play();
+
+int i;
+
+int main() {
+  
+	Init_Serial();
+
+  	play(_CRAZYFROG);
+
+}
+
+void play(char* s) {	
+	int count = 0;	
+	for(i=0;s[i]!='\0';i++){
+	count++;
+	}	
+	
+	WriteByte((char) 0xB3);
+	WriteByte((char) count);	
+	Write(s, count);
+}
+
+void Init_Serial() {
+  UART_CFG_Type UARTConfigStruct;
+  PINSEL_CFG_Type PinCfg;
+
+  PinCfg.Funcnum = 2;
+  PinCfg.OpenDrain = 0;
+  PinCfg.Pinmode = 0;
+  PinCfg.Portnum = 0;
+  PinCfg.Pinnum = 0;
+  PINSEL_ConfigPin(&PinCfg);
+  PinCfg.Pinnum = 1;
+  PINSEL_ConfigPin(&PinCfg);
+
+  UART_ConfigStructInit(&UARTConfigStruct);
+  UARTConfigStruct.Baud_rate = 115200;
+
+  UART_Init((LPC_UART_TypeDef*) LPC_UART3, &UARTConfigStruct);
+  UART_TxCmd((LPC_UART_TypeDef*) LPC_UART3, ENABLE);
+}
+
+void Write(char* str, int l) {
+  UART_Send((LPC_UART_TypeDef*) LPC_UART3, (uint8_t*) str, l, BLOCKING);
+}
+
+void WriteByte(char c) {
+  UART_SendByte((LPC_UART_TypeDef*) LPC_UART3, (uint8_t) c);
+}
