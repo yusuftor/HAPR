@@ -11,12 +11,19 @@ void Delay();
 #include "Movement.h"
 #include "ADC.h"
 #include "DigitalSensor.h"
+#include "WallFollowing.h"
 
 int main() {
   Init();
 
-  //Test front digital sensor
   if(1) {
+    ConsoleWrite("Testing Wall Following.\r\n");
+    Delay(500);
+    FollowWall(0.0f, LEFT);
+  }
+  
+  //Test front digital sensor
+  if(0) {
     ConsoleWrite("Testing Digital Sensor.\r\n");
     Delay(1000);
     char output[20] = "";

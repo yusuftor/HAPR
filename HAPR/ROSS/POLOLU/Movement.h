@@ -23,7 +23,7 @@ void Backwards(float speed) {
 void Spin(float speed) {
   int actSpeed;
   char spin[4] = {0x00, 0x00, 0x00, 0x00};
-  if(speed < 0.0f) { //speed < 0 = spin anti-clockwise
+  if(speed < 0.0f) { //speed < 0 = spin anti-clockwise (to left)
     spin[0] = 0xC2;
     spin[2] = 0xC5;
     if(speed < -1.0f) speed = -1.0f;
@@ -31,7 +31,7 @@ void Spin(float speed) {
     spin[1] = (char) actSpeed;
     spin[3] = (char) actSpeed;
   }
-  else { // speed > 0 = spin clockwise
+  else { // speed > 0 = spin clockwise (to right)
     spin[0] = 0xC1;
     spin[2] = 0xC6;
     if(speed > 1.0f) speed = 1.0f;
