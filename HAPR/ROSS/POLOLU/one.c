@@ -2,9 +2,12 @@
 #include "lpc17xx_pinsel.h"
 #include "lpc_types.h"
 #include <string.h>
+#include <stdbool.h>
 
 void Init();
 void Delay();
+void Init_RIT(int time);
+bool fiveSecTimer = false;
 
 #include "ConsoleDebug.h"
 #include "Serial.h"
@@ -12,6 +15,7 @@ void Delay();
 #include "ADC.h"
 #include "DigitalSensor.h"
 #include "WallFollowing.h"
+#include "RIT.h"
 
 int main() {
   Init();
@@ -85,7 +89,7 @@ void Init() {
   
   WriteByte((char) 0xB7);
   ConsoleWrite("Starting Main.\r\n");
-  ConsoleWrite("Version 7.\r\n");
+  ConsoleWrite("Version 8.\r\n");
 }
 
 void Delay(int i) { //Delay in ms. 1000 = 1,000 * 10,000 = 1s

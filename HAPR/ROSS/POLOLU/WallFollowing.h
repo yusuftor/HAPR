@@ -1,10 +1,9 @@
 enum side {LEFT, RIGHT};
 typedef enum side Side;
+Side currentlyFollowing;
 int result[2];
 
 void GetVoltages(Side s) {
-  //int result[2]; //0 = front, 1 = back
-
   if(s == LEFT) {
     result[0] = Get_ADC_Val("P15");
     result[1] = Get_ADC_Val("P18");
@@ -13,11 +12,11 @@ void GetVoltages(Side s) {
     result[0] = Get_ADC_Val("P15");
     result[1] = Get_ADC_Val("P18");
   }
-  //return &result;
 }
 
 void FollowWall(float dist, Side s) {
   int wantedV = 2300; //##Based this on dist
+  currentlyFollowing = s;
   
   int loopCount;
   //int result[2];
@@ -65,10 +64,21 @@ void FollowWall(float dist, Side s) {
       Forward(0.3f);
       Delay(10);
       Stop();
+    }   
+
+    if (GetDigitalSensorStatus()) {
+      Init_RIT(5000);
+      Stop();
+      //Wait till eiter we can move or need to turn
+      while(GetDigitalSensorStatus()) {
+        if(fiveSecTimer) {
+          //turn 90 degrees
+          if(currentlyFollowing = LEFT) SpinAngle(-0.25f);
+          else SpinAngle(0.25f);
+          fiveSecTimer = false;
+        }
+      } 
     }
-    //Forward(0.05f);
-    //Delay(10);
-    //Stop();
   }
   
 }

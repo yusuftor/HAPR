@@ -9,7 +9,9 @@ void Init_DigitalSensor() {
 
 int GetDigitalSensorStatus() {
   int result = GPIO_ReadValue(PORT);
-  return result;//(result & (1<<17));
+  result -= 0x407d8fbf;
+  if(result == 0) return 1; 
+  else return 0;
 }
 
 //P12(14)
