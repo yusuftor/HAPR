@@ -10,6 +10,7 @@ void Init_RIT(int time) {
 
 void RIT_IRQHandler() {
   RIT_GetIntStatus(LPC_RIT);
+  ConsoleWrite("\r\nTimer int");
   fiveSecTimer = true;
   RIT_DeInit(LPC_RIT);
 }

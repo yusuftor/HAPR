@@ -3,16 +3,48 @@
 #define SENSOR	(1<<12)
 #define PORT	0		
 
+void EINT3_IRQHandler();
+
 void Init_DigitalSensor() {
-  GPIO_SetDir(PORT, SENSOR, 0);
+  GPIO_SetDir(0,SENSOR,0); // Initialise
+  GPIO_IntCmd(0,(1<<17),1);
+  GPIO_IntCmd(0,(1<<17),0);
+  NVIC_EnableIRQ(EINT3_IRQn);
+  //GPIO_SetDir(PORT, SENSOR, 0);
 }
 
-int GetDigitalSensorStatus() {
+/*int GetDigitalSensorStatus() {
   int result = GPIO_ReadValue(PORT);
   result -= 0x407d8fbf;
   if(result == 0) return 1; 
   else return 0;
+}*/
+
+int GetDigitalSensorStatus() {
+  int result = GPIO_ReadValue(0);
+  return (result & (1<<17));
 }
+
+void EINT3_IRQHandler() {// Interrupt handler
+  ConsoleWrite("IRQ Handler\r\n");
+  if (GPIO_GetIntStatus(0, 17, 1)) {
+    ConsoleWrite("In the IF\r\n");
+    SlowStop();
+    Init_RIT(5000);
+    ConsoleWrite("Timer set\r\n");
+  }	
+  while(!GetDigitalSensorStatus()) {
+    if(fiveSecTimer) {
+        //turn 90 degrees
+        if(currentlyFollowing == LEFT) SpinAngle(-0.5f);
+        else SpinAngle(0.5f);
+        //fiveSecTimer = false;
+      }
+  } 
+  ConsoleWrite("Done, clearing int\r\n");
+  //RIT_DeInit(LPC_RIT);
+  GPIO_ClearInt(0,(1<<17));  
+} 
 
 //P12(14)
 //1000000011111111000011110111111 none
