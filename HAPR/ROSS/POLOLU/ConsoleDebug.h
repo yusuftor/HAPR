@@ -34,3 +34,9 @@ void ConsoleWriteFloat(float n) {
   sprintf(output, "%2.2f\r\n", n);
   ConsoleWrite(output);
 }
+
+void ConsoleWriteInt(int n) {
+  char output[20] = "";
+  sprintf(output, "%d\r\n", n);
+  ConsoleWrite(output);
+}
