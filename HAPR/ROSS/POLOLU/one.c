@@ -14,6 +14,7 @@ void Delay();
 void Init_RIT(int time);
 bool fiveSecTimer = false;
 
+#include "sound.h"
 #include "RIT.h"
 #include "ConsoleDebug.h"
 #include "Serial.h"
