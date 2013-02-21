@@ -8,7 +8,6 @@ void EINT3_IRQHandler();
 void Init_DigitalSensor() {
   GPIO_SetDir(0,SENSOR,0); // Initialise
   GPIO_IntCmd(0,(1<<17),1);
-  GPIO_IntCmd(0,(1<<17),0);
   NVIC_EnableIRQ(EINT3_IRQn);
   //GPIO_SetDir(PORT, SENSOR, 0);
 }
@@ -26,24 +25,19 @@ int GetDigitalSensorStatus() {
 }
 
 void EINT3_IRQHandler() {// Interrupt handler
-  ConsoleWrite("IRQ Handler\r\n");
-  if (GPIO_GetIntStatus(0, 17, 1)) {
-    ConsoleWrite("In the IF\r\n");
-    SlowStop();
-    Init_RIT(5000);
-    ConsoleWrite("Timer set\r\n");
-  }	
-  while(!GetDigitalSensorStatus()) {
-    if(fiveSecTimer) {
-        //turn 90 degrees
-        if(currentlyFollowing == LEFT) SpinAngle(-0.5f);
-        else SpinAngle(0.5f);
-        //fiveSecTimer = false;
-      }
+  ConsoleWrite("GPIO IRQ Handler\r\n");
+  if(!frontInterruptUp) {
+    ConsoleWrite("IRQ Handler Entered\r\n");
+    frontInterruptUp = true;
+    if (GPIO_GetIntStatus(0, 17, 1)) {
+      ConsoleWrite("In the IF\r\n");
+      SlowStop();
+      Init_RIT(5000);
+      ConsoleWrite("Timer set\r\n");
+    }	
   } 
   ConsoleWrite("Done, clearing int\r\n");
-  //RIT_DeInit(LPC_RIT);
-  GPIO_ClearInt(0,(1<<17));  
+  GPIO_ClearInt(0,(1<<17)); 
 } 
 
 //P12(14)

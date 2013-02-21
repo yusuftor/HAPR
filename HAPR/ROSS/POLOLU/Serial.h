@@ -28,3 +28,22 @@ void Write(char* str, int l) {
 void WriteByte(char c) {
   UART_SendByte((LPC_UART_TypeDef*) LPC_UART3, (uint8_t) c);
 }
+
+char* Read() {
+  char received[10];
+  int l = UART_Receive((LPC_UART_TypeDef*) LPC_UART3, received, 10, BLOCKING);
+  char* data = malloc(l * sizeof(char));
+  int i;
+  ConsoleWrite("\r\nData Length: ");
+  ConsoleWriteInt(l);
+  ConsoleWrite(", Data: ");
+  for(i = 0; i < l; i++) {
+    ConsoleWriteByte(received[i]);
+    data[l-(i+1)] = received[i];
+  }
+  return data;
+}
+
+char ReadByte() {
+  return UART_ReceiveByte((LPC_UART_TypeDef*) LPC_UART3);
+}

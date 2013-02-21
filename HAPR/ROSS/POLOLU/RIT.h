@@ -6,13 +6,13 @@ void Init_RIT(int time) {
   RIT_Init(LPC_RIT);
   RIT_TimerConfig(LPC_RIT, time);
   NVIC_EnableIRQ(RIT_IRQn);
+  fiveSecTimer = false;
 }
 
 void RIT_IRQHandler() {
   RIT_GetIntStatus(LPC_RIT);
   ConsoleWrite("\r\nTimer int");
   fiveSecTimer = true;
-  RIT_DeInit(LPC_RIT);
 }
 
 

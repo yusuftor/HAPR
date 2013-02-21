@@ -1,4 +1,6 @@
 float actSpeed;
+//enum wheel {LEFT, RIGHT};
+//typedef enum wheel Wheel;
 
 void Stop() { 
   char stop[4] = {0xC1, 0x00, 0xC5, 0x00};
@@ -25,6 +27,7 @@ void SlowStop() {
 
 void Forward(float speed) {
   if(speed > 1.0f) speed = 1.0f;
+  else if(speed < -1.0f) speed = -1.0f;
   actSpeed = (int) 127.0f * speed;
   ConsoleWrite("\r\nFW: ActSpeed: ");
 		ConsoleWriteFloat(actSpeed);
@@ -63,13 +66,51 @@ void Spin(float speed) {
   Write(spin, 4);
 }
 
+void Pivot(Side w, float speed) {
+  if(speed > 1.0f) speed = 1.0f;
+  else if(speed < -1.0f) speed = -1.0f;
+  char pivot[4] = {0x00, 0x00, 0x00, 0x00};
+  if(w == LEFT) {
+    //Keep left wheel stationary
+    pivot[2] = 0xC1;
+    pivot[3] = 0x00;
+    if(speed < 0.0f) { //speed < 0 = move right wheel backwards
+      pivot[0] = 0xC6;
+      actSpeed = (-1 * speed) * 127;
+      pivot[1] = (char) actSpeed;
+    }
+    else { // speed > 0 = move right wheel forwards
+      pivot[0] = 0xC5;
+      actSpeed = speed * 127;
+      pivot[1] = (char) actSpeed;
+    }
+  }
+  else {
+    //Keep right wheel stationary
+    pivot[2] = 0xC5;
+    pivot[3] = 0x00;
+    if(speed < 0.0f) { //speed < 0 = move left wheel backwards
+      pivot[0] = 0xC2;
+      actSpeed = (-1 * speed) * 127;
+      pivot[1] = (char) actSpeed;
+
+    }
+    else { // speed > 0 = move left wheel forwards
+      pivot[0] = 0xC1;
+      actSpeed = speed * 127;
+      pivot[1] = (char) actSpeed;
+    }
+  }
+  Write(pivot, 4);
+}
+
 void SpinAngle(float angle) {
   int time;
   if(angle < 0) {
     angle = angle * -1;
-    Spin(-0.15f);
+    Spin(-0.3f);
   }
-  else Spin(0.15f);
+  else Spin(0.3f);
   
   time = (int) 1950.0f * angle;
   Delay(time);
