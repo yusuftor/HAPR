@@ -7,6 +7,7 @@
 enum side {LEFT, RIGHT};
 typedef enum side Side;
 Side currentlyFollowing;
+bool frontInterruptUp;
 
 void Init();
 void Delay();
@@ -26,6 +27,12 @@ int main() {
   Init();
 
   if(1) {
+    ConsoleWrite("Testing Find Wall.\r\n");
+    Delay(500);
+    FindWall();
+  }
+  
+  if(0) {
     ConsoleWrite("Testing Wall Following.\r\n");
     Delay(500);
     FollowWall(0.0f, LEFT);
@@ -94,7 +101,7 @@ void Init() {
   
   WriteByte((char) 0xB7);
   ConsoleWrite("Starting Main.\r\n");
-  ConsoleWrite("Version 9.\r\n");
+  ConsoleWrite("Version 12.\r\n");
 }
 
 void Delay(int i) { //Delay in ms. 1000 = 1,000 * 10,000 = 1s
