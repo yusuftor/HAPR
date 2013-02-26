@@ -28,3 +28,9 @@ void ConsoleWrite(char* str) {
 void ConsoleWriteByte(char c) {
   UART_SendByte((LPC_UART_TypeDef*) LPC_UART0, (uint8_t) c);
 }
+
+void ConsoleWriteInt(int n) {
+	char output[20] = "";
+	sprintf(output, "%d\r\n", n);
+	ConsoleWrite(output);
+}

@@ -5,6 +5,9 @@
 #include <string.h>
 
 #define GPIO_INT        (1<<12)
+#define _ALARM "V15T240O8MSCCC"
+
+int ok = 1;
 
 void Delay(int i) { //Delay in ms. 1000 = 1,000 * 10,000 = 1s
   int c, n;
@@ -32,21 +35,47 @@ int main() {
   	WriteByte((char) 0xB7);
 
 
-  	Forward(0.2f);
+  	Forward(0.15f);
 
-  	while(1);
+	
+	
+	while(1){
+	if(!ok) {
+	Forward(0.15f);
+	ok = 1;
+	}
+	}
 }
+
+void play(char* s) {	
+	int count = 0;
+	int i;	
+	for(i=0;s[i]!='\0';i++){
+	count++;
+	}	
+	
+	WriteByte((char) 0xB3);
+	WriteByte((char) count);	
+	Write(s, count);
+}
+
+int GetDigitalSensorStatus() {
+  int result = GPIO_ReadValue(0);
+  return (result & (1<<17));
+}
+
 
 void EINT3_IRQHandler() // Interrupt handler
 {
-  ConsoleWrite("Handler\r\n");
+ 
+//ConsoleWrite("Handler\r\n");
   if (GPIO_GetIntStatus(0, 17, 1)) {
-ConsoleWrite("In the IF\r\n");
+//ConsoleWrite("In the IF\r\n");
 	Stop();
-  }
-  else {
-ConsoleWrite("In else\r\n");
-	Forward(0.2f);
-  }
-  GPIO_ClearInt(0,(1<<17));
-}
+	//play("T120>>C2");
+	play(_ALARM);
+  }	
+while(!GetDigitalSensorStatus());
+	ok = 0;
+ GPIO_ClearInt(0,(1<<17));  
+} 
