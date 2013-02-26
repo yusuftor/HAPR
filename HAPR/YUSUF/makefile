@@ -32,9 +32,9 @@ LDFLAGS=$(CMSISFL) -static -mcpu=cortex-m3 -mthumb -mthumb-interwork \
 
 LDFLAGS+=-L$(CMSIS)/lib -lDriversLPC17xxgnu
 
-EXECNAME	= bin/one
+EXECNAME	= bin/linefollowing
 
-OBJ		= one.o
+OBJ		= linefollowing.o
 
 all: 	serial
 	@echo "Build finished"

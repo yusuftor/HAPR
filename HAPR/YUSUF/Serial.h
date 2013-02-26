@@ -23,12 +23,53 @@ void Init_Serial() {
   UART_TxCmd((LPC_UART_TypeDef*) LPC_UART3, ENABLE);
 }
 
-
-
 void Write(char* str, int l) {
   UART_Send((LPC_UART_TypeDef*) LPC_UART3, (uint8_t*) str, l, BLOCKING);
 }
 
 void WriteByte(char c) {
-  UART_SendByte((LPC_UART_TypeDef*) LPC_UART3, (uint8_t) c);
+  UART_SendByte((LPC_UART_TypeDef*) LPC_UART3, (uint8_t) c); 	
+}
+
+
+int Read(int length) {
+	char received[10];
+	int l = UART_Receive((LPC_UART_TypeDef*) LPC_UART3, received, length, BLOCKING);
+	int i;
+	int value = 0;
+	for (i = 0; i < l; i++) {
+		value += (received[i] << (8*i)); //Left shift last byte and add first byte received because the bytes are sent in reverse order.
+		ConsoleWriteInt(value);
+		
+	}
+	ConsoleWriteInt(value);
+	return value;
+	
+}
+
+char ReadByte() {
+	return UART_ReceiveByte((LPC_UART_TypeDef*) LPC_UART3);
+}
+
+void Calibrate() {
+	Spin(0.3f); //Spin clockwise
+	int i;
+	for (i = 0; i < 35; i++) {
+		WriteByte((char) 0xB4);
+		Delay(10);
+	}
+	StopImmediately();
+	Spin(-0.3f); //Spin anti-clockwise
+	for (i = 0; i < 70; i++) {
+		WriteByte((char) 0xB4);
+		Delay(10);
+	}
+  	StopImmediately();
+	Spin(0.3f); //Spin clockwise
+	for (i = 0; i < 35; i++) {
+		WriteByte((char) 0xB4);
+		Delay(10);
+	}
+  	StopImmediately();
+	
 }
