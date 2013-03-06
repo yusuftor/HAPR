@@ -14,9 +14,7 @@ void Forward(float speed) {
   if(speed > 1.0f) speed = 1.0f;
   else if(speed < -1.0f) speed = -1.0f;
   actSpeed = (int) 127.0f * speed;
-  ConsoleWrite("\r\nFW: ActSpeed: ");
-		ConsoleWriteFloat(actSpeed);
-                ConsoleWrite("\r\n");
+
   char forward[4] = {0xC1, (char) actSpeed, 0xC5, (char) actSpeed};
   Write(forward, 4);
 }
