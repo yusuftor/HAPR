@@ -35,6 +35,7 @@ int main()
 
 	mousepins();
 	mouse_init(cb, attach, detach);
+	Backwards(0.4f);
 }
 
 void mousepins()
@@ -64,9 +65,6 @@ void cb(uint8_t buttons, int8_t X, int8_t Y)
 	ConsoleWriteInt((int) totY);
 	ConsoleWrite("\n\r");
 	//play("T240O8V10MSC");
-	if(totX < 35){
-	Forward(0.1f);
-	}
 }
 
 void attach()
