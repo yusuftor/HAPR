@@ -19,13 +19,13 @@ void attach();
 void detach();
 void mousepins();
 
-float currentX, currentY;
+//float currentX, currentY;
 float currentTHETA;
 
 int main() 
 {
-	currentX = 0.0f;
-	currentY = 0.0f;
+	//currentX = 0.0f;
+	//currentY = 0.0f;
 	currentTHETA = 0.0f;
 	Init_Serial();
 	ConsoleInit_Serial();
@@ -39,7 +39,13 @@ int main()
 
 	mousepins();
 	mouse_init(cb, attach, detach);
-	//Backwards(0.4f);
+	
+	int i = 0;
+	Move(0.2f);
+	while(i < 5000000);
+	Stop();
+	while(1);
+	return(1);
 }
 
 void mousepins()
@@ -63,10 +69,10 @@ void cb(uint8_t buttons, int8_t X, int8_t Y)
 {
 	float adjustedX, adjustedY;
 
-	adjustedX = ((float) X) / CONVERT;
+	//adjustedX = ((float) X) / CONVERT;
 	adjustedY = ((float) Y) / CONVERT;
 
-	float newX, newY;
+	//float newX, newY;
 	float newTHETA;
 
 	newTHETA = currentTHETA + ((float)( adjustedY / (float) LENGTH));
@@ -78,8 +84,14 @@ void cb(uint8_t buttons, int8_t X, int8_t Y)
 	//ConsoleWriteInt((int) totY);
 	ConsoleWrite("\n\r");
 	//play("T240O8V10MSC");
-
+	if(newTHETA > 6.28f)
+	{
+	currentTHETA = newTHETA - 6.28f;
+	}else if(newTHETA < -6.28f){
+	currentTHETA = newTHETA + 6.28f;
+	}else{
 	currentTHETA = newTHETA;
+	}
 }
 
 void attach()
