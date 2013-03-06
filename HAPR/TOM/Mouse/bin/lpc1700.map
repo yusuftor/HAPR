@@ -56,6 +56,8 @@ Archive member included because of file (symbol)
                               /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/arm-none-eabi/lib/thumb2/libc.a(lib_a-svfprintf.o) (__aeabi_dcmpeq)
 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/bin/../lib/gcc/arm-none-eabi/4.5.1/thumb2/libgcc.a(_arm_fixdfsi.o)
                               /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/arm-none-eabi/lib/thumb2/libc.a(lib_a-dtoa.o) (__aeabi_d2iz)
+/usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/bin/../lib/gcc/arm-none-eabi/4.5.1/thumb2/libgcc.a(_arm_addsubsf3.o)
+                              mouse.o (__aeabi_fadd)
 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/bin/../lib/gcc/arm-none-eabi/4.5.1/thumb2/libgcc.a(_arm_muldivsf3.o)
                               mouse.o (__aeabi_fmul)
 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/bin/../lib/gcc/arm-none-eabi/4.5.1/thumb2/libgcc.a(_arm_cmpsf2.o)
@@ -128,17 +130,18 @@ USB_Host_ConfigurationNumber
                     0x1               ./libnxpUSBlib.a(HostStandardReq.o)
 errno               0x4               /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/arm-none-eabi/lib/thumb2/libc.a(lib_a-reent.o)
 PipeInfo            0x80              ./libnxpUSBlib.a(Pipe_LPC.o)
-totX                0x4               mouse.o
+currentY            0x4               mouse.o
 USBPortNum          0x1               ./libnxpUSBlib.a(USBController_LPC.o)
 attach_cb           0x4               KeyboardHost.o
 hostselected        0x1               ./libnxpUSBlib.a(Pipe_LPC.o)
 i                   0x4               mouse.o
-totY                0x4               mouse.o
 actSpeed            0x4               mouse.o
+currentX            0x4               mouse.o
 USB_HostState       0x1               ./libnxpUSBlib.a(USBTask.o)
 audio_buffer        0x800             ./libBSP.a(bsp_MCB1700.o)
 pipeselected        0x1               ./libnxpUSBlib.a(Pipe_LPC.o)
 callback            0x4               KeyboardHost.o
+currentTHETA        0x4               mouse.o
 
 Memory Configuration
 
@@ -173,11 +176,11 @@ LOAD /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/arm-none-eabi/l
 LOAD /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/arm-none-eabi/lib/thumb2/libcs3micro.a
 END GROUP
                 0x10008000                PROVIDE (__cs3_stack, (__cs3_region_start_ram + __cs3_region_size_ram))
-                0x000063f8                PROVIDE (__cs3_stack_size, ((__cs3_region_start_ram + __cs3_region_size_ram) - _end))
-                0x10001c08                PROVIDE (__cs3_heap_start, _end)
+                0x000063f0                PROVIDE (__cs3_stack_size, ((__cs3_region_start_ram + __cs3_region_size_ram) - _end))
+                0x10001c10                PROVIDE (__cs3_heap_start, _end)
                 0x10008000                PROVIDE (__cs3_heap_end, (__cs3_region_start_ram + __cs3_region_size_ram))
 
-.text           0x00000000     0xf8e4
+.text           0x00000000     0xfabc
  CREATE_OBJECT_SYMBOLS
                 0x00000000                __cs3_region_start_rom = .
  *(.cs3.region-head.rom)
@@ -229,918 +232,932 @@ END GROUP
                 0x00000440                ConsoleWriteInt
  .text.Delay    0x000004a0       0x38 mouse.o
                 0x000004a0                Delay
- .text.Forward  0x000004d8       0xec mouse.o
+ .text.Forward  0x000004d8       0xc4 mouse.o
                 0x000004d8                Forward
  .text.Backwards
-                0x000005c4       0x9c mouse.o
-                0x000005c4                Backwards
- .text.main     0x00000660       0x88 mouse.o
-                0x00000660                main
+                0x0000059c       0x9c mouse.o
+                0x0000059c                Backwards
+ .text.main     0x00000638       0x94 mouse.o
+                0x00000638                main
  .text.mousepins
-                0x000006e8       0x48 mouse.o
-                0x000006e8                mousepins
- .text.cb       0x00000730       0xac mouse.o
-                0x00000730                cb
- .text.attach   0x000007dc       0x14 mouse.o
-                0x000007dc                attach
- .text.detach   0x000007f0       0x14 mouse.o
-                0x000007f0                detach
+                0x000006cc       0x48 mouse.o
+                0x000006cc                mousepins
+ .text.cb       0x00000714       0xa0 mouse.o
+                0x00000714                cb
+ .text.attach   0x000007b4       0x14 mouse.o
+                0x000007b4                attach
+ .text.detach   0x000007c8       0x14 mouse.o
+                0x000007c8                detach
  .text.RIT_IRQHandler
-                0x00000804       0x18 mouse.o
-                0x00000804                RIT_IRQHandler
- .text          0x0000081c        0x0 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/core_cm3.o
- .text          0x0000081c        0x0 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/system_LPC17xx.o
+                0x000007dc       0x18 mouse.o
+                0x000007dc                RIT_IRQHandler
+ .text          0x000007f4        0x0 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/core_cm3.o
+ .text          0x000007f4        0x0 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/system_LPC17xx.o
  .text.SystemCoreClockUpdate
-                0x0000081c      0x228 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/system_LPC17xx.o
-                0x0000081c                SystemCoreClockUpdate
+                0x000007f4      0x228 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/system_LPC17xx.o
+                0x000007f4                SystemCoreClockUpdate
  .text.SystemInit
-                0x00000a44      0x240 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/system_LPC17xx.o
-                0x00000a44                SystemInit
- .text          0x00000c84       0x14 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/startup_LPC17xx.o
-                0x00000c84                NMI_Handler
-                0x00000c86                HardFault_Handler
-                0x00000c88                MemManage_Handler
-                0x00000c8a                BusFault_Handler
-                0x00000c8c                UsageFault_Handler
-                0x00000c8e                SVC_Handler
-                0x00000c90                DebugMon_Handler
-                0x00000c92                PendSV_Handler
-                0x00000c94                SysTick_Handler
-                0x00000c96                TIMER2_IRQHandler
-                0x00000c96                I2C0_IRQHandler
-                0x00000c96                USBActivity_IRQHandler
-                0x00000c96                PWM1_IRQHandler
-                0x00000c96                I2C1_IRQHandler
-                0x00000c96                EINT2_IRQHandler
-                0x00000c96                UART1_IRQHandler
-                0x00000c96                EINT3_IRQHandler
-                0x00000c96                CANActivity_IRQHandler
-                0x00000c96                TIMER3_IRQHandler
-                0x00000c96                UART0_IRQHandler
-                0x00000c96                PLL0_IRQHandler
-                0x00000c96                CAN_IRQHandler
-                0x00000c96                PLL1_IRQHandler
-                0x00000c96                SSP0_IRQHandler
-                0x00000c96                I2S_IRQHandler
-                0x00000c96                I2C2_IRQHandler
-                0x00000c96                RTC_IRQHandler
-                0x00000c96                TIMER0_IRQHandler
-                0x00000c96                SPI_IRQHandler
-                0x00000c96                EINT1_IRQHandler
-                0x00000c96                UART2_IRQHandler
-                0x00000c96                Default_Handler
-                0x00000c96                ADC_IRQHandler
-                0x00000c96                SSP1_IRQHandler
-                0x00000c96                BOD_IRQHandler
-                0x00000c96                WDT_IRQHandler
-                0x00000c96                QEI_IRQHandler
-                0x00000c96                EINT0_IRQHandler
-                0x00000c96                DMA_IRQHandler
-                0x00000c96                UART3_IRQHandler
-                0x00000c96                MCPWM_IRQHandler
-                0x00000c96                ENET_IRQHandler
- .text          0x00000c98       0x94 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/arm-none-eabi/lib/thumb2/libc.a(lib_a-sprintf.o)
-                0x00000c98                _sprintf_r
-                0x00000cdc                sprintf
- .text          0x00000d2c       0x60 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/arm-none-eabi/lib/thumb2/libc.a(lib_a-strlen.o)
-                0x00000d2c                strlen
- .text          0x00000d8c     0x1658 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/arm-none-eabi/lib/thumb2/libc.a(lib_a-svfprintf.o)
-                0x00000d8c                _svfprintf_r
- *fill*         0x000023e4        0x4 00
- .text          0x000023e8     0x1000 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/arm-none-eabi/lib/thumb2/libc.a(lib_a-dtoa.o)
-                0x00002514                _dtoa_r
- .text          0x000033e8        0x0 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/arm-none-eabi/lib/thumb2/libc.a(lib_a-impure.o)
- .text          0x000033e8       0xa0 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/arm-none-eabi/lib/thumb2/libc.a(lib_a-locale.o)
-                0x000033e8                _setlocale_r
-                0x00003444                __locale_charset
-                0x00003450                __locale_mb_cur_max
-                0x0000345c                __locale_msgcharset
-                0x00003464                __locale_cjk_lang
-                0x00003468                _localeconv_r
-                0x00003470                setlocale
-                0x00003480                localeconv
- .text          0x00003488       0x20 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/arm-none-eabi/lib/thumb2/libc.a(lib_a-malloc.o)
-                0x00003488                malloc
-                0x00003498                free
- .text          0x000034a8      0x57c /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/arm-none-eabi/lib/thumb2/libc.a(lib_a-mallocr.o)
-                0x000034a8                _malloc_r
- .text          0x00003a24       0x88 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/arm-none-eabi/lib/thumb2/libc.a(lib_a-memchr.o)
-                0x00003a24                memchr
- .text          0x00003aac      0x150 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/arm-none-eabi/lib/thumb2/libc.a(lib_a-memcpy.o)
-                0x00003aac                memcpy
- .text          0x00003bfc        0x8 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/arm-none-eabi/lib/thumb2/libc.a(lib_a-mlock.o)
-                0x00003bfc                __malloc_lock
-                0x00003c00                __malloc_unlock
- .text          0x00003c04      0x920 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/arm-none-eabi/lib/thumb2/libc.a(lib_a-mprec.o)
-                0x00003c04                _Balloc
-                0x00003c6c                _Bfree
-                0x00003ca4                __multadd
-                0x00003d28                __s2b
-                0x00003dbc                __hi0bits
-                0x00003dfc                __lo0bits
-                0x00003e60                __i2b
-                0x00003e74                __multiply
-                0x00003f9c                __pow5mult
-                0x00004040                __lshift
-                0x000040ec                __mcmp
-                0x00004128                __mdiff
-                0x00004220                __ulp
-                0x00004268                __b2d
-                0x00004314                __d2b
-                0x000043dc                __ratio
-                0x0000444c                _mprec_log10
-                0x00004480                __copybits
-                0x000044c8                __any_on
- .text          0x00004524       0x90 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/arm-none-eabi/lib/thumb2/libc.a(lib_a-s_fpclassify.o)
-                0x00004524                __fpclassifyd
- .text          0x000045b4       0x28 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/arm-none-eabi/lib/thumb2/libc.a(lib_a-sbrkr.o)
-                0x000045b4                _sbrk_r
- .text          0x000045dc      0x1dc /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/arm-none-eabi/lib/thumb2/libc.a(lib_a-strcmp.o)
-                0x000045dc                strcmp
- .text          0x000047b8      0xbe4 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/arm-none-eabi/lib/thumb2/libc.a(lib_a-svfiprintf.o)
-                0x000047b8                __ssprint_r
-                0x000048c0                _svfiprintf_r
- .text          0x0000539c       0x5c /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/arm-none-eabi/lib/thumb2/libc.a(lib_a-callocr.o)
-                0x0000539c                _calloc_r
- .text          0x000053f8      0x240 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/arm-none-eabi/lib/thumb2/libc.a(lib_a-freer.o)
-                0x000053f8                _malloc_trim_r
-                0x000054a0                _free_r
- .text          0x00005638       0xa0 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/arm-none-eabi/lib/thumb2/libc.a(lib_a-memmove.o)
-                0x00005638                memmove
- .text          0x000056d8       0xb4 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/arm-none-eabi/lib/thumb2/libc.a(lib_a-memset.o)
-                0x000056d8                memset
- .text          0x0000578c      0x41c /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/arm-none-eabi/lib/thumb2/libc.a(lib_a-reallocr.o)
-                0x0000578c                _realloc_r
- .text          0x00005ba8      0x114 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/arm-none-eabi/lib/thumb2/libc.a(lib_a-reent.o)
-                0x00005ba8                cleanup_glue
-                0x00005bc4                _reclaim_reent
-                0x00005c84                _wrapup_reent
- *fill*         0x00005cbc        0x4 00
- .text          0x00005cc0      0x278 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/bin/../lib/gcc/arm-none-eabi/4.5.1/thumb2/libgcc.a(_udivsi3.o)
-                0x00005cc0                __udivsi3
-                0x00005cc0                __aeabi_uidiv
-                0x00005f1c                __aeabi_uidivmod
- .text          0x00005f38        0x4 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/bin/../lib/gcc/arm-none-eabi/4.5.1/thumb2/libgcc.a(_dvmd_tls.o)
-                0x00005f38                __aeabi_ldiv0
-                0x00005f38                __aeabi_idiv0
- .text          0x00005f3c      0x370 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/bin/../lib/gcc/arm-none-eabi/4.5.1/thumb2/libgcc.a(_arm_addsubdf3.o)
-                0x00005f3c                __aeabi_drsub
-                0x00005f44                __aeabi_dsub
-                0x00005f44                __subdf3
-                0x00005f48                __adddf3
-                0x00005f48                __aeabi_dadd
-                0x000061c0                __aeabi_ui2d
-                0x000061c0                __floatunsidf
-                0x000061e0                __floatsidf
-                0x000061e0                __aeabi_i2d
-                0x00006204                __extendsfdf2
-                0x00006204                __aeabi_f2d
-                0x00006240                __aeabi_ul2d
-                0x00006240                __floatundidf
-                0x00006250                __floatdidf
-                0x00006250                __aeabi_l2d
- .text          0x000062ac      0x424 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/bin/../lib/gcc/arm-none-eabi/4.5.1/thumb2/libgcc.a(_arm_muldivdf3.o)
-                0x000062ac                __aeabi_dmul
-                0x000062ac                __muldf3
-                0x00006500                __aeabi_ddiv
-                0x00006500                __divdf3
- .text          0x000066d0      0x110 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/bin/../lib/gcc/arm-none-eabi/4.5.1/thumb2/libgcc.a(_arm_cmpdf2.o)
-                0x000066d0                __gtdf2
-                0x000066d0                __gedf2
-                0x000066d8                __ltdf2
-                0x000066d8                __ledf2
-                0x000066e0                __cmpdf2
-                0x000066e0                __eqdf2
-                0x000066e0                __nedf2
-                0x0000675c                __aeabi_cdrcmple
-                0x0000676c                __aeabi_cdcmple
-                0x0000676c                __aeabi_cdcmpeq
-                0x0000677c                __aeabi_dcmpeq
-                0x00006790                __aeabi_dcmplt
-                0x000067a4                __aeabi_dcmple
-                0x000067b8                __aeabi_dcmpge
-                0x000067cc                __aeabi_dcmpgt
- .text          0x000067e0       0x50 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/bin/../lib/gcc/arm-none-eabi/4.5.1/thumb2/libgcc.a(_arm_fixdfsi.o)
-                0x000067e0                __fixdfsi
-                0x000067e0                __aeabi_d2iz
- .text          0x00006830      0x2a0 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/bin/../lib/gcc/arm-none-eabi/4.5.1/thumb2/libgcc.a(_arm_muldivsf3.o)
-                0x00006830                __mulsf3
-                0x00006830                __aeabi_fmul
-                0x00006998                __divsf3
-                0x00006998                __aeabi_fdiv
- .text          0x00006ad0       0xec /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/bin/../lib/gcc/arm-none-eabi/4.5.1/thumb2/libgcc.a(_arm_cmpsf2.o)
-                0x00006ad0                __gtsf2
-                0x00006ad0                __gesf2
-                0x00006ad8                __lesf2
-                0x00006ad8                __ltsf2
-                0x00006ae0                __nesf2
-                0x00006ae0                __eqsf2
-                0x00006ae0                __cmpsf2
-                0x00006b40                __aeabi_cfrcmple
-                0x00006b48                __aeabi_cfcmple
-                0x00006b48                __aeabi_cfcmpeq
-                0x00006b58                __aeabi_fcmpeq
-                0x00006b6c                __aeabi_fcmplt
-                0x00006b80                __aeabi_fcmple
-                0x00006b94                __aeabi_fcmpge
-                0x00006ba8                __aeabi_fcmpgt
- .text          0x00006bbc       0x40 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/bin/../lib/gcc/arm-none-eabi/4.5.1/thumb2/libgcc.a(_arm_fixunssfsi.o)
-                0x00006bbc                __aeabi_f2uiz
-                0x00006bbc                __fixunssfsi
- .text          0x00006bfc       0x2c /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/bin/../lib/gcc/arm-none-eabi/4.5.1/thumb2/libgcc.a(_aeabi_uldivmod.o)
-                0x00006bfc                __aeabi_uldivmod
- .text          0x00006c28       0x60 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/bin/../lib/gcc/arm-none-eabi/4.5.1/thumb2/libgcc.a(bpabi.o)
-                0x00006c28                __gnu_ldivmod_helper
-                0x00006c58                __gnu_uldivmod_helper
- .text          0x00006c88      0x364 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/bin/../lib/gcc/arm-none-eabi/4.5.1/thumb2/libgcc.a(_divdi3.o)
-                0x00006c88                __divdi3
- .text          0x00006fec      0x314 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/bin/../lib/gcc/arm-none-eabi/4.5.1/thumb2/libgcc.a(_udivdi3.o)
-                0x00006fec                __udivdi3
- .text          0x00007300       0x30 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/arm-none-eabi/lib/thumb2/libcs3.a(start_c.o)
-                0x00007300                __cs3_premain
+                0x00000a1c      0x240 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/system_LPC17xx.o
+                0x00000a1c                SystemInit
+ .text          0x00000c5c       0x14 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/startup_LPC17xx.o
+                0x00000c5c                NMI_Handler
+                0x00000c5e                HardFault_Handler
+                0x00000c60                MemManage_Handler
+                0x00000c62                BusFault_Handler
+                0x00000c64                UsageFault_Handler
+                0x00000c66                SVC_Handler
+                0x00000c68                DebugMon_Handler
+                0x00000c6a                PendSV_Handler
+                0x00000c6c                SysTick_Handler
+                0x00000c6e                TIMER2_IRQHandler
+                0x00000c6e                I2C0_IRQHandler
+                0x00000c6e                USBActivity_IRQHandler
+                0x00000c6e                PWM1_IRQHandler
+                0x00000c6e                I2C1_IRQHandler
+                0x00000c6e                EINT2_IRQHandler
+                0x00000c6e                UART1_IRQHandler
+                0x00000c6e                EINT3_IRQHandler
+                0x00000c6e                CANActivity_IRQHandler
+                0x00000c6e                TIMER3_IRQHandler
+                0x00000c6e                UART0_IRQHandler
+                0x00000c6e                PLL0_IRQHandler
+                0x00000c6e                CAN_IRQHandler
+                0x00000c6e                PLL1_IRQHandler
+                0x00000c6e                SSP0_IRQHandler
+                0x00000c6e                I2S_IRQHandler
+                0x00000c6e                I2C2_IRQHandler
+                0x00000c6e                RTC_IRQHandler
+                0x00000c6e                TIMER0_IRQHandler
+                0x00000c6e                SPI_IRQHandler
+                0x00000c6e                EINT1_IRQHandler
+                0x00000c6e                UART2_IRQHandler
+                0x00000c6e                Default_Handler
+                0x00000c6e                ADC_IRQHandler
+                0x00000c6e                SSP1_IRQHandler
+                0x00000c6e                BOD_IRQHandler
+                0x00000c6e                WDT_IRQHandler
+                0x00000c6e                QEI_IRQHandler
+                0x00000c6e                EINT0_IRQHandler
+                0x00000c6e                DMA_IRQHandler
+                0x00000c6e                UART3_IRQHandler
+                0x00000c6e                MCPWM_IRQHandler
+                0x00000c6e                ENET_IRQHandler
+ .text          0x00000c70       0x94 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/arm-none-eabi/lib/thumb2/libc.a(lib_a-sprintf.o)
+                0x00000c70                _sprintf_r
+                0x00000cb4                sprintf
+ .text          0x00000d04       0x60 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/arm-none-eabi/lib/thumb2/libc.a(lib_a-strlen.o)
+                0x00000d04                strlen
+ .text          0x00000d64     0x1658 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/arm-none-eabi/lib/thumb2/libc.a(lib_a-svfprintf.o)
+                0x00000d64                _svfprintf_r
+ *fill*         0x000023bc        0x4 00
+ .text          0x000023c0     0x1000 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/arm-none-eabi/lib/thumb2/libc.a(lib_a-dtoa.o)
+                0x000024ec                _dtoa_r
+ .text          0x000033c0        0x0 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/arm-none-eabi/lib/thumb2/libc.a(lib_a-impure.o)
+ .text          0x000033c0       0xa0 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/arm-none-eabi/lib/thumb2/libc.a(lib_a-locale.o)
+                0x000033c0                _setlocale_r
+                0x0000341c                __locale_charset
+                0x00003428                __locale_mb_cur_max
+                0x00003434                __locale_msgcharset
+                0x0000343c                __locale_cjk_lang
+                0x00003440                _localeconv_r
+                0x00003448                setlocale
+                0x00003458                localeconv
+ .text          0x00003460       0x20 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/arm-none-eabi/lib/thumb2/libc.a(lib_a-malloc.o)
+                0x00003460                malloc
+                0x00003470                free
+ .text          0x00003480      0x57c /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/arm-none-eabi/lib/thumb2/libc.a(lib_a-mallocr.o)
+                0x00003480                _malloc_r
+ .text          0x000039fc       0x88 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/arm-none-eabi/lib/thumb2/libc.a(lib_a-memchr.o)
+                0x000039fc                memchr
+ .text          0x00003a84      0x150 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/arm-none-eabi/lib/thumb2/libc.a(lib_a-memcpy.o)
+                0x00003a84                memcpy
+ .text          0x00003bd4        0x8 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/arm-none-eabi/lib/thumb2/libc.a(lib_a-mlock.o)
+                0x00003bd4                __malloc_lock
+                0x00003bd8                __malloc_unlock
+ .text          0x00003bdc      0x920 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/arm-none-eabi/lib/thumb2/libc.a(lib_a-mprec.o)
+                0x00003bdc                _Balloc
+                0x00003c44                _Bfree
+                0x00003c7c                __multadd
+                0x00003d00                __s2b
+                0x00003d94                __hi0bits
+                0x00003dd4                __lo0bits
+                0x00003e38                __i2b
+                0x00003e4c                __multiply
+                0x00003f74                __pow5mult
+                0x00004018                __lshift
+                0x000040c4                __mcmp
+                0x00004100                __mdiff
+                0x000041f8                __ulp
+                0x00004240                __b2d
+                0x000042ec                __d2b
+                0x000043b4                __ratio
+                0x00004424                _mprec_log10
+                0x00004458                __copybits
+                0x000044a0                __any_on
+ .text          0x000044fc       0x90 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/arm-none-eabi/lib/thumb2/libc.a(lib_a-s_fpclassify.o)
+                0x000044fc                __fpclassifyd
+ .text          0x0000458c       0x28 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/arm-none-eabi/lib/thumb2/libc.a(lib_a-sbrkr.o)
+                0x0000458c                _sbrk_r
+ .text          0x000045b4      0x1dc /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/arm-none-eabi/lib/thumb2/libc.a(lib_a-strcmp.o)
+                0x000045b4                strcmp
+ .text          0x00004790      0xbe4 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/arm-none-eabi/lib/thumb2/libc.a(lib_a-svfiprintf.o)
+                0x00004790                __ssprint_r
+                0x00004898                _svfiprintf_r
+ .text          0x00005374       0x5c /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/arm-none-eabi/lib/thumb2/libc.a(lib_a-callocr.o)
+                0x00005374                _calloc_r
+ .text          0x000053d0      0x240 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/arm-none-eabi/lib/thumb2/libc.a(lib_a-freer.o)
+                0x000053d0                _malloc_trim_r
+                0x00005478                _free_r
+ .text          0x00005610       0xa0 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/arm-none-eabi/lib/thumb2/libc.a(lib_a-memmove.o)
+                0x00005610                memmove
+ .text          0x000056b0       0xb4 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/arm-none-eabi/lib/thumb2/libc.a(lib_a-memset.o)
+                0x000056b0                memset
+ .text          0x00005764      0x41c /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/arm-none-eabi/lib/thumb2/libc.a(lib_a-reallocr.o)
+                0x00005764                _realloc_r
+ .text          0x00005b80      0x114 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/arm-none-eabi/lib/thumb2/libc.a(lib_a-reent.o)
+                0x00005b80                cleanup_glue
+                0x00005b9c                _reclaim_reent
+                0x00005c5c                _wrapup_reent
+ *fill*         0x00005c94        0x4 00
+ .text          0x00005c98      0x278 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/bin/../lib/gcc/arm-none-eabi/4.5.1/thumb2/libgcc.a(_udivsi3.o)
+                0x00005c98                __udivsi3
+                0x00005c98                __aeabi_uidiv
+                0x00005ef4                __aeabi_uidivmod
+ .text          0x00005f10        0x4 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/bin/../lib/gcc/arm-none-eabi/4.5.1/thumb2/libgcc.a(_dvmd_tls.o)
+                0x00005f10                __aeabi_ldiv0
+                0x00005f10                __aeabi_idiv0
+ .text          0x00005f14      0x370 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/bin/../lib/gcc/arm-none-eabi/4.5.1/thumb2/libgcc.a(_arm_addsubdf3.o)
+                0x00005f14                __aeabi_drsub
+                0x00005f1c                __aeabi_dsub
+                0x00005f1c                __subdf3
+                0x00005f20                __adddf3
+                0x00005f20                __aeabi_dadd
+                0x00006198                __aeabi_ui2d
+                0x00006198                __floatunsidf
+                0x000061b8                __floatsidf
+                0x000061b8                __aeabi_i2d
+                0x000061dc                __extendsfdf2
+                0x000061dc                __aeabi_f2d
+                0x00006218                __aeabi_ul2d
+                0x00006218                __floatundidf
+                0x00006228                __floatdidf
+                0x00006228                __aeabi_l2d
+ .text          0x00006284      0x424 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/bin/../lib/gcc/arm-none-eabi/4.5.1/thumb2/libgcc.a(_arm_muldivdf3.o)
+                0x00006284                __aeabi_dmul
+                0x00006284                __muldf3
+                0x000064d8                __aeabi_ddiv
+                0x000064d8                __divdf3
+ .text          0x000066a8      0x110 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/bin/../lib/gcc/arm-none-eabi/4.5.1/thumb2/libgcc.a(_arm_cmpdf2.o)
+                0x000066a8                __gtdf2
+                0x000066a8                __gedf2
+                0x000066b0                __ltdf2
+                0x000066b0                __ledf2
+                0x000066b8                __cmpdf2
+                0x000066b8                __eqdf2
+                0x000066b8                __nedf2
+                0x00006734                __aeabi_cdrcmple
+                0x00006744                __aeabi_cdcmple
+                0x00006744                __aeabi_cdcmpeq
+                0x00006754                __aeabi_dcmpeq
+                0x00006768                __aeabi_dcmplt
+                0x0000677c                __aeabi_dcmple
+                0x00006790                __aeabi_dcmpge
+                0x000067a4                __aeabi_dcmpgt
+ .text          0x000067b8       0x50 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/bin/../lib/gcc/arm-none-eabi/4.5.1/thumb2/libgcc.a(_arm_fixdfsi.o)
+                0x000067b8                __fixdfsi
+                0x000067b8                __aeabi_d2iz
+ .text          0x00006808      0x21c /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/bin/../lib/gcc/arm-none-eabi/4.5.1/thumb2/libgcc.a(_arm_addsubsf3.o)
+                0x00006808                __aeabi_frsub
+                0x00006810                __subsf3
+                0x00006810                __aeabi_fsub
+                0x00006814                __aeabi_fadd
+                0x00006814                __addsf3
+                0x00006974                __aeabi_ui2f
+                0x00006974                __floatunsisf
+                0x0000697c                __aeabi_i2f
+                0x0000697c                __floatsisf
+                0x00006998                __floatundisf
+                0x00006998                __aeabi_ul2f
+                0x000069a8                __floatdisf
+                0x000069a8                __aeabi_l2f
+ .text          0x00006a24      0x2a0 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/bin/../lib/gcc/arm-none-eabi/4.5.1/thumb2/libgcc.a(_arm_muldivsf3.o)
+                0x00006a24                __mulsf3
+                0x00006a24                __aeabi_fmul
+                0x00006b8c                __divsf3
+                0x00006b8c                __aeabi_fdiv
+ .text          0x00006cc4       0xec /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/bin/../lib/gcc/arm-none-eabi/4.5.1/thumb2/libgcc.a(_arm_cmpsf2.o)
+                0x00006cc4                __gtsf2
+                0x00006cc4                __gesf2
+                0x00006ccc                __lesf2
+                0x00006ccc                __ltsf2
+                0x00006cd4                __nesf2
+                0x00006cd4                __eqsf2
+                0x00006cd4                __cmpsf2
+                0x00006d34                __aeabi_cfrcmple
+                0x00006d3c                __aeabi_cfcmple
+                0x00006d3c                __aeabi_cfcmpeq
+                0x00006d4c                __aeabi_fcmpeq
+                0x00006d60                __aeabi_fcmplt
+                0x00006d74                __aeabi_fcmple
+                0x00006d88                __aeabi_fcmpge
+                0x00006d9c                __aeabi_fcmpgt
+ .text          0x00006db0       0x40 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/bin/../lib/gcc/arm-none-eabi/4.5.1/thumb2/libgcc.a(_arm_fixunssfsi.o)
+                0x00006db0                __aeabi_f2uiz
+                0x00006db0                __fixunssfsi
+ .text          0x00006df0       0x2c /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/bin/../lib/gcc/arm-none-eabi/4.5.1/thumb2/libgcc.a(_aeabi_uldivmod.o)
+                0x00006df0                __aeabi_uldivmod
+ .text          0x00006e1c       0x60 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/bin/../lib/gcc/arm-none-eabi/4.5.1/thumb2/libgcc.a(bpabi.o)
+                0x00006e1c                __gnu_ldivmod_helper
+                0x00006e4c                __gnu_uldivmod_helper
+ .text          0x00006e7c      0x364 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/bin/../lib/gcc/arm-none-eabi/4.5.1/thumb2/libgcc.a(_divdi3.o)
+                0x00006e7c                __divdi3
+ .text          0x000071e0      0x314 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/bin/../lib/gcc/arm-none-eabi/4.5.1/thumb2/libgcc.a(_udivdi3.o)
+                0x000071e0                __udivdi3
+ .text          0x000074f4       0x30 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/arm-none-eabi/lib/thumb2/libcs3.a(start_c.o)
+                0x000074f4                __cs3_premain
  .text.cs3.init
-                0x00007330       0x50 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/arm-none-eabi/lib/thumb2/libcs3.a(start_c.o)
-                0x00007330                __cs3_start_c
- .text          0x00007380       0x40 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/arm-none-eabi/lib/thumb2/libcs3unhosted.a(unhosted-sbrk.o)
-                0x00007380                _sbrk
- .text          0x000073c0        0x0 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/arm-none-eabi/lib/thumb2/libcs3unhosted.a(unhosted-start.o)
+                0x00007524       0x50 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/arm-none-eabi/lib/thumb2/libcs3.a(start_c.o)
+                0x00007524                __cs3_start_c
+ .text          0x00007574       0x40 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/arm-none-eabi/lib/thumb2/libcs3unhosted.a(unhosted-sbrk.o)
+                0x00007574                _sbrk
+ .text          0x000075b4        0x0 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/arm-none-eabi/lib/thumb2/libcs3unhosted.a(unhosted-start.o)
  .text.cs3.init
-                0x000073c0       0x10 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/arm-none-eabi/lib/thumb2/libcs3unhosted.a(unhosted-start.o)
-                0x000073c0                _start
- .text          0x000073d0        0xc /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/arm-none-eabi/lib/thumb2/libc.a(lib_a-errno.o)
-                0x000073d0                __errno
- .text          0x000073dc       0x50 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/arm-none-eabi/lib/thumb2/libc.a(lib_a-init.o)
-                0x000073dc                __libc_init_array
- .text          0x0000742c        0x0 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/arm-none-eabi/lib/thumb2/libcs3.a(heap.o)
- .text          0x0000742c        0x0 KeyboardHost.o
+                0x000075b4       0x10 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/arm-none-eabi/lib/thumb2/libcs3unhosted.a(unhosted-start.o)
+                0x000075b4                _start
+ .text          0x000075c4        0xc /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/arm-none-eabi/lib/thumb2/libc.a(lib_a-errno.o)
+                0x000075c4                __errno
+ .text          0x000075d0       0x50 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/arm-none-eabi/lib/thumb2/libc.a(lib_a-init.o)
+                0x000075d0                __libc_init_array
+ .text          0x00007620        0x0 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/arm-none-eabi/lib/thumb2/libcs3.a(heap.o)
+ .text          0x00007620        0x0 KeyboardHost.o
  .text.HID_Host_USBTask
-                0x0000742c       0x14 KeyboardHost.o
+                0x00007620       0x14 KeyboardHost.o
  .text.mouse_init_noreturn
-                0x00007440       0x1c KeyboardHost.o
-                0x00007440                mouse_init_noreturn
+                0x00007634       0x1c KeyboardHost.o
+                0x00007634                mouse_init_noreturn
  .text.mouse_init
-                0x0000745c       0x3c KeyboardHost.o
-                0x0000745c                mouse_init
+                0x00007650       0x3c KeyboardHost.o
+                0x00007650                mouse_init
  .text.mouse_poll
-                0x00007498       0x1c KeyboardHost.o
-                0x00007498                mouse_poll
+                0x0000768c       0x1c KeyboardHost.o
+                0x0000768c                mouse_poll
  .text.SetupHardware
-                0x000074b4       0x10 KeyboardHost.o
-                0x000074b4                SetupHardware
+                0x000076a8       0x10 KeyboardHost.o
+                0x000076a8                SetupHardware
  .text.KeyboardHost_Task
-                0x000074c4       0x5c KeyboardHost.o
-                0x000074c4                KeyboardHost_Task
+                0x000076b8       0x5c KeyboardHost.o
+                0x000076b8                KeyboardHost_Task
  .text.EVENT_USB_Host_DeviceAttached
-                0x00007520       0x20 KeyboardHost.o
-                0x00007520                EVENT_USB_Host_DeviceAttached
+                0x00007714       0x20 KeyboardHost.o
+                0x00007714                EVENT_USB_Host_DeviceAttached
  .text.EVENT_USB_Host_DeviceUnattached
-                0x00007540       0x20 KeyboardHost.o
-                0x00007540                EVENT_USB_Host_DeviceUnattached
+                0x00007734       0x20 KeyboardHost.o
+                0x00007734                EVENT_USB_Host_DeviceUnattached
  .text.EVENT_USB_Host_DeviceEnumerationComplete
-                0x00007560       0x88 KeyboardHost.o
-                0x00007560                EVENT_USB_Host_DeviceEnumerationComplete
+                0x00007754       0x88 KeyboardHost.o
+                0x00007754                EVENT_USB_Host_DeviceEnumerationComplete
  .text.EVENT_USB_Host_HostError
-                0x000075e8       0x10 KeyboardHost.o
-                0x000075e8                EVENT_USB_Host_HostError
+                0x000077dc       0x10 KeyboardHost.o
+                0x000077dc                EVENT_USB_Host_HostError
  .text.EVENT_USB_Host_DeviceEnumerationFailed
-                0x000075f8       0x18 KeyboardHost.o
-                0x000075f8                EVENT_USB_Host_DeviceEnumerationFailed
+                0x000077ec       0x18 KeyboardHost.o
+                0x000077ec                EVENT_USB_Host_DeviceEnumerationFailed
  .text.CALLBACK_HIDParser_FilterHIDReportItem
-                0x00007610       0x14 KeyboardHost.o
-                0x00007610                CALLBACK_HIDParser_FilterHIDReportItem
- .text          0x00007624        0x0 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_pinsel.o)
+                0x00007804       0x14 KeyboardHost.o
+                0x00007804                CALLBACK_HIDParser_FilterHIDReportItem
+ .text          0x00007818        0x0 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_pinsel.o)
  .text.set_PinFunc
-                0x00007624       0xa0 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_pinsel.o)
+                0x00007818       0xa0 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_pinsel.o)
  .text.set_ResistorMode
-                0x000076c4       0xa0 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_pinsel.o)
+                0x000078b8       0xa0 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_pinsel.o)
  .text.set_OpenDrainMode
-                0x00007764       0x80 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_pinsel.o)
+                0x00007958       0x80 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_pinsel.o)
  .text.PINSEL_ConfigTraceFunc
-                0x000077e4       0x54 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_pinsel.o)
-                0x000077e4                PINSEL_ConfigTraceFunc
+                0x000079d8       0x54 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_pinsel.o)
+                0x000079d8                PINSEL_ConfigTraceFunc
  .text.PINSEL_SetI2C0Pins
-                0x00007838       0x3c /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_pinsel.o)
-                0x00007838                PINSEL_SetI2C0Pins
+                0x00007a2c       0x3c /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_pinsel.o)
+                0x00007a2c                PINSEL_SetI2C0Pins
  .text.PINSEL_ConfigPin
-                0x00007874       0x54 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_pinsel.o)
-                0x00007874                PINSEL_ConfigPin
- .text          0x000078c8        0x0 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_rit.o)
+                0x00007a68       0x54 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_pinsel.o)
+                0x00007a68                PINSEL_ConfigPin
+ .text          0x00007abc        0x0 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_rit.o)
  .text.RIT_Init
-                0x000078c8       0x5c /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_rit.o)
-                0x000078c8                RIT_Init
+                0x00007abc       0x5c /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_rit.o)
+                0x00007abc                RIT_Init
  .text.RIT_DeInit
-                0x00007924       0x5c /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_rit.o)
-                0x00007924                RIT_DeInit
+                0x00007b18       0x5c /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_rit.o)
+                0x00007b18                RIT_DeInit
  .text.RIT_TimerConfig
-                0x00007980       0x6c /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_rit.o)
-                0x00007980                RIT_TimerConfig
- .text.RIT_Cmd  0x000079ec       0x78 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_rit.o)
-                0x000079ec                RIT_Cmd
+                0x00007b74       0x6c /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_rit.o)
+                0x00007b74                RIT_TimerConfig
+ .text.RIT_Cmd  0x00007be0       0x78 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_rit.o)
+                0x00007be0                RIT_Cmd
  .text.RIT_TimerDebugCmd
-                0x00007a64       0x78 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_rit.o)
-                0x00007a64                RIT_TimerDebugCmd
+                0x00007c58       0x78 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_rit.o)
+                0x00007c58                RIT_TimerDebugCmd
  .text.RIT_GetIntStatus
-                0x00007adc       0x60 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_rit.o)
-                0x00007adc                RIT_GetIntStatus
- .text          0x00007b3c        0x0 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_uart.o)
+                0x00007cd0       0x60 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_rit.o)
+                0x00007cd0                RIT_GetIntStatus
+ .text          0x00007d30        0x0 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_uart.o)
  .text.uart_set_divisors
-                0x00007b3c      0x26c /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_uart.o)
+                0x00007d30      0x26c /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_uart.o)
  .text.UART_Init
-                0x00007da8      0x368 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_uart.o)
-                0x00007da8                UART_Init
+                0x00007f9c      0x368 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_uart.o)
+                0x00007f9c                UART_Init
  .text.UART_DeInit
-                0x00008110       0xcc /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_uart.o)
-                0x00008110                UART_DeInit
+                0x00008304       0xcc /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_uart.o)
+                0x00008304                UART_DeInit
  .text.UART_ConfigStructInit
-                0x000081dc       0x34 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_uart.o)
-                0x000081dc                UART_ConfigStructInit
+                0x000083d0       0x34 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_uart.o)
+                0x000083d0                UART_ConfigStructInit
  .text.UART_SendByte
-                0x00008210       0x78 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_uart.o)
-                0x00008210                UART_SendByte
+                0x00008404       0x78 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_uart.o)
+                0x00008404                UART_SendByte
  .text.UART_ReceiveByte
-                0x00008288       0x78 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_uart.o)
-                0x00008288                UART_ReceiveByte
+                0x0000847c       0x78 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_uart.o)
+                0x0000847c                UART_ReceiveByte
  .text.UART_Send
-                0x00008300      0x10c /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_uart.o)
-                0x00008300                UART_Send
+                0x000084f4      0x10c /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_uart.o)
+                0x000084f4                UART_Send
  .text.UART_Receive
-                0x0000840c       0xd8 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_uart.o)
-                0x0000840c                UART_Receive
+                0x00008600       0xd8 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_uart.o)
+                0x00008600                UART_Receive
  .text.UART_ForceBreak
-                0x000084e4       0x88 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_uart.o)
-                0x000084e4                UART_ForceBreak
+                0x000086d8       0x88 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_uart.o)
+                0x000086d8                UART_ForceBreak
  .text.UART_IntConfig
-                0x0000856c      0x1d0 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_uart.o)
-                0x0000856c                UART_IntConfig
+                0x00008760      0x1d0 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_uart.o)
+                0x00008760                UART_IntConfig
  .text.UART_GetLineStatus
-                0x0000873c       0x7c /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_uart.o)
-                0x0000873c                UART_GetLineStatus
+                0x00008930       0x7c /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_uart.o)
+                0x00008930                UART_GetLineStatus
  .text.UART_GetIntId
-                0x000087b8       0x68 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_uart.o)
-                0x000087b8                UART_GetIntId
+                0x000089ac       0x68 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_uart.o)
+                0x000089ac                UART_GetIntId
  .text.UART_CheckBusy
-                0x00008820       0x2c /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_uart.o)
-                0x00008820                UART_CheckBusy
+                0x00008a14       0x2c /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_uart.o)
+                0x00008a14                UART_CheckBusy
  .text.UART_FIFOConfig
-                0x0000884c      0x184 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_uart.o)
-                0x0000884c                UART_FIFOConfig
+                0x00008a40      0x184 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_uart.o)
+                0x00008a40                UART_FIFOConfig
  .text.UART_FIFOConfigStructInit
-                0x000089d0       0x34 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_uart.o)
-                0x000089d0                UART_FIFOConfigStructInit
+                0x00008bc4       0x34 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_uart.o)
+                0x00008bc4                UART_FIFOConfigStructInit
  .text.UART_ABCmd
-                0x00008a04      0x15c /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_uart.o)
-                0x00008a04                UART_ABCmd
+                0x00008bf8      0x15c /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_uart.o)
+                0x00008bf8                UART_ABCmd
  .text.UART_ABClearIntPending
-                0x00008b60       0x88 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_uart.o)
-                0x00008b60                UART_ABClearIntPending
+                0x00008d54       0x88 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_uart.o)
+                0x00008d54                UART_ABClearIntPending
  .text.UART_TxCmd
-                0x00008be8       0xe8 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_uart.o)
-                0x00008be8                UART_TxCmd
+                0x00008ddc       0xe8 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_uart.o)
+                0x00008ddc                UART_TxCmd
  .text.UART_IrDAInvtInputCmd
-                0x00008cd0       0x84 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_uart.o)
-                0x00008cd0                UART_IrDAInvtInputCmd
+                0x00008ec4       0x84 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_uart.o)
+                0x00008ec4                UART_IrDAInvtInputCmd
  .text.UART_IrDACmd
-                0x00008d54       0x80 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_uart.o)
-                0x00008d54                UART_IrDACmd
+                0x00008f48       0x80 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_uart.o)
+                0x00008f48                UART_IrDACmd
  .text.UART_IrDAPulseDivConfig
-                0x00008dd4       0xac /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_uart.o)
-                0x00008dd4                UART_IrDAPulseDivConfig
+                0x00008fc8       0xac /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_uart.o)
+                0x00008fc8                UART_IrDAPulseDivConfig
  .text.UART_FullModemForcePinState
-                0x00008e80       0xcc /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_uart.o)
-                0x00008e80                UART_FullModemForcePinState
+                0x00009074       0xcc /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_uart.o)
+                0x00009074                UART_FullModemForcePinState
  .text.UART_FullModemConfigMode
-                0x00008f4c       0xd8 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_uart.o)
-                0x00008f4c                UART_FullModemConfigMode
+                0x00009140       0xd8 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_uart.o)
+                0x00009140                UART_FullModemConfigMode
  .text.UART_FullModemGetStatus
-                0x00009024       0x38 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_uart.o)
-                0x00009024                UART_FullModemGetStatus
+                0x00009218       0x38 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_uart.o)
+                0x00009218                UART_FullModemGetStatus
  .text.UART_RS485Config
-                0x0000905c      0x1bc /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_uart.o)
-                0x0000905c                UART_RS485Config
+                0x00009250      0x1bc /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_uart.o)
+                0x00009250                UART_RS485Config
  .text.UART_RS485ReceiverCmd
-                0x00009218       0x48 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_uart.o)
-                0x00009218                UART_RS485ReceiverCmd
+                0x0000940c       0x48 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_uart.o)
+                0x0000940c                UART_RS485ReceiverCmd
  .text.UART_RS485Send
-                0x00009260       0x84 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_uart.o)
-                0x00009260                UART_RS485Send
+                0x00009454       0x84 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_uart.o)
+                0x00009454                UART_RS485Send
  .text.UART_RS485SendSlvAddr
-                0x000092e4       0x28 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_uart.o)
-                0x000092e4                UART_RS485SendSlvAddr
+                0x000094d8       0x28 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_uart.o)
+                0x000094d8                UART_RS485SendSlvAddr
  .text.UART_RS485SendData
-                0x0000930c       0x28 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_uart.o)
-                0x0000930c                UART_RS485SendData
- .text          0x00009334        0x0 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_clkpwr.o)
+                0x00009500       0x28 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_uart.o)
+                0x00009500                UART_RS485SendData
+ .text          0x00009528        0x0 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_clkpwr.o)
  .text.CLKPWR_SetPCLKDiv
-                0x00009334       0xd4 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_clkpwr.o)
-                0x00009334                CLKPWR_SetPCLKDiv
+                0x00009528       0xd4 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_clkpwr.o)
+                0x00009528                CLKPWR_SetPCLKDiv
  .text.CLKPWR_GetPCLKSEL
-                0x00009408       0x54 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_clkpwr.o)
-                0x00009408                CLKPWR_GetPCLKSEL
+                0x000095fc       0x54 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_clkpwr.o)
+                0x000095fc                CLKPWR_GetPCLKSEL
  .text.CLKPWR_GetPCLK
-                0x0000945c       0x70 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_clkpwr.o)
-                0x0000945c                CLKPWR_GetPCLK
+                0x00009650       0x70 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_clkpwr.o)
+                0x00009650                CLKPWR_GetPCLK
  .text.CLKPWR_ConfigPPWR
-                0x000094cc       0x80 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_clkpwr.o)
-                0x000094cc                CLKPWR_ConfigPPWR
+                0x000096c0       0x80 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_clkpwr.o)
+                0x000096c0                CLKPWR_ConfigPPWR
  .text.CLKPWR_Sleep
-                0x0000954c       0x1c /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_clkpwr.o)
-                0x0000954c                CLKPWR_Sleep
+                0x00009740       0x1c /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_clkpwr.o)
+                0x00009740                CLKPWR_Sleep
  .text.CLKPWR_DeepSleep
-                0x00009568       0x2c /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_clkpwr.o)
-                0x00009568                CLKPWR_DeepSleep
+                0x0000975c       0x2c /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_clkpwr.o)
+                0x0000975c                CLKPWR_DeepSleep
  .text.CLKPWR_PowerDown
-                0x00009594       0x2c /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_clkpwr.o)
-                0x00009594                CLKPWR_PowerDown
+                0x00009788       0x2c /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_clkpwr.o)
+                0x00009788                CLKPWR_PowerDown
  .text.CLKPWR_DeepPowerDown
-                0x000095c0       0x2c /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_clkpwr.o)
-                0x000095c0                CLKPWR_DeepPowerDown
- .text          0x000095ec        0x0 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_libcfg_default.o)
+                0x000097b4       0x2c /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_clkpwr.o)
+                0x000097b4                CLKPWR_DeepPowerDown
+ .text          0x000097e0        0x0 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_libcfg_default.o)
  .text.check_failed
-                0x000095ec        0xc /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_libcfg_default.o)
-                0x000095ec                check_failed
- .text          0x000095f8        0x0 ./libBSP.a(bsp_MCB1700.o)
+                0x000097e0        0xc /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_libcfg_default.o)
+                0x000097e0                check_failed
+ .text          0x000097ec        0x0 ./libBSP.a(bsp_MCB1700.o)
  .text.NVIC_EnableIRQ
-                0x000095f8       0x38 ./libBSP.a(bsp_MCB1700.o)
+                0x000097ec       0x38 ./libBSP.a(bsp_MCB1700.o)
  .text.bsp_init
-                0x00009630        0xc ./libBSP.a(bsp_MCB1700.o)
-                0x00009630                bsp_init
+                0x00009824        0xc ./libBSP.a(bsp_MCB1700.o)
+                0x00009824                bsp_init
  .text.Serial_Init
-                0x0000963c       0x7c ./libBSP.a(bsp_MCB1700.o)
-                0x0000963c                Serial_Init
+                0x00009830       0x7c ./libBSP.a(bsp_MCB1700.o)
+                0x00009830                Serial_Init
  .text.USB_Connect
-                0x000096b8       0x24 ./libBSP.a(bsp_MCB1700.o)
-                0x000096b8                USB_Connect
+                0x000098ac       0x24 ./libBSP.a(bsp_MCB1700.o)
+                0x000098ac                USB_Connect
  .text.Buttons_Init
-                0x000096dc       0x18 ./libBSP.a(bsp_MCB1700.o)
-                0x000096dc                Buttons_Init
+                0x000098d0       0x18 ./libBSP.a(bsp_MCB1700.o)
+                0x000098d0                Buttons_Init
  .text.Joystick_Init
-                0x000096f4       0x58 ./libBSP.a(bsp_MCB1700.o)
-                0x000096f4                Joystick_Init
+                0x000098e8       0x58 ./libBSP.a(bsp_MCB1700.o)
+                0x000098e8                Joystick_Init
  .text.Joystick_GetStatus
-                0x0000974c       0xa4 ./libBSP.a(bsp_MCB1700.o)
-                0x0000974c                Joystick_GetStatus
+                0x00009940       0xa4 ./libBSP.a(bsp_MCB1700.o)
+                0x00009940                Joystick_GetStatus
  .text.Audio_Get_ISO_Buffer_Address
-                0x000097f0       0xac ./libBSP.a(bsp_MCB1700.o)
-                0x000097f0                Audio_Get_ISO_Buffer_Address
+                0x000099e4       0xac ./libBSP.a(bsp_MCB1700.o)
+                0x000099e4                Audio_Get_ISO_Buffer_Address
  .text.Audio_Reset_Data_Buffer
-                0x0000989c       0x34 ./libBSP.a(bsp_MCB1700.o)
-                0x0000989c                Audio_Reset_Data_Buffer
+                0x00009a90       0x34 ./libBSP.a(bsp_MCB1700.o)
+                0x00009a90                Audio_Reset_Data_Buffer
  .text.Audio_Init
-                0x000098d0      0x174 ./libBSP.a(bsp_MCB1700.o)
-                0x000098d0                Audio_Init
+                0x00009ac4      0x174 ./libBSP.a(bsp_MCB1700.o)
+                0x00009ac4                Audio_Init
  .text.TIMER1_IRQHandler
-                0x00009a44      0x170 ./libBSP.a(bsp_MCB1700.o)
-                0x00009a44                TIMER1_IRQHandler
+                0x00009c38      0x170 ./libBSP.a(bsp_MCB1700.o)
+                0x00009c38                TIMER1_IRQHandler
  .text.LEDs_Init
-                0x00009bb4        0xc ./libBSP.a(bsp_MCB1700.o)
-                0x00009bb4                LEDs_Init
+                0x00009da8        0xc ./libBSP.a(bsp_MCB1700.o)
+                0x00009da8                LEDs_Init
  .text.LEDs_SetAllLEDs
-                0x00009bc0       0x14 ./libBSP.a(bsp_MCB1700.o)
-                0x00009bc0                LEDs_SetAllLEDs
+                0x00009db4       0x14 ./libBSP.a(bsp_MCB1700.o)
+                0x00009db4                LEDs_SetAllLEDs
  .text.MassStorage_Init
-                0x00009bd4        0xc ./libBSP.a(bsp_MCB1700.o)
-                0x00009bd4                MassStorage_Init
+                0x00009dc8        0xc ./libBSP.a(bsp_MCB1700.o)
+                0x00009dc8                MassStorage_Init
  .text.MassStorage_Write
-                0x00009be0       0x4c ./libBSP.a(bsp_MCB1700.o)
-                0x00009be0                MassStorage_Write
+                0x00009dd4       0x4c ./libBSP.a(bsp_MCB1700.o)
+                0x00009dd4                MassStorage_Write
  .text.MassStorage_Read
-                0x00009c2c       0x58 ./libBSP.a(bsp_MCB1700.o)
-                0x00009c2c                MassStorage_Read
+                0x00009e20       0x58 ./libBSP.a(bsp_MCB1700.o)
+                0x00009e20                MassStorage_Read
  .text.MassStorage_Verify
-                0x00009c84       0x1c ./libBSP.a(bsp_MCB1700.o)
-                0x00009c84                MassStorage_Verify
+                0x00009e78       0x1c ./libBSP.a(bsp_MCB1700.o)
+                0x00009e78                MassStorage_Verify
  .text.MassStorage_GetCapacity
-                0x00009ca0       0x10 ./libBSP.a(bsp_MCB1700.o)
-                0x00009ca0                MassStorage_GetCapacity
+                0x00009e94       0x10 ./libBSP.a(bsp_MCB1700.o)
+                0x00009e94                MassStorage_GetCapacity
  .text.MassStorage_Cache_Flush
-                0x00009cb0       0x1c ./libBSP.a(bsp_MCB1700.o)
-                0x00009cb0                MassStorage_Cache_Flush
+                0x00009ea4       0x1c ./libBSP.a(bsp_MCB1700.o)
+                0x00009ea4                MassStorage_Cache_Flush
  .text.MassStorage_FlushTimeOut
-                0x00009ccc       0x10 ./libBSP.a(bsp_MCB1700.o)
-                0x00009ccc                MassStorage_FlushTimeOut
- .text          0x00009cdc        0x0 ./libBSP.a(DataRam.o)
- .text          0x00009cdc        0x0 ./libCDL.a(lpc17xx_dac.o)
+                0x00009ec0       0x10 ./libBSP.a(bsp_MCB1700.o)
+                0x00009ec0                MassStorage_FlushTimeOut
+ .text          0x00009ed0        0x0 ./libBSP.a(DataRam.o)
+ .text          0x00009ed0        0x0 ./libCDL.a(lpc17xx_dac.o)
  .text.DAC_Init
-                0x00009cdc       0x20 ./libCDL.a(lpc17xx_dac.o)
-                0x00009cdc                DAC_Init
+                0x00009ed0       0x20 ./libCDL.a(lpc17xx_dac.o)
+                0x00009ed0                DAC_Init
  .text.DAC_UpdateValue
-                0x00009cfc       0x38 ./libCDL.a(lpc17xx_dac.o)
-                0x00009cfc                DAC_UpdateValue
+                0x00009ef0       0x38 ./libCDL.a(lpc17xx_dac.o)
+                0x00009ef0                DAC_UpdateValue
  .text.DAC_SetBias
-                0x00009d34       0x34 ./libCDL.a(lpc17xx_dac.o)
-                0x00009d34                DAC_SetBias
+                0x00009f28       0x34 ./libCDL.a(lpc17xx_dac.o)
+                0x00009f28                DAC_SetBias
  .text.DAC_ConfigDAConverterControl
-                0x00009d68       0x5c ./libCDL.a(lpc17xx_dac.o)
-                0x00009d68                DAC_ConfigDAConverterControl
+                0x00009f5c       0x5c ./libCDL.a(lpc17xx_dac.o)
+                0x00009f5c                DAC_ConfigDAConverterControl
  .text.DAC_SetDMATimeOut
-                0x00009dc4       0x1c ./libCDL.a(lpc17xx_dac.o)
-                0x00009dc4                DAC_SetDMATimeOut
- .text          0x00009de0        0x0 ./libCDL.a(lpc17xx_gpio.o)
+                0x00009fb8       0x1c ./libCDL.a(lpc17xx_dac.o)
+                0x00009fb8                DAC_SetDMATimeOut
+ .text          0x00009fd4        0x0 ./libCDL.a(lpc17xx_gpio.o)
  .text.GPIO_GetPointer
-                0x00009de0       0x7c ./libCDL.a(lpc17xx_gpio.o)
+                0x00009fd4       0x7c ./libCDL.a(lpc17xx_gpio.o)
  .text.FIO_HalfWordGetPointer
-                0x00009e5c       0x7c ./libCDL.a(lpc17xx_gpio.o)
+                0x0000a050       0x7c ./libCDL.a(lpc17xx_gpio.o)
  .text.FIO_ByteGetPointer
-                0x00009ed8       0x7c ./libCDL.a(lpc17xx_gpio.o)
+                0x0000a0cc       0x7c ./libCDL.a(lpc17xx_gpio.o)
  .text.GPIO_SetDir
-                0x00009f54       0x54 ./libCDL.a(lpc17xx_gpio.o)
-                0x00009f54                GPIO_SetDir
+                0x0000a148       0x54 ./libCDL.a(lpc17xx_gpio.o)
+                0x0000a148                GPIO_SetDir
  .text.GPIO_SetValue
-                0x00009fa8       0x2c ./libCDL.a(lpc17xx_gpio.o)
-                0x00009fa8                GPIO_SetValue
+                0x0000a19c       0x2c ./libCDL.a(lpc17xx_gpio.o)
+                0x0000a19c                GPIO_SetValue
  .text.GPIO_ClearValue
-                0x00009fd4       0x2c ./libCDL.a(lpc17xx_gpio.o)
-                0x00009fd4                GPIO_ClearValue
+                0x0000a1c8       0x2c ./libCDL.a(lpc17xx_gpio.o)
+                0x0000a1c8                GPIO_ClearValue
  .text.GPIO_ReadValue
-                0x0000a000       0x30 ./libCDL.a(lpc17xx_gpio.o)
-                0x0000a000                GPIO_ReadValue
+                0x0000a1f4       0x30 ./libCDL.a(lpc17xx_gpio.o)
+                0x0000a1f4                GPIO_ReadValue
  .text.GPIO_IntCmd
-                0x0000a030       0x84 ./libCDL.a(lpc17xx_gpio.o)
-                0x0000a030                GPIO_IntCmd
+                0x0000a224       0x84 ./libCDL.a(lpc17xx_gpio.o)
+                0x0000a224                GPIO_IntCmd
  .text.GPIO_GetIntStatus
-                0x0000a0b4       0xc0 ./libCDL.a(lpc17xx_gpio.o)
-                0x0000a0b4                GPIO_GetIntStatus
+                0x0000a2a8       0xc0 ./libCDL.a(lpc17xx_gpio.o)
+                0x0000a2a8                GPIO_GetIntStatus
  .text.GPIO_ClearInt
-                0x0000a174       0x40 ./libCDL.a(lpc17xx_gpio.o)
-                0x0000a174                GPIO_ClearInt
+                0x0000a368       0x40 ./libCDL.a(lpc17xx_gpio.o)
+                0x0000a368                GPIO_ClearInt
  .text.FIO_SetDir
-                0x0000a1b4       0x28 ./libCDL.a(lpc17xx_gpio.o)
-                0x0000a1b4                FIO_SetDir
+                0x0000a3a8       0x28 ./libCDL.a(lpc17xx_gpio.o)
+                0x0000a3a8                FIO_SetDir
  .text.FIO_SetValue
-                0x0000a1dc       0x20 ./libCDL.a(lpc17xx_gpio.o)
-                0x0000a1dc                FIO_SetValue
+                0x0000a3d0       0x20 ./libCDL.a(lpc17xx_gpio.o)
+                0x0000a3d0                FIO_SetValue
  .text.FIO_ClearValue
-                0x0000a1fc       0x20 ./libCDL.a(lpc17xx_gpio.o)
-                0x0000a1fc                FIO_ClearValue
+                0x0000a3f0       0x20 ./libCDL.a(lpc17xx_gpio.o)
+                0x0000a3f0                FIO_ClearValue
  .text.FIO_ReadValue
-                0x0000a21c       0x20 ./libCDL.a(lpc17xx_gpio.o)
-                0x0000a21c                FIO_ReadValue
+                0x0000a410       0x20 ./libCDL.a(lpc17xx_gpio.o)
+                0x0000a410                FIO_ReadValue
  .text.FIO_IntCmd
-                0x0000a23c       0x28 ./libCDL.a(lpc17xx_gpio.o)
-                0x0000a23c                FIO_IntCmd
+                0x0000a430       0x28 ./libCDL.a(lpc17xx_gpio.o)
+                0x0000a430                FIO_IntCmd
  .text.FIO_GetIntStatus
-                0x0000a264       0x2c ./libCDL.a(lpc17xx_gpio.o)
-                0x0000a264                FIO_GetIntStatus
+                0x0000a458       0x2c ./libCDL.a(lpc17xx_gpio.o)
+                0x0000a458                FIO_GetIntStatus
  .text.FIO_ClearInt
-                0x0000a290       0x20 ./libCDL.a(lpc17xx_gpio.o)
-                0x0000a290                FIO_ClearInt
+                0x0000a484       0x20 ./libCDL.a(lpc17xx_gpio.o)
+                0x0000a484                FIO_ClearInt
  .text.FIO_SetMask
-                0x0000a2b0       0x54 ./libCDL.a(lpc17xx_gpio.o)
-                0x0000a2b0                FIO_SetMask
+                0x0000a4a4       0x54 ./libCDL.a(lpc17xx_gpio.o)
+                0x0000a4a4                FIO_SetMask
  .text.FIO_HalfWordSetDir
-                0x0000a304       0x94 ./libCDL.a(lpc17xx_gpio.o)
-                0x0000a304                FIO_HalfWordSetDir
+                0x0000a4f8       0x94 ./libCDL.a(lpc17xx_gpio.o)
+                0x0000a4f8                FIO_HalfWordSetDir
  .text.FIO_HalfWordSetMask
-                0x0000a398       0x94 ./libCDL.a(lpc17xx_gpio.o)
-                0x0000a398                FIO_HalfWordSetMask
+                0x0000a58c       0x94 ./libCDL.a(lpc17xx_gpio.o)
+                0x0000a58c                FIO_HalfWordSetMask
  .text.FIO_HalfWordSetValue
-                0x0000a42c       0x40 ./libCDL.a(lpc17xx_gpio.o)
-                0x0000a42c                FIO_HalfWordSetValue
+                0x0000a620       0x40 ./libCDL.a(lpc17xx_gpio.o)
+                0x0000a620                FIO_HalfWordSetValue
  .text.FIO_HalfWordClearValue
-                0x0000a46c       0x40 ./libCDL.a(lpc17xx_gpio.o)
-                0x0000a46c                FIO_HalfWordClearValue
+                0x0000a660       0x40 ./libCDL.a(lpc17xx_gpio.o)
+                0x0000a660                FIO_HalfWordClearValue
  .text.FIO_HalfWordReadValue
-                0x0000a4ac       0x44 ./libCDL.a(lpc17xx_gpio.o)
-                0x0000a4ac                FIO_HalfWordReadValue
+                0x0000a6a0       0x44 ./libCDL.a(lpc17xx_gpio.o)
+                0x0000a6a0                FIO_HalfWordReadValue
  .text.FIO_ByteSetDir
-                0x0000a4f0       0x70 ./libCDL.a(lpc17xx_gpio.o)
-                0x0000a4f0                FIO_ByteSetDir
+                0x0000a6e4       0x70 ./libCDL.a(lpc17xx_gpio.o)
+                0x0000a6e4                FIO_ByteSetDir
  .text.FIO_ByteSetMask
-                0x0000a560       0x78 ./libCDL.a(lpc17xx_gpio.o)
-                0x0000a560                FIO_ByteSetMask
+                0x0000a754       0x78 ./libCDL.a(lpc17xx_gpio.o)
+                0x0000a754                FIO_ByteSetMask
  .text.FIO_ByteSetValue
-                0x0000a5d8       0x3c ./libCDL.a(lpc17xx_gpio.o)
-                0x0000a5d8                FIO_ByteSetValue
+                0x0000a7cc       0x3c ./libCDL.a(lpc17xx_gpio.o)
+                0x0000a7cc                FIO_ByteSetValue
  .text.FIO_ByteClearValue
-                0x0000a614       0x3c ./libCDL.a(lpc17xx_gpio.o)
-                0x0000a614                FIO_ByteClearValue
+                0x0000a808       0x3c ./libCDL.a(lpc17xx_gpio.o)
+                0x0000a808                FIO_ByteClearValue
  .text.FIO_ByteReadValue
-                0x0000a650       0x40 ./libCDL.a(lpc17xx_gpio.o)
-                0x0000a650                FIO_ByteReadValue
- .text          0x0000a690        0x0 ./libnxpUSBlib.a(ConfigDescriptor.o)
+                0x0000a844       0x40 ./libCDL.a(lpc17xx_gpio.o)
+                0x0000a844                FIO_ByteReadValue
+ .text          0x0000a884        0x0 ./libnxpUSBlib.a(ConfigDescriptor.o)
  .text.USB_GetNextDescriptor
-                0x0000a690       0x4c ./libnxpUSBlib.a(ConfigDescriptor.o)
+                0x0000a884       0x4c ./libnxpUSBlib.a(ConfigDescriptor.o)
  .text.USB_Host_GetDeviceConfigDescriptor
-                0x0000a6dc       0xf8 ./libnxpUSBlib.a(ConfigDescriptor.o)
-                0x0000a6dc                USB_Host_GetDeviceConfigDescriptor
+                0x0000a8d0       0xf8 ./libnxpUSBlib.a(ConfigDescriptor.o)
+                0x0000a8d0                USB_Host_GetDeviceConfigDescriptor
  .text.USB_GetNextDescriptorOfType
-                0x0000a7d4       0x38 ./libnxpUSBlib.a(ConfigDescriptor.o)
-                0x0000a7d4                USB_GetNextDescriptorOfType
+                0x0000a9c8       0x38 ./libnxpUSBlib.a(ConfigDescriptor.o)
+                0x0000a9c8                USB_GetNextDescriptorOfType
  .text.USB_GetNextDescriptorOfTypeBefore
-                0x0000a80c       0x50 ./libnxpUSBlib.a(ConfigDescriptor.o)
-                0x0000a80c                USB_GetNextDescriptorOfTypeBefore
+                0x0000aa00       0x50 ./libnxpUSBlib.a(ConfigDescriptor.o)
+                0x0000aa00                USB_GetNextDescriptorOfTypeBefore
  .text.USB_GetNextDescriptorOfTypeAfter
-                0x0000a85c       0x38 ./libnxpUSBlib.a(ConfigDescriptor.o)
-                0x0000a85c                USB_GetNextDescriptorOfTypeAfter
+                0x0000aa50       0x38 ./libnxpUSBlib.a(ConfigDescriptor.o)
+                0x0000aa50                USB_GetNextDescriptorOfTypeAfter
  .text.USB_GetNextDescriptorComp
-                0x0000a894       0x64 ./libnxpUSBlib.a(ConfigDescriptor.o)
-                0x0000a894                USB_GetNextDescriptorComp
- .text          0x0000a8f8        0x0 ./libnxpUSBlib.a(HostStandardReq.o)
+                0x0000aa88       0x64 ./libnxpUSBlib.a(ConfigDescriptor.o)
+                0x0000aa88                USB_GetNextDescriptorComp
+ .text          0x0000aaec        0x0 ./libnxpUSBlib.a(HostStandardReq.o)
  .text.USB_Host_SendControlRequest
-                0x0000a8f8      0x220 ./libnxpUSBlib.a(HostStandardReq.o)
-                0x0000a8f8                USB_Host_SendControlRequest
+                0x0000aaec      0x220 ./libnxpUSBlib.a(HostStandardReq.o)
+                0x0000aaec                USB_Host_SendControlRequest
  .text.USB_Host_SetDeviceConfiguration
-                0x0000ab18       0xb0 ./libnxpUSBlib.a(HostStandardReq.o)
-                0x0000ab18                USB_Host_SetDeviceConfiguration
+                0x0000ad0c       0xb0 ./libnxpUSBlib.a(HostStandardReq.o)
+                0x0000ad0c                USB_Host_SetDeviceConfiguration
  .text.USB_Host_GetDeviceDescriptor
-                0x0000abc8       0x4c ./libnxpUSBlib.a(HostStandardReq.o)
-                0x0000abc8                USB_Host_GetDeviceDescriptor
+                0x0000adbc       0x4c ./libnxpUSBlib.a(HostStandardReq.o)
+                0x0000adbc                USB_Host_GetDeviceDescriptor
  .text.USB_Host_GetDeviceStringDescriptor
-                0x0000ac14       0x84 ./libnxpUSBlib.a(HostStandardReq.o)
-                0x0000ac14                USB_Host_GetDeviceStringDescriptor
+                0x0000ae08       0x84 ./libnxpUSBlib.a(HostStandardReq.o)
+                0x0000ae08                USB_Host_GetDeviceStringDescriptor
  .text.USB_Host_GetDeviceStatus
-                0x0000ac98       0x80 ./libnxpUSBlib.a(HostStandardReq.o)
-                0x0000ac98                USB_Host_GetDeviceStatus
+                0x0000ae8c       0x80 ./libnxpUSBlib.a(HostStandardReq.o)
+                0x0000ae8c                USB_Host_GetDeviceStatus
  .text.USB_Host_ClearEndpointStall
-                0x0000ad18       0x80 ./libnxpUSBlib.a(HostStandardReq.o)
-                0x0000ad18                USB_Host_ClearEndpointStall
+                0x0000af0c       0x80 ./libnxpUSBlib.a(HostStandardReq.o)
+                0x0000af0c                USB_Host_ClearEndpointStall
  .text.USB_Host_SetInterfaceAltSetting
-                0x0000ad98       0x7c ./libnxpUSBlib.a(HostStandardReq.o)
-                0x0000ad98                USB_Host_SetInterfaceAltSetting
- .text          0x0000ae14        0x0 ./libnxpUSBlib.a(USBTask.o)
+                0x0000af8c       0x7c ./libnxpUSBlib.a(HostStandardReq.o)
+                0x0000af8c                USB_Host_SetInterfaceAltSetting
+ .text          0x0000b008        0x0 ./libnxpUSBlib.a(USBTask.o)
  .text.USB_USBTask
-                0x0000ae14        0xc ./libnxpUSBlib.a(USBTask.o)
-                0x0000ae14                USB_USBTask
+                0x0000b008        0xc ./libnxpUSBlib.a(USBTask.o)
+                0x0000b008                USB_USBTask
  .text.USB_HostTask
-                0x0000ae20       0x3c ./libnxpUSBlib.a(USBTask.o)
- .text          0x0000ae5c        0x0 ./libnxpUSBlib.a(Host_LPC.o)
+                0x0000b014       0x3c ./libnxpUSBlib.a(USBTask.o)
+ .text          0x0000b050        0x0 ./libnxpUSBlib.a(Host_LPC.o)
  .text.USB_Host_ProcessNextHostState
-                0x0000ae5c      0x3f8 ./libnxpUSBlib.a(Host_LPC.o)
-                0x0000ae5c                USB_Host_ProcessNextHostState
+                0x0000b050      0x3f8 ./libnxpUSBlib.a(Host_LPC.o)
+                0x0000b050                USB_Host_ProcessNextHostState
  .text.USB_Host_WaitMS
-                0x0000b254       0x1c ./libnxpUSBlib.a(Host_LPC.o)
-                0x0000b254                USB_Host_WaitMS
+                0x0000b448       0x1c ./libnxpUSBlib.a(Host_LPC.o)
+                0x0000b448                USB_Host_WaitMS
  .text.USB_Host_Enumerate
-                0x0000b270       0x3c ./libnxpUSBlib.a(Host_LPC.o)
-                0x0000b270                USB_Host_Enumerate
+                0x0000b464       0x3c ./libnxpUSBlib.a(Host_LPC.o)
+                0x0000b464                USB_Host_Enumerate
  .text.USB_Host_DeEnumerate
-                0x0000b2ac       0x60 ./libnxpUSBlib.a(Host_LPC.o)
-                0x0000b2ac                USB_Host_DeEnumerate
+                0x0000b4a0       0x60 ./libnxpUSBlib.a(Host_LPC.o)
+                0x0000b4a0                USB_Host_DeEnumerate
  .text.USB_Host_SetActiveHost
-                0x0000b30c       0x20 ./libnxpUSBlib.a(Host_LPC.o)
-                0x0000b30c                USB_Host_SetActiveHost
+                0x0000b500       0x20 ./libnxpUSBlib.a(Host_LPC.o)
+                0x0000b500                USB_Host_SetActiveHost
  .text.USB_Host_GetActiveHost
-                0x0000b32c       0x18 ./libnxpUSBlib.a(Host_LPC.o)
-                0x0000b32c                USB_Host_GetActiveHost
+                0x0000b520       0x18 ./libnxpUSBlib.a(Host_LPC.o)
+                0x0000b520                USB_Host_GetActiveHost
  .text.USB_Host_SetDeviceSpeed
-                0x0000b344       0x28 ./libnxpUSBlib.a(Host_LPC.o)
-                0x0000b344                USB_Host_SetDeviceSpeed
+                0x0000b538       0x28 ./libnxpUSBlib.a(Host_LPC.o)
+                0x0000b538                USB_Host_SetDeviceSpeed
  .text.USB_Host_GetDeviceSpeed
-                0x0000b36c       0x30 ./libnxpUSBlib.a(Host_LPC.o)
-                0x0000b36c                USB_Host_GetDeviceSpeed
+                0x0000b560       0x30 ./libnxpUSBlib.a(Host_LPC.o)
+                0x0000b560                USB_Host_GetDeviceSpeed
  .text.USB_Host_GetFrameNumber
-                0x0000b39c       0x18 ./libnxpUSBlib.a(Host_LPC.o)
-                0x0000b39c                USB_Host_GetFrameNumber
- .text          0x0000b3b4        0x0 ./libnxpUSBlib.a(PipeStream_LPC.o)
+                0x0000b590       0x18 ./libnxpUSBlib.a(Host_LPC.o)
+                0x0000b590                USB_Host_GetFrameNumber
+ .text          0x0000b5a8        0x0 ./libnxpUSBlib.a(PipeStream_LPC.o)
  .text.Pipe_Discard_Stream
-                0x0000b3b4      0x218 ./libnxpUSBlib.a(PipeStream_LPC.o)
-                0x0000b3b4                Pipe_Discard_Stream
+                0x0000b5a8      0x218 ./libnxpUSBlib.a(PipeStream_LPC.o)
+                0x0000b5a8                Pipe_Discard_Stream
  .text.Pipe_Null_Stream
-                0x0000b5cc      0x104 ./libnxpUSBlib.a(PipeStream_LPC.o)
-                0x0000b5cc                Pipe_Null_Stream
+                0x0000b7c0      0x104 ./libnxpUSBlib.a(PipeStream_LPC.o)
+                0x0000b7c0                Pipe_Null_Stream
  .text.Pipe_Write_Stream_LE
-                0x0000b6d0      0x120 ./libnxpUSBlib.a(PipeStream_LPC.o)
-                0x0000b6d0                Pipe_Write_Stream_LE
+                0x0000b8c4      0x120 ./libnxpUSBlib.a(PipeStream_LPC.o)
+                0x0000b8c4                Pipe_Write_Stream_LE
  .text.Pipe_Read_Stream_LE
-                0x0000b7f0      0x364 ./libnxpUSBlib.a(PipeStream_LPC.o)
-                0x0000b7f0                Pipe_Read_Stream_LE
+                0x0000b9e4      0x364 ./libnxpUSBlib.a(PipeStream_LPC.o)
+                0x0000b9e4                Pipe_Read_Stream_LE
  .text.Pipe_Write_Stream_BE
-                0x0000bb54       0x20 ./libnxpUSBlib.a(PipeStream_LPC.o)
-                0x0000bb54                Pipe_Write_Stream_BE
+                0x0000bd48       0x20 ./libnxpUSBlib.a(PipeStream_LPC.o)
+                0x0000bd48                Pipe_Write_Stream_BE
  .text.Pipe_Read_Stream_BE
-                0x0000bb74       0x20 ./libnxpUSBlib.a(PipeStream_LPC.o)
-                0x0000bb74                Pipe_Read_Stream_BE
+                0x0000bd68       0x20 ./libnxpUSBlib.a(PipeStream_LPC.o)
+                0x0000bd68                Pipe_Read_Stream_BE
  .text.Pipe_Write_PStream_LE
-                0x0000bb94       0x20 ./libnxpUSBlib.a(PipeStream_LPC.o)
-                0x0000bb94                Pipe_Write_PStream_LE
+                0x0000bd88       0x20 ./libnxpUSBlib.a(PipeStream_LPC.o)
+                0x0000bd88                Pipe_Write_PStream_LE
  .text.Pipe_Write_PStream_BE
-                0x0000bbb4       0x20 ./libnxpUSBlib.a(PipeStream_LPC.o)
-                0x0000bbb4                Pipe_Write_PStream_BE
+                0x0000bda8       0x20 ./libnxpUSBlib.a(PipeStream_LPC.o)
+                0x0000bda8                Pipe_Write_PStream_BE
  .text.Pipe_Write_EStream_LE
-                0x0000bbd4       0x20 ./libnxpUSBlib.a(PipeStream_LPC.o)
-                0x0000bbd4                Pipe_Write_EStream_LE
+                0x0000bdc8       0x20 ./libnxpUSBlib.a(PipeStream_LPC.o)
+                0x0000bdc8                Pipe_Write_EStream_LE
  .text.Pipe_Write_EStream_BE
-                0x0000bbf4       0x20 ./libnxpUSBlib.a(PipeStream_LPC.o)
-                0x0000bbf4                Pipe_Write_EStream_BE
+                0x0000bde8       0x20 ./libnxpUSBlib.a(PipeStream_LPC.o)
+                0x0000bde8                Pipe_Write_EStream_BE
  .text.Pipe_Read_EStream_LE
-                0x0000bc14       0x20 ./libnxpUSBlib.a(PipeStream_LPC.o)
-                0x0000bc14                Pipe_Read_EStream_LE
+                0x0000be08       0x20 ./libnxpUSBlib.a(PipeStream_LPC.o)
+                0x0000be08                Pipe_Read_EStream_LE
  .text.Pipe_Read_EStream_BE
-                0x0000bc34       0x20 ./libnxpUSBlib.a(PipeStream_LPC.o)
-                0x0000bc34                Pipe_Read_EStream_BE
- .text          0x0000bc54        0x0 ./libnxpUSBlib.a(Pipe_LPC.o)
+                0x0000be28       0x20 ./libnxpUSBlib.a(PipeStream_LPC.o)
+                0x0000be28                Pipe_Read_EStream_BE
+ .text          0x0000be48        0x0 ./libnxpUSBlib.a(Pipe_LPC.o)
  .text.Pipe_ConfigurePipe
-                0x0000bc54      0x180 ./libnxpUSBlib.a(Pipe_LPC.o)
-                0x0000bc54                Pipe_ConfigurePipe
+                0x0000be48      0x180 ./libnxpUSBlib.a(Pipe_LPC.o)
+                0x0000be48                Pipe_ConfigurePipe
  .text.Pipe_ClosePipe
-                0x0000bdd4       0x98 ./libnxpUSBlib.a(Pipe_LPC.o)
-                0x0000bdd4                Pipe_ClosePipe
+                0x0000bfc8       0x98 ./libnxpUSBlib.a(Pipe_LPC.o)
+                0x0000bfc8                Pipe_ClosePipe
  .text.Pipe_ClearPipes
-                0x0000be6c        0xc ./libnxpUSBlib.a(Pipe_LPC.o)
-                0x0000be6c                Pipe_ClearPipes
+                0x0000c060        0xc ./libnxpUSBlib.a(Pipe_LPC.o)
+                0x0000c060                Pipe_ClearPipes
  .text.Pipe_IsEndpointBound
-                0x0000be78       0x1c ./libnxpUSBlib.a(Pipe_LPC.o)
-                0x0000be78                Pipe_IsEndpointBound
+                0x0000c06c       0x1c ./libnxpUSBlib.a(Pipe_LPC.o)
+                0x0000c06c                Pipe_IsEndpointBound
  .text.Pipe_WaitUntilReady
-                0x0000be94      0x190 ./libnxpUSBlib.a(Pipe_LPC.o)
-                0x0000be94                Pipe_WaitUntilReady
+                0x0000c088      0x190 ./libnxpUSBlib.a(Pipe_LPC.o)
+                0x0000c088                Pipe_WaitUntilReady
  .text.Pipe_IsINReceived
-                0x0000c024       0xf0 ./libnxpUSBlib.a(Pipe_LPC.o)
-                0x0000c024                Pipe_IsINReceived
- .text          0x0000c114        0x0 ./libnxpUSBlib.a(USBController_LPC.o)
+                0x0000c218       0xf0 ./libnxpUSBlib.a(Pipe_LPC.o)
+                0x0000c218                Pipe_IsINReceived
+ .text          0x0000c308        0x0 ./libnxpUSBlib.a(USBController_LPC.o)
  .text.USB_Init
-                0x0000c114       0x2c ./libnxpUSBlib.a(USBController_LPC.o)
-                0x0000c114                USB_Init
+                0x0000c308       0x2c ./libnxpUSBlib.a(USBController_LPC.o)
+                0x0000c308                USB_Init
  .text.USB_Disable
-                0x0000c140       0x18 ./libnxpUSBlib.a(USBController_LPC.o)
-                0x0000c140                USB_Disable
+                0x0000c334       0x18 ./libnxpUSBlib.a(USBController_LPC.o)
+                0x0000c334                USB_Disable
  .text.USB_ResetInterface
-                0x0000c158        0xc ./libnxpUSBlib.a(USBController_LPC.o)
-                0x0000c158                USB_ResetInterface
+                0x0000c34c        0xc ./libnxpUSBlib.a(USBController_LPC.o)
+                0x0000c34c                USB_ResetInterface
  .text.USB_Init_Host
-                0x0000c164       0x80 ./libnxpUSBlib.a(USBController_LPC.o)
- .text          0x0000c1e4        0x0 ./libnxpUSBlib.a(OHCI.o)
- .text.Align4k  0x0000c1e4       0x20 ./libnxpUSBlib.a(OHCI.o)
+                0x0000c358       0x80 ./libnxpUSBlib.a(USBController_LPC.o)
+ .text          0x0000c3d8        0x0 ./libnxpUSBlib.a(OHCI.o)
+ .text.Align4k  0x0000c3d8       0x20 ./libnxpUSBlib.a(OHCI.o)
  .text.Offset4k
-                0x0000c204       0x20 ./libnxpUSBlib.a(OHCI.o)
+                0x0000c3f8       0x20 ./libnxpUSBlib.a(OHCI.o)
  .text.HcdGetDeviceSpeed
-                0x0000c224       0x58 ./libnxpUSBlib.a(OHCI.o)
-                0x0000c224                HcdGetDeviceSpeed
+                0x0000c418       0x58 ./libnxpUSBlib.a(OHCI.o)
+                0x0000c418                HcdGetDeviceSpeed
  .text.HcdGetFrameNumber
-                0x0000c27c       0x34 ./libnxpUSBlib.a(OHCI.o)
-                0x0000c27c                HcdGetFrameNumber
+                0x0000c470       0x34 ./libnxpUSBlib.a(OHCI.o)
+                0x0000c470                HcdGetFrameNumber
  .text.HcdRhPortReset
-                0x0000c2b0       0x5c ./libnxpUSBlib.a(OHCI.o)
-                0x0000c2b0                HcdRhPortReset
+                0x0000c4a4       0x5c ./libnxpUSBlib.a(OHCI.o)
+                0x0000c4a4                HcdRhPortReset
  .text.HcdRhPortEnable
-                0x0000c30c       0x2c ./libnxpUSBlib.a(OHCI.o)
-                0x0000c30c                HcdRhPortEnable
+                0x0000c500       0x2c ./libnxpUSBlib.a(OHCI.o)
+                0x0000c500                HcdRhPortEnable
  .text.HcdRhPortDisable
-                0x0000c338       0x2c ./libnxpUSBlib.a(OHCI.o)
-                0x0000c338                HcdRhPortDisable
+                0x0000c52c       0x2c ./libnxpUSBlib.a(OHCI.o)
+                0x0000c52c                HcdRhPortDisable
  .text.HcdInitDriver
-                0x0000c364       0x5c ./libnxpUSBlib.a(OHCI.o)
-                0x0000c364                HcdInitDriver
+                0x0000c558       0x5c ./libnxpUSBlib.a(OHCI.o)
+                0x0000c558                HcdInitDriver
  .text.HcdDeInitDriver
-                0x0000c3c0       0x1c ./libnxpUSBlib.a(OHCI.o)
-                0x0000c3c0                HcdDeInitDriver
+                0x0000c5b4       0x1c ./libnxpUSBlib.a(OHCI.o)
+                0x0000c5b4                HcdDeInitDriver
  .text.HcdOpenPipe
-                0x0000c3dc      0x114 ./libnxpUSBlib.a(OHCI.o)
-                0x0000c3dc                HcdOpenPipe
+                0x0000c5d0      0x114 ./libnxpUSBlib.a(OHCI.o)
+                0x0000c5d0                HcdOpenPipe
  .text.HcdCancelTransfer
-                0x0000c4f0      0x134 ./libnxpUSBlib.a(OHCI.o)
-                0x0000c4f0                HcdCancelTransfer
+                0x0000c6e4      0x134 ./libnxpUSBlib.a(OHCI.o)
+                0x0000c6e4                HcdCancelTransfer
  .text.HcdClosePipe
-                0x0000c624       0x70 ./libnxpUSBlib.a(OHCI.o)
-                0x0000c624                HcdClosePipe
+                0x0000c818       0x70 ./libnxpUSBlib.a(OHCI.o)
+                0x0000c818                HcdClosePipe
  .text.HcdClearEndpointHalt
-                0x0000c694       0x6c ./libnxpUSBlib.a(OHCI.o)
-                0x0000c694                HcdClearEndpointHalt
+                0x0000c888       0x6c ./libnxpUSBlib.a(OHCI.o)
+                0x0000c888                HcdClearEndpointHalt
  .text.HcdControlTransfer
-                0x0000c700      0x150 ./libnxpUSBlib.a(OHCI.o)
-                0x0000c700                HcdControlTransfer
+                0x0000c8f4      0x150 ./libnxpUSBlib.a(OHCI.o)
+                0x0000c8f4                HcdControlTransfer
  .text.QueueOneITD
-                0x0000c850      0x178 ./libnxpUSBlib.a(OHCI.o)
+                0x0000ca44      0x178 ./libnxpUSBlib.a(OHCI.o)
  .text.QueueITDs
-                0x0000c9c8       0xb0 ./libnxpUSBlib.a(OHCI.o)
+                0x0000cbbc       0xb0 ./libnxpUSBlib.a(OHCI.o)
  .text.HcdDataTransfer
-                0x0000ca78      0x138 ./libnxpUSBlib.a(OHCI.o)
-                0x0000ca78                HcdDataTransfer
+                0x0000cc6c      0x138 ./libnxpUSBlib.a(OHCI.o)
+                0x0000cc6c                HcdDataTransfer
  .text.HcdGetPipeStatus
-                0x0000cbb0       0x40 ./libnxpUSBlib.a(OHCI.o)
-                0x0000cbb0                HcdGetPipeStatus
+                0x0000cda4       0x40 ./libnxpUSBlib.a(OHCI.o)
+                0x0000cda4                HcdGetPipeStatus
  .text.OHciRhStatusChangeIsr
-                0x0000cbf0       0x2c ./libnxpUSBlib.a(OHCI.o)
+                0x0000cde4       0x2c ./libnxpUSBlib.a(OHCI.o)
  .text.ProcessDoneQueue
-                0x0000cc1c      0x188 ./libnxpUSBlib.a(OHCI.o)
+                0x0000ce10      0x188 ./libnxpUSBlib.a(OHCI.o)
  .text.HcdIrqHandler
-                0x0000cda4      0x164 ./libnxpUSBlib.a(OHCI.o)
-                0x0000cda4                HcdIrqHandler
+                0x0000cf98      0x164 ./libnxpUSBlib.a(OHCI.o)
+                0x0000cf98                HcdIrqHandler
  .text.QueueOneGTD
-                0x0000cf08       0xa4 ./libnxpUSBlib.a(OHCI.o)
+                0x0000d0fc       0xa4 ./libnxpUSBlib.a(OHCI.o)
  .text.QueueGTDs
-                0x0000cfac       0x80 ./libnxpUSBlib.a(OHCI.o)
+                0x0000d1a0       0x80 ./libnxpUSBlib.a(OHCI.o)
  .text.WaitForTransferComplete
-                0x0000d02c       0x34 ./libnxpUSBlib.a(OHCI.o)
+                0x0000d220       0x34 ./libnxpUSBlib.a(OHCI.o)
  .text.InsertEndpoint
-                0x0000d060       0x68 ./libnxpUSBlib.a(OHCI.o)
+                0x0000d254       0x68 ./libnxpUSBlib.a(OHCI.o)
  .text.RemoveEndpoint
-                0x0000d0c8       0x80 ./libnxpUSBlib.a(OHCI.o)
+                0x0000d2bc       0x80 ./libnxpUSBlib.a(OHCI.o)
  .text.BuildPeriodicStaticEdTree
-                0x0000d148       0x68 ./libnxpUSBlib.a(OHCI.o)
- .text.Align16  0x0000d1b0       0x1c ./libnxpUSBlib.a(OHCI.o)
- .text.HcdED    0x0000d1cc       0x24 ./libnxpUSBlib.a(OHCI.o)
- .text.HcdGTD   0x0000d1f0       0x24 ./libnxpUSBlib.a(OHCI.o)
- .text.HcdITD   0x0000d214       0x24 ./libnxpUSBlib.a(OHCI.o)
+                0x0000d33c       0x68 ./libnxpUSBlib.a(OHCI.o)
+ .text.Align16  0x0000d3a4       0x1c ./libnxpUSBlib.a(OHCI.o)
+ .text.HcdED    0x0000d3c0       0x24 ./libnxpUSBlib.a(OHCI.o)
+ .text.HcdGTD   0x0000d3e4       0x24 ./libnxpUSBlib.a(OHCI.o)
+ .text.HcdITD   0x0000d408       0x24 ./libnxpUSBlib.a(OHCI.o)
  .text.IsIsoEndpoint
-                0x0000d238       0x28 ./libnxpUSBlib.a(OHCI.o)
+                0x0000d42c       0x28 ./libnxpUSBlib.a(OHCI.o)
  .text.PipehandleCreate
-                0x0000d260       0x2c ./libnxpUSBlib.a(OHCI.o)
+                0x0000d454       0x2c ./libnxpUSBlib.a(OHCI.o)
  .text.PipehandleParse
-                0x0000d28c       0x5c ./libnxpUSBlib.a(OHCI.o)
- .text.AllocEd  0x0000d2e8      0x1d4 ./libnxpUSBlib.a(OHCI.o)
+                0x0000d480       0x5c ./libnxpUSBlib.a(OHCI.o)
+ .text.AllocEd  0x0000d4dc      0x1d4 ./libnxpUSBlib.a(OHCI.o)
  .text.AllocGtdForEd
-                0x0000d4bc      0x11c ./libnxpUSBlib.a(OHCI.o)
+                0x0000d6b0      0x11c ./libnxpUSBlib.a(OHCI.o)
  .text.AllocItdForEd
-                0x0000d5d8      0x110 ./libnxpUSBlib.a(OHCI.o)
- .text.FreeED   0x0000d6e8       0x70 ./libnxpUSBlib.a(OHCI.o)
- .text.FreeGtd  0x0000d758       0x24 ./libnxpUSBlib.a(OHCI.o)
- .text.FreeItd  0x0000d77c       0x28 ./libnxpUSBlib.a(OHCI.o)
+                0x0000d7cc      0x110 ./libnxpUSBlib.a(OHCI.o)
+ .text.FreeED   0x0000d8dc       0x70 ./libnxpUSBlib.a(OHCI.o)
+ .text.FreeGtd  0x0000d94c       0x24 ./libnxpUSBlib.a(OHCI.o)
+ .text.FreeItd  0x0000d970       0x28 ./libnxpUSBlib.a(OHCI.o)
  .text.OHciHostInit
-                0x0000d7a4      0x19c ./libnxpUSBlib.a(OHCI.o)
+                0x0000d998      0x19c ./libnxpUSBlib.a(OHCI.o)
  .text.OHciHostReset
-                0x0000d940       0x40 ./libnxpUSBlib.a(OHCI.o)
+                0x0000db34       0x40 ./libnxpUSBlib.a(OHCI.o)
  .text.OHciHostOperational
-                0x0000d980       0x38 ./libnxpUSBlib.a(OHCI.o)
- .text          0x0000d9b8        0x0 ./libnxpUSBlib.a(HCD.o)
+                0x0000db74       0x38 ./libnxpUSBlib.a(OHCI.o)
+ .text          0x0000dbac        0x0 ./libnxpUSBlib.a(HCD.o)
  .text.HcdDelayUS
-                0x0000d9b8       0x30 ./libnxpUSBlib.a(HCD.o)
-                0x0000d9b8                HcdDelayUS
+                0x0000dbac       0x30 ./libnxpUSBlib.a(HCD.o)
+                0x0000dbac                HcdDelayUS
  .text.HcdDelayMS
-                0x0000d9e8       0x30 ./libnxpUSBlib.a(HCD.o)
-                0x0000d9e8                HcdDelayMS
+                0x0000dbdc       0x30 ./libnxpUSBlib.a(HCD.o)
+                0x0000dbdc                HcdDelayMS
  .text.OpenPipe_VerifyParameters
-                0x0000da18      0x170 ./libnxpUSBlib.a(HCD.o)
-                0x0000da18                OpenPipe_VerifyParameters
- .text          0x0000db88        0x0 ./libnxpUSBlib.a(HAL_LPC17xx.o)
+                0x0000dc0c      0x170 ./libnxpUSBlib.a(HCD.o)
+                0x0000dc0c                OpenPipe_VerifyParameters
+ .text          0x0000dd7c        0x0 ./libnxpUSBlib.a(HAL_LPC17xx.o)
  .text.NVIC_EnableIRQ
-                0x0000db88       0x38 ./libnxpUSBlib.a(HAL_LPC17xx.o)
+                0x0000dd7c       0x38 ./libnxpUSBlib.a(HAL_LPC17xx.o)
  .text.NVIC_DisableIRQ
-                0x0000dbc0       0x3c ./libnxpUSBlib.a(HAL_LPC17xx.o)
+                0x0000ddb4       0x3c ./libnxpUSBlib.a(HAL_LPC17xx.o)
  .text.HAL_USBInit
-                0x0000dbfc       0x88 ./libnxpUSBlib.a(HAL_LPC17xx.o)
-                0x0000dbfc                HAL_USBInit
+                0x0000ddf0       0x88 ./libnxpUSBlib.a(HAL_LPC17xx.o)
+                0x0000ddf0                HAL_USBInit
  .text.HAL_USBDeInit
-                0x0000dc84       0x44 ./libnxpUSBlib.a(HAL_LPC17xx.o)
-                0x0000dc84                HAL_USBDeInit
+                0x0000de78       0x44 ./libnxpUSBlib.a(HAL_LPC17xx.o)
+                0x0000de78                HAL_USBDeInit
  .text.HAL_EnableUSBInterrupt
-                0x0000dcc8       0x10 ./libnxpUSBlib.a(HAL_LPC17xx.o)
-                0x0000dcc8                HAL_EnableUSBInterrupt
+                0x0000debc       0x10 ./libnxpUSBlib.a(HAL_LPC17xx.o)
+                0x0000debc                HAL_EnableUSBInterrupt
  .text.HAL_DisableUSBInterrupt
-                0x0000dcd8       0x10 ./libnxpUSBlib.a(HAL_LPC17xx.o)
-                0x0000dcd8                HAL_DisableUSBInterrupt
+                0x0000decc       0x10 ./libnxpUSBlib.a(HAL_LPC17xx.o)
+                0x0000decc                HAL_DisableUSBInterrupt
  .text.HAL_USBConnect
-                0x0000dce8       0x14 ./libnxpUSBlib.a(HAL_LPC17xx.o)
-                0x0000dce8                HAL_USBConnect
+                0x0000dedc       0x14 ./libnxpUSBlib.a(HAL_LPC17xx.o)
+                0x0000dedc                HAL_USBConnect
  .text.USB_IRQHandler
-                0x0000dcfc       0x10 ./libnxpUSBlib.a(HAL_LPC17xx.o)
-                0x0000dcfc                USB_IRQHandler
- .text          0x0000dd0c        0x0 ./libnxpUSBlib.a(HIDClassHost.o)
+                0x0000def0       0x10 ./libnxpUSBlib.a(HAL_LPC17xx.o)
+                0x0000def0                USB_IRQHandler
+ .text          0x0000df00        0x0 ./libnxpUSBlib.a(HIDClassHost.o)
  .text.HID_Host_ConfigurePipes
-                0x0000dd0c      0x26c ./libnxpUSBlib.a(HIDClassHost.o)
-                0x0000dd0c                HID_Host_ConfigurePipes
+                0x0000df00      0x26c ./libnxpUSBlib.a(HIDClassHost.o)
+                0x0000df00                HID_Host_ConfigurePipes
  .text.DCOMP_HID_Host_NextHIDInterface
-                0x0000df78       0x38 ./libnxpUSBlib.a(HIDClassHost.o)
+                0x0000e16c       0x38 ./libnxpUSBlib.a(HIDClassHost.o)
  .text.DCOMP_HID_Host_NextHIDDescriptor
-                0x0000dfb0       0x38 ./libnxpUSBlib.a(HIDClassHost.o)
+                0x0000e1a4       0x38 ./libnxpUSBlib.a(HIDClassHost.o)
  .text.DCOMP_HID_Host_NextHIDInterfaceEndpoint
-                0x0000dfe8       0x50 ./libnxpUSBlib.a(HIDClassHost.o)
+                0x0000e1dc       0x50 ./libnxpUSBlib.a(HIDClassHost.o)
  .text.HID_Host_ReceiveReportByID
-                0x0000e038       0x94 ./libnxpUSBlib.a(HIDClassHost.o)
-                0x0000e038                HID_Host_ReceiveReportByID
+                0x0000e22c       0x94 ./libnxpUSBlib.a(HIDClassHost.o)
+                0x0000e22c                HID_Host_ReceiveReportByID
  .text.HID_Host_ReceiveReport
-                0x0000e0cc      0x224 ./libnxpUSBlib.a(HIDClassHost.o)
-                0x0000e0cc                HID_Host_ReceiveReport
+                0x0000e2c0      0x224 ./libnxpUSBlib.a(HIDClassHost.o)
+                0x0000e2c0                HID_Host_ReceiveReport
  .text.HID_Host_SendReportByID
-                0x0000e2f0      0x1cc ./libnxpUSBlib.a(HIDClassHost.o)
-                0x0000e2f0                HID_Host_SendReportByID
+                0x0000e4e4      0x1cc ./libnxpUSBlib.a(HIDClassHost.o)
+                0x0000e4e4                HID_Host_SendReportByID
  .text.HID_Host_IsReportReceived
-                0x0000e4bc       0x54 ./libnxpUSBlib.a(HIDClassHost.o)
-                0x0000e4bc                HID_Host_IsReportReceived
+                0x0000e6b0       0x54 ./libnxpUSBlib.a(HIDClassHost.o)
+                0x0000e6b0                HID_Host_IsReportReceived
  .text.HID_Host_SetBootProtocol
-                0x0000e510       0xb4 ./libnxpUSBlib.a(HIDClassHost.o)
-                0x0000e510                HID_Host_SetBootProtocol
+                0x0000e704       0xb4 ./libnxpUSBlib.a(HIDClassHost.o)
+                0x0000e704                HID_Host_SetBootProtocol
  .text.HID_Host_SetIdlePeriod
-                0x0000e5c4       0x88 ./libnxpUSBlib.a(HIDClassHost.o)
-                0x0000e5c4                HID_Host_SetIdlePeriod
+                0x0000e7b8       0x88 ./libnxpUSBlib.a(HIDClassHost.o)
+                0x0000e7b8                HID_Host_SetIdlePeriod
  .text.HID_Host_SetReportProtocol
-                0x0000e64c      0x1d0 ./libnxpUSBlib.a(HIDClassHost.o)
-                0x0000e64c                HID_Host_SetReportProtocol
- .text          0x0000e81c        0x0 ./libnxpUSBlib.a(HIDParser.o)
+                0x0000e840      0x1d0 ./libnxpUSBlib.a(HIDClassHost.o)
+                0x0000e840                HID_Host_SetReportProtocol
+ .text          0x0000ea10        0x0 ./libnxpUSBlib.a(HIDParser.o)
  .text.USB_ProcessHIDReport
-                0x0000e81c      0x934 ./libnxpUSBlib.a(HIDParser.o)
-                0x0000e81c                USB_ProcessHIDReport
+                0x0000ea10      0x934 ./libnxpUSBlib.a(HIDParser.o)
+                0x0000ea10                USB_ProcessHIDReport
  .text.USB_GetHIDReportItemInfo
-                0x0000f150       0xc4 ./libnxpUSBlib.a(HIDParser.o)
-                0x0000f150                USB_GetHIDReportItemInfo
+                0x0000f344       0xc4 ./libnxpUSBlib.a(HIDParser.o)
+                0x0000f344                USB_GetHIDReportItemInfo
  .text.USB_SetHIDReportItemInfo
-                0x0000f214       0xb0 ./libnxpUSBlib.a(HIDParser.o)
-                0x0000f214                USB_SetHIDReportItemInfo
+                0x0000f408       0xb0 ./libnxpUSBlib.a(HIDParser.o)
+                0x0000f408                USB_SetHIDReportItemInfo
  .text.USB_GetHIDReportSize
-                0x0000f2c4       0x88 ./libnxpUSBlib.a(HIDParser.o)
-                0x0000f2c4                USB_GetHIDReportSize
- .text          0x0000f34c        0x0 ./libnxpUSBlib.a(USBMemory.o)
+                0x0000f4b8       0x88 ./libnxpUSBlib.a(HIDParser.o)
+                0x0000f4b8                USB_GetHIDReportSize
+ .text          0x0000f540        0x0 ./libnxpUSBlib.a(USBMemory.o)
  .text.USB_Memory_Init
-                0x0000f34c       0x54 ./libnxpUSBlib.a(USBMemory.o)
-                0x0000f34c                USB_Memory_Init
+                0x0000f540       0x54 ./libnxpUSBlib.a(USBMemory.o)
+                0x0000f540                USB_Memory_Init
  .text.USB_Memory_Alloc
-                0x0000f3a0      0x144 ./libnxpUSBlib.a(USBMemory.o)
-                0x0000f3a0                USB_Memory_Alloc
+                0x0000f594      0x144 ./libnxpUSBlib.a(USBMemory.o)
+                0x0000f594                USB_Memory_Alloc
  .text.USB_Memory_Free
-                0x0000f4e4      0x174 ./libnxpUSBlib.a(USBMemory.o)
-                0x0000f4e4                USB_Memory_Free
- .text          0x0000f658        0x0 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/bin/../lib/gcc/arm-none-eabi/4.5.1/thumb2/crtend.o
- .text          0x0000f658        0x0 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/bin/../lib/gcc/arm-none-eabi/4.5.1/thumb2/crtn.o
+                0x0000f6d8      0x174 ./libnxpUSBlib.a(USBMemory.o)
+                0x0000f6d8                USB_Memory_Free
+ .text          0x0000f84c        0x0 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/bin/../lib/gcc/arm-none-eabi/4.5.1/thumb2/crtend.o
+ .text          0x0000f84c        0x0 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/bin/../lib/gcc/arm-none-eabi/4.5.1/thumb2/crtn.o
  *(.plt)
  *(.gnu.warning)
  *(.glue_7t)
@@ -1150,108 +1167,108 @@ END GROUP
  *(.vfp11_veneer)
  .vfp11_veneer  0x00000000        0x0 linker stubs
  *(.rodata .rodata.* .gnu.linkonce.r.*)
- .rodata        0x0000f658       0x50 mouse.o
- .rodata        0x0000f6a8       0x20 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/arm-none-eabi/lib/thumb2/libc.a(lib_a-svfprintf.o)
+ .rodata        0x0000f84c       0x34 mouse.o
+ .rodata        0x0000f880       0x20 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/arm-none-eabi/lib/thumb2/libc.a(lib_a-svfprintf.o)
  .rodata.str1.4
-                0x0000f6c8       0x42 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/arm-none-eabi/lib/thumb2/libc.a(lib_a-svfprintf.o)
+                0x0000f8a0       0x42 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/arm-none-eabi/lib/thumb2/libc.a(lib_a-svfprintf.o)
                                  0x44 (size before relaxing)
- *fill*         0x0000f70a        0x2 00
+ *fill*         0x0000f8e2        0x2 00
  .rodata.str1.4
-                0x0000f70c       0x10 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/arm-none-eabi/lib/thumb2/libc.a(lib_a-dtoa.o)
+                0x0000f8e4       0x10 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/arm-none-eabi/lib/thumb2/libc.a(lib_a-dtoa.o)
                                  0x14 (size before relaxing)
- .rodata        0x0000f71c        0x4 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/arm-none-eabi/lib/thumb2/libc.a(lib_a-impure.o)
-                0x0000f71c                _global_impure_ptr
+ .rodata        0x0000f8f4        0x4 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/arm-none-eabi/lib/thumb2/libc.a(lib_a-impure.o)
+                0x0000f8f4                _global_impure_ptr
  .rodata.str1.4
-                0x0000f720        0x2 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/arm-none-eabi/lib/thumb2/libc.a(lib_a-impure.o)
+                0x0000f8f8        0x2 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/arm-none-eabi/lib/thumb2/libc.a(lib_a-impure.o)
                                   0x4 (size before relaxing)
- *fill*         0x0000f722        0x2 00
+ *fill*         0x0000f8fa        0x2 00
  .rodata.str1.4
-                0x0000f724        0xc /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/arm-none-eabi/lib/thumb2/libc.a(lib_a-locale.o)
+                0x0000f8fc        0xc /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/arm-none-eabi/lib/thumb2/libc.a(lib_a-locale.o)
                                  0x14 (size before relaxing)
- .rodata        0x0000f730      0x128 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/arm-none-eabi/lib/thumb2/libc.a(lib_a-mprec.o)
-                0x0000f740                __mprec_tens
-                0x0000f808                __mprec_bigtens
-                0x0000f830                __mprec_tinytens
- .rodata        0x0000f858       0x20 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/arm-none-eabi/lib/thumb2/libc.a(lib_a-svfiprintf.o)
+ .rodata        0x0000f908      0x128 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/arm-none-eabi/lib/thumb2/libc.a(lib_a-mprec.o)
+                0x0000f918                __mprec_tens
+                0x0000f9e0                __mprec_bigtens
+                0x0000fa08                __mprec_tinytens
+ .rodata        0x0000fa30       0x20 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/arm-none-eabi/lib/thumb2/libc.a(lib_a-svfiprintf.o)
  .rodata.str1.4
                 0x00000000       0x30 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/arm-none-eabi/lib/thumb2/libc.a(lib_a-svfiprintf.o)
- .rodata        0x0000f878       0x10 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_rit.o)
- .rodata        0x0000f888       0x10 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_uart.o)
- .rodata        0x0000f898        0x8 ./libnxpUSBlib.a(HostStandardReq.o)
- .rodata        0x0000f8a0       0x10 ./libnxpUSBlib.a(Host_LPC.o)
+ .rodata        0x0000fa50       0x10 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_rit.o)
+ .rodata        0x0000fa60       0x10 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_uart.o)
+ .rodata        0x0000fa70        0x8 ./libnxpUSBlib.a(HostStandardReq.o)
+ .rodata        0x0000fa78       0x10 ./libnxpUSBlib.a(Host_LPC.o)
  *(.ARM.extab* .gnu.linkonce.armextab.*)
  .ARM.extab.cs3.reset
-                0x0000f8b0        0x0 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/startup_LPC17xx.o
- .ARM.extab     0x0000f8b0        0x0 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/bin/../lib/gcc/arm-none-eabi/4.5.1/thumb2/libgcc.a(_divdi3.o)
- .ARM.extab     0x0000f8b0        0x0 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/bin/../lib/gcc/arm-none-eabi/4.5.1/thumb2/libgcc.a(_udivdi3.o)
+                0x0000fa88        0x0 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/startup_LPC17xx.o
+ .ARM.extab     0x0000fa88        0x0 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/bin/../lib/gcc/arm-none-eabi/4.5.1/thumb2/libgcc.a(_divdi3.o)
+ .ARM.extab     0x0000fa88        0x0 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/bin/../lib/gcc/arm-none-eabi/4.5.1/thumb2/libgcc.a(_udivdi3.o)
  *(.gcc_except_table)
  *(.eh_frame_hdr)
  *(.eh_frame)
-                0x0000f8b0                . = ALIGN (0x4)
+                0x0000fa88                . = ALIGN (0x4)
  *(.init)
- .init          0x0000f8b0        0x4 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/bin/../lib/gcc/arm-none-eabi/4.5.1/thumb2/crti.o
-                0x0000f8b0                _init
- .init          0x0000f8b4        0x8 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/bin/../lib/gcc/arm-none-eabi/4.5.1/thumb2/crtn.o
-                0x0000f8bc                . = ALIGN (0x4)
-                0x0000f8bc                __preinit_array_start = .
+ .init          0x0000fa88        0x4 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/bin/../lib/gcc/arm-none-eabi/4.5.1/thumb2/crti.o
+                0x0000fa88                _init
+ .init          0x0000fa8c        0x8 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/bin/../lib/gcc/arm-none-eabi/4.5.1/thumb2/crtn.o
+                0x0000fa94                . = ALIGN (0x4)
+                0x0000fa94                __preinit_array_start = .
  *(.preinit_array)
-                0x0000f8bc                __preinit_array_end = .
-                0x0000f8bc                . = ALIGN (0x4)
-                0x0000f8bc                __init_array_start = .
+                0x0000fa94                __preinit_array_end = .
+                0x0000fa94                . = ALIGN (0x4)
+                0x0000fa94                __init_array_start = .
  *(SORT(.init_array.*))
  *(.init_array)
- .init_array    0x0000f8bc        0x4 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/bin/../lib/gcc/arm-none-eabi/4.5.1/thumb2/crtbegin.o
-                0x0000f8c0                __init_array_end = .
-                0x0000f8c0                . = ALIGN (0x4)
+ .init_array    0x0000fa94        0x4 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/bin/../lib/gcc/arm-none-eabi/4.5.1/thumb2/crtbegin.o
+                0x0000fa98                __init_array_end = .
+                0x0000fa98                . = ALIGN (0x4)
  *crtbegin.o(.ctors)
  *(EXCLUDE_FILE(*crtend.o) .ctors)
  *(SORT(.ctors.*))
  *crtend.o(.ctors)
-                0x0000f8c0                . = ALIGN (0x4)
+                0x0000fa98                . = ALIGN (0x4)
  *(.fini)
- .fini          0x0000f8c0        0x4 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/bin/../lib/gcc/arm-none-eabi/4.5.1/thumb2/crti.o
-                0x0000f8c0                _fini
- .fini          0x0000f8c4        0x8 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/bin/../lib/gcc/arm-none-eabi/4.5.1/thumb2/crtn.o
-                0x0000f8cc                . = ALIGN (0x4)
-                0x0000f8cc                __fini_array_start = .
+ .fini          0x0000fa98        0x4 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/bin/../lib/gcc/arm-none-eabi/4.5.1/thumb2/crti.o
+                0x0000fa98                _fini
+ .fini          0x0000fa9c        0x8 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/bin/../lib/gcc/arm-none-eabi/4.5.1/thumb2/crtn.o
+                0x0000faa4                . = ALIGN (0x4)
+                0x0000faa4                __fini_array_start = .
  *(.fini_array)
- .fini_array    0x0000f8cc        0x4 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/bin/../lib/gcc/arm-none-eabi/4.5.1/thumb2/crtbegin.o
+ .fini_array    0x0000faa4        0x4 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/bin/../lib/gcc/arm-none-eabi/4.5.1/thumb2/crtbegin.o
  *(SORT(.fini_array.*))
-                0x0000f8d0                __fini_array_end = .
+                0x0000faa8                __fini_array_end = .
  *crtbegin.o(.dtors)
  *(EXCLUDE_FILE(*crtend.o) .dtors)
  *(SORT(.dtors.*))
  *crtend.o(.dtors)
-                0x0000f8d0                . = ALIGN (0x4)
-                0x0000f8d0                __cs3_regions = .
-                0x0000f8d0        0x4 LONG 0x0
-                0x0000f8d4        0x4 LONG 0xf8f0 __cs3_region_init_ram
-                0x0000f8d8        0x4 LONG 0x10000000 __cs3_region_start_ram
-                0x0000f8dc        0x4 LONG 0x1300 __cs3_region_init_size_ram
-                0x0000f8e0        0x4 LONG 0x908 __cs3_region_zero_size_ram
-                0x0000f8e4                __exidx_start = .
+                0x0000faa8                . = ALIGN (0x4)
+                0x0000faa8                __cs3_regions = .
+                0x0000faa8        0x4 LONG 0x0
+                0x0000faac        0x4 LONG 0xfac8 __cs3_region_init_ram
+                0x0000fab0        0x4 LONG 0x10000000 __cs3_region_start_ram
+                0x0000fab4        0x4 LONG 0x1300 __cs3_region_init_size_ram
+                0x0000fab8        0x4 LONG 0x910 __cs3_region_zero_size_ram
+                0x0000fabc                __exidx_start = .
 
-.v4_bx          0x0000f8e4        0x0
+.v4_bx          0x0000fabc        0x0
  .v4_bx         0x00000000        0x0 linker stubs
 
-.ARM.exidx      0x0000f8e4        0x8
+.ARM.exidx      0x0000fabc        0x8
  *(.ARM.exidx* .gnu.linkonce.armexidx.*)
  .ARM.exidx.cs3.reset
-                0x0000f8e4        0x8 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/startup_LPC17xx.o
- .ARM.exidx     0x0000f8ec        0x0 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/bin/../lib/gcc/arm-none-eabi/4.5.1/thumb2/libgcc.a(_divdi3.o)
+                0x0000fabc        0x8 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/startup_LPC17xx.o
+ .ARM.exidx     0x0000fac4        0x0 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/bin/../lib/gcc/arm-none-eabi/4.5.1/thumb2/libgcc.a(_divdi3.o)
                                   0x8 (size before relaxing)
- .ARM.exidx     0x0000f8ec        0x0 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/bin/../lib/gcc/arm-none-eabi/4.5.1/thumb2/libgcc.a(_udivdi3.o)
+ .ARM.exidx     0x0000fac4        0x0 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/bin/../lib/gcc/arm-none-eabi/4.5.1/thumb2/libgcc.a(_udivdi3.o)
                                   0x8 (size before relaxing)
-                0x0000f8ec                __exidx_end = .
+                0x0000fac4                __exidx_end = .
 
-.text.align     0x0000f8ec        0x4
-                0x0000f8f0                . = ALIGN (0x8)
- *fill*         0x0000f8ec        0x4 00
-                0x0000f8f0                _etext = .
+.text.align     0x0000fac4        0x4
+                0x0000fac8                . = ALIGN (0x8)
+ *fill*         0x0000fac4        0x4 00
+                0x0000fac8                _etext = .
                 0x00080000                __cs3_region_size_rom = 0x80000
                 0x00000001                __cs3_region_num = 0x1
 
-.data           0x10000000     0x1300 load address 0x0000f8f0
+.data           0x10000000     0x1300 load address 0x0000fac8
                 0x10000000                __cs3_region_start_ram = .
  *(.cs3.region-head.ram)
  *(.jcr)
@@ -1304,6 +1321,7 @@ END GROUP
  .data          0x1000058c        0x0 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/bin/../lib/gcc/arm-none-eabi/4.5.1/thumb2/libgcc.a(_arm_muldivdf3.o)
  .data          0x1000058c        0x0 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/bin/../lib/gcc/arm-none-eabi/4.5.1/thumb2/libgcc.a(_arm_cmpdf2.o)
  .data          0x1000058c        0x0 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/bin/../lib/gcc/arm-none-eabi/4.5.1/thumb2/libgcc.a(_arm_fixdfsi.o)
+ .data          0x1000058c        0x0 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/bin/../lib/gcc/arm-none-eabi/4.5.1/thumb2/libgcc.a(_arm_addsubsf3.o)
  .data          0x1000058c        0x0 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/bin/../lib/gcc/arm-none-eabi/4.5.1/thumb2/libgcc.a(_arm_muldivsf3.o)
  .data          0x1000058c        0x0 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/bin/../lib/gcc/arm-none-eabi/4.5.1/thumb2/libgcc.a(_arm_cmpsf2.o)
  .data          0x1000058c        0x0 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/bin/../lib/gcc/arm-none-eabi/4.5.1/thumb2/libgcc.a(_arm_fixunssfsi.o)
@@ -1359,7 +1377,7 @@ END GROUP
                 0x10001300                . = ALIGN (0x8)
                 0x10001300                _edata = .
 
-.bss            0x10001300      0x908 load address 0x00010bf0
+.bss            0x10001300      0x910 load address 0x00010dc8
  *(.shbss)
  *(.bss .bss.* .gnu.linkonce.b.*)
  .bss           0x10001300        0x0 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/bin/../lib/gcc/arm-none-eabi/4.5.1/thumb2/crti.o
@@ -1404,6 +1422,7 @@ END GROUP
  .bss           0x10001344        0x0 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/bin/../lib/gcc/arm-none-eabi/4.5.1/thumb2/libgcc.a(_arm_muldivdf3.o)
  .bss           0x10001344        0x0 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/bin/../lib/gcc/arm-none-eabi/4.5.1/thumb2/libgcc.a(_arm_cmpdf2.o)
  .bss           0x10001344        0x0 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/bin/../lib/gcc/arm-none-eabi/4.5.1/thumb2/libgcc.a(_arm_fixdfsi.o)
+ .bss           0x10001344        0x0 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/bin/../lib/gcc/arm-none-eabi/4.5.1/thumb2/libgcc.a(_arm_addsubsf3.o)
  .bss           0x10001344        0x0 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/bin/../lib/gcc/arm-none-eabi/4.5.1/thumb2/libgcc.a(_arm_muldivsf3.o)
  .bss           0x10001344        0x0 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/bin/../lib/gcc/arm-none-eabi/4.5.1/thumb2/libgcc.a(_arm_cmpsf2.o)
  .bss           0x10001344        0x0 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/bin/../lib/gcc/arm-none-eabi/4.5.1/thumb2/libgcc.a(_arm_fixunssfsi.o)
@@ -1466,46 +1485,47 @@ END GROUP
  .bss           0x10001359        0x0 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/bin/../lib/gcc/arm-none-eabi/4.5.1/thumb2/crtn.o
  *(COMMON)
  *fill*         0x10001359        0x3 00
- COMMON         0x1000135c       0x10 mouse.o
-                0x1000135c                totX
+ COMMON         0x1000135c       0x14 mouse.o
+                0x1000135c                currentY
                 0x10001360                i
-                0x10001364                totY
-                0x10001368                actSpeed
- COMMON         0x1000136c        0x4 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/arm-none-eabi/lib/thumb2/libc.a(lib_a-reent.o)
-                0x1000136c                errno
- COMMON         0x10001370        0xc KeyboardHost.o
-                0x10001370                detach_cb
-                0x10001374                attach_cb
-                0x10001378                callback
- COMMON         0x1000137c      0x800 ./libBSP.a(bsp_MCB1700.o)
-                0x1000137c                audio_buffer
- COMMON         0x10001b7c        0x1 ./libnxpUSBlib.a(HostStandardReq.o)
-                0x10001b7c                USB_Host_ConfigurationNumber
- COMMON         0x10001b7d        0x2 ./libnxpUSBlib.a(USBTask.o)
-                0x10001b7d                USB_IsInitialized
-                0x10001b7e                USB_HostState
- *fill*         0x10001b7f        0x1 00
- COMMON         0x10001b80       0x86 ./libnxpUSBlib.a(Pipe_LPC.o)
-                0x10001b80                hostportspeed
-                0x10001b84                PipeInfo
-                0x10001c04                hostselected
-                0x10001c05                pipeselected
- COMMON         0x10001c06        0x1 ./libnxpUSBlib.a(USBController_LPC.o)
-                0x10001c06                USBPortNum
+                0x10001364                actSpeed
+                0x10001368                currentX
+                0x1000136c                currentTHETA
+ COMMON         0x10001370        0x4 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/arm-none-eabi/lib/thumb2/libc.a(lib_a-reent.o)
+                0x10001370                errno
+ COMMON         0x10001374        0xc KeyboardHost.o
+                0x10001374                detach_cb
+                0x10001378                attach_cb
+                0x1000137c                callback
+ COMMON         0x10001380      0x800 ./libBSP.a(bsp_MCB1700.o)
+                0x10001380                audio_buffer
+ COMMON         0x10001b80        0x1 ./libnxpUSBlib.a(HostStandardReq.o)
+                0x10001b80                USB_Host_ConfigurationNumber
+ COMMON         0x10001b81        0x2 ./libnxpUSBlib.a(USBTask.o)
+                0x10001b81                USB_IsInitialized
+                0x10001b82                USB_HostState
+ *fill*         0x10001b83        0x1 00
+ COMMON         0x10001b84       0x86 ./libnxpUSBlib.a(Pipe_LPC.o)
+                0x10001b84                hostportspeed
+                0x10001b88                PipeInfo
+                0x10001c08                hostselected
+                0x10001c09                pipeselected
+ COMMON         0x10001c0a        0x1 ./libnxpUSBlib.a(USBController_LPC.o)
+                0x10001c0a                USBPortNum
  *(.ram.b)
-                0x10001c08                . = ALIGN (0x8)
- *fill*         0x10001c07        0x1 00
-                0x10001c08                _end = .
-                0x10001c08                __end = .
+                0x10001c10                . = ALIGN (0x8)
+ *fill*         0x10001c0b        0x5 00
+                0x10001c10                _end = .
+                0x10001c10                __end = .
 
 .usb_ram
  *.o(USB_RAM)
 
-.heap           0x10001c08     0x1000
+.heap           0x10001c10     0x1000
  *(.heap)
- .heap          0x10001c08     0x1000 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/startup_LPC17xx.o
-                0x10001c08                __cs3_heap_start
-                0x10002c08                __cs3_heap_end
+ .heap          0x10001c10     0x1000 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/startup_LPC17xx.o
+                0x10001c10                __cs3_heap_start
+                0x10002c10                __cs3_heap_end
 
 .stack          0x10007f00      0x100
  *(.stack)
@@ -1513,9 +1533,9 @@ END GROUP
                 0x10007f00                __cs3_stack_mem
                 0x10008000                _estack = .
                 0x10008000                PROVIDE (estack, .)
-                0x0000f8f0                __cs3_region_init_ram = LOADADDR (.data)
+                0x0000fac8                __cs3_region_init_ram = LOADADDR (.data)
                 0x00001300                __cs3_region_init_size_ram = (_edata - __cs3_region_start_ram)
-                0x00000908                __cs3_region_zero_size_ram = (_end - _edata)
+                0x00000910                __cs3_region_zero_size_ram = (_end - _edata)
                 0x00008000                __cs3_region_size_ram = 0x8000
                 0x00000001                __cs3_region_num = 0x1
 
@@ -1621,112 +1641,112 @@ END GROUP
                 0x00000a30       0x30 ./libnxpUSBlib.a(USBMemory.o)
 
 .debug_pubnames
-                0x00000000      0x5aa
+                0x00000000      0x5c3
  *(.debug_pubnames)
  .debug_pubnames
-                0x00000000      0x13a mouse.o
+                0x00000000      0x153 mouse.o
  .debug_pubnames
-                0x0000013a       0x4f /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/system_LPC17xx.o
+                0x00000153       0x4f /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/system_LPC17xx.o
  .debug_pubnames
-                0x00000189       0x59 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_pinsel.o)
+                0x000001a2       0x59 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_pinsel.o)
  .debug_pubnames
-                0x000001e2       0x79 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_rit.o)
+                0x000001fb       0x79 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_rit.o)
  .debug_pubnames
-                0x0000025b      0x271 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_uart.o)
+                0x00000274      0x271 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_uart.o)
  .debug_pubnames
-                0x000004cc       0xbb /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_clkpwr.o)
+                0x000004e5       0xbb /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_clkpwr.o)
  .debug_pubnames
-                0x00000587       0x23 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_libcfg_default.o)
+                0x000005a0       0x23 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_libcfg_default.o)
 
-.debug_info     0x00000000     0xcd72
+.debug_info     0x00000000     0xcdd1
  *(.debug_info .gnu.linkonce.wi.*)
- .debug_info    0x00000000      0xd0e mouse.o
- .debug_info    0x00000d0e       0x68 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/core_cm3.o
- .debug_info    0x00000d76      0x509 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/system_LPC17xx.o
- .debug_info    0x0000127f       0xc1 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/startup_LPC17xx.o
- .debug_info    0x00001340      0x995 KeyboardHost.o
- .debug_info    0x00001cd5      0x4b5 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_pinsel.o)
- .debug_info    0x0000218a      0x2c2 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_rit.o)
- .debug_info    0x0000244c     0x114d /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_uart.o)
- .debug_info    0x00003599      0x6c5 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_clkpwr.o)
- .debug_info    0x00003c5e       0xc9 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_libcfg_default.o)
- .debug_info    0x00003d27     0x111e ./libBSP.a(bsp_MCB1700.o)
- .debug_info    0x00004e45       0x9c ./libBSP.a(DataRam.o)
- .debug_info    0x00004ee1      0x290 ./libCDL.a(lpc17xx_dac.o)
- .debug_info    0x00005171      0xe2d ./libCDL.a(lpc17xx_gpio.o)
- .debug_info    0x00005f9e      0x696 ./libnxpUSBlib.a(ConfigDescriptor.o)
- .debug_info    0x00006634      0x5f2 ./libnxpUSBlib.a(HostStandardReq.o)
- .debug_info    0x00006c26      0x2c9 ./libnxpUSBlib.a(USBTask.o)
- .debug_info    0x00006eef      0x79f ./libnxpUSBlib.a(Host_LPC.o)
- .debug_info    0x0000768e      0x7af ./libnxpUSBlib.a(PipeStream_LPC.o)
- .debug_info    0x00007e3d      0x588 ./libnxpUSBlib.a(Pipe_LPC.o)
- .debug_info    0x000083c5      0x39c ./libnxpUSBlib.a(USBController_LPC.o)
- .debug_info    0x00008761     0x1e45 ./libnxpUSBlib.a(OHCI.o)
- .debug_info    0x0000a5a6      0x480 ./libnxpUSBlib.a(HCD.o)
- .debug_info    0x0000aa26      0x907 ./libnxpUSBlib.a(HAL_LPC17xx.o)
- .debug_info    0x0000b32d     0x105c ./libnxpUSBlib.a(HIDClassHost.o)
- .debug_info    0x0000c389      0x709 ./libnxpUSBlib.a(HIDParser.o)
- .debug_info    0x0000ca92      0x2e0 ./libnxpUSBlib.a(USBMemory.o)
+ .debug_info    0x00000000      0xd6d mouse.o
+ .debug_info    0x00000d6d       0x68 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/core_cm3.o
+ .debug_info    0x00000dd5      0x509 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/system_LPC17xx.o
+ .debug_info    0x000012de       0xc1 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/startup_LPC17xx.o
+ .debug_info    0x0000139f      0x995 KeyboardHost.o
+ .debug_info    0x00001d34      0x4b5 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_pinsel.o)
+ .debug_info    0x000021e9      0x2c2 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_rit.o)
+ .debug_info    0x000024ab     0x114d /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_uart.o)
+ .debug_info    0x000035f8      0x6c5 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_clkpwr.o)
+ .debug_info    0x00003cbd       0xc9 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_libcfg_default.o)
+ .debug_info    0x00003d86     0x111e ./libBSP.a(bsp_MCB1700.o)
+ .debug_info    0x00004ea4       0x9c ./libBSP.a(DataRam.o)
+ .debug_info    0x00004f40      0x290 ./libCDL.a(lpc17xx_dac.o)
+ .debug_info    0x000051d0      0xe2d ./libCDL.a(lpc17xx_gpio.o)
+ .debug_info    0x00005ffd      0x696 ./libnxpUSBlib.a(ConfigDescriptor.o)
+ .debug_info    0x00006693      0x5f2 ./libnxpUSBlib.a(HostStandardReq.o)
+ .debug_info    0x00006c85      0x2c9 ./libnxpUSBlib.a(USBTask.o)
+ .debug_info    0x00006f4e      0x79f ./libnxpUSBlib.a(Host_LPC.o)
+ .debug_info    0x000076ed      0x7af ./libnxpUSBlib.a(PipeStream_LPC.o)
+ .debug_info    0x00007e9c      0x588 ./libnxpUSBlib.a(Pipe_LPC.o)
+ .debug_info    0x00008424      0x39c ./libnxpUSBlib.a(USBController_LPC.o)
+ .debug_info    0x000087c0     0x1e45 ./libnxpUSBlib.a(OHCI.o)
+ .debug_info    0x0000a605      0x480 ./libnxpUSBlib.a(HCD.o)
+ .debug_info    0x0000aa85      0x907 ./libnxpUSBlib.a(HAL_LPC17xx.o)
+ .debug_info    0x0000b38c     0x105c ./libnxpUSBlib.a(HIDClassHost.o)
+ .debug_info    0x0000c3e8      0x709 ./libnxpUSBlib.a(HIDParser.o)
+ .debug_info    0x0000caf1      0x2e0 ./libnxpUSBlib.a(USBMemory.o)
 
-.debug_abbrev   0x00000000     0x2726
+.debug_abbrev   0x00000000     0x2733
  *(.debug_abbrev)
- .debug_abbrev  0x00000000      0x273 mouse.o
- .debug_abbrev  0x00000273       0x28 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/core_cm3.o
- .debug_abbrev  0x0000029b      0x102 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/system_LPC17xx.o
- .debug_abbrev  0x0000039d       0x12 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/startup_LPC17xx.o
- .debug_abbrev  0x000003af      0x217 KeyboardHost.o
- .debug_abbrev  0x000005c6      0x11d /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_pinsel.o)
- .debug_abbrev  0x000006e3      0x102 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_rit.o)
- .debug_abbrev  0x000007e5      0x1ce /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_uart.o)
- .debug_abbrev  0x000009b3      0x195 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_clkpwr.o)
- .debug_abbrev  0x00000b48       0x68 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_libcfg_default.o)
- .debug_abbrev  0x00000bb0      0x252 ./libBSP.a(bsp_MCB1700.o)
- .debug_abbrev  0x00000e02       0x5a ./libBSP.a(DataRam.o)
- .debug_abbrev  0x00000e5c       0xec ./libCDL.a(lpc17xx_dac.o)
- .debug_abbrev  0x00000f48      0x1cb ./libCDL.a(lpc17xx_gpio.o)
- .debug_abbrev  0x00001113      0x1ba ./libnxpUSBlib.a(ConfigDescriptor.o)
- .debug_abbrev  0x000012cd      0x1ab ./libnxpUSBlib.a(HostStandardReq.o)
- .debug_abbrev  0x00001478      0x15a ./libnxpUSBlib.a(USBTask.o)
- .debug_abbrev  0x000015d2      0x24d ./libnxpUSBlib.a(Host_LPC.o)
- .debug_abbrev  0x0000181f      0x1de ./libnxpUSBlib.a(PipeStream_LPC.o)
- .debug_abbrev  0x000019fd      0x17d ./libnxpUSBlib.a(Pipe_LPC.o)
- .debug_abbrev  0x00001b7a      0x108 ./libnxpUSBlib.a(USBController_LPC.o)
- .debug_abbrev  0x00001c82      0x2ae ./libnxpUSBlib.a(OHCI.o)
- .debug_abbrev  0x00001f30      0x122 ./libnxpUSBlib.a(HCD.o)
- .debug_abbrev  0x00002052      0x13e ./libnxpUSBlib.a(HAL_LPC17xx.o)
- .debug_abbrev  0x00002190      0x2be ./libnxpUSBlib.a(HIDClassHost.o)
- .debug_abbrev  0x0000244e      0x1b3 ./libnxpUSBlib.a(HIDParser.o)
- .debug_abbrev  0x00002601      0x125 ./libnxpUSBlib.a(USBMemory.o)
+ .debug_abbrev  0x00000000      0x280 mouse.o
+ .debug_abbrev  0x00000280       0x28 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/core_cm3.o
+ .debug_abbrev  0x000002a8      0x102 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/system_LPC17xx.o
+ .debug_abbrev  0x000003aa       0x12 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/startup_LPC17xx.o
+ .debug_abbrev  0x000003bc      0x217 KeyboardHost.o
+ .debug_abbrev  0x000005d3      0x11d /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_pinsel.o)
+ .debug_abbrev  0x000006f0      0x102 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_rit.o)
+ .debug_abbrev  0x000007f2      0x1ce /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_uart.o)
+ .debug_abbrev  0x000009c0      0x195 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_clkpwr.o)
+ .debug_abbrev  0x00000b55       0x68 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_libcfg_default.o)
+ .debug_abbrev  0x00000bbd      0x252 ./libBSP.a(bsp_MCB1700.o)
+ .debug_abbrev  0x00000e0f       0x5a ./libBSP.a(DataRam.o)
+ .debug_abbrev  0x00000e69       0xec ./libCDL.a(lpc17xx_dac.o)
+ .debug_abbrev  0x00000f55      0x1cb ./libCDL.a(lpc17xx_gpio.o)
+ .debug_abbrev  0x00001120      0x1ba ./libnxpUSBlib.a(ConfigDescriptor.o)
+ .debug_abbrev  0x000012da      0x1ab ./libnxpUSBlib.a(HostStandardReq.o)
+ .debug_abbrev  0x00001485      0x15a ./libnxpUSBlib.a(USBTask.o)
+ .debug_abbrev  0x000015df      0x24d ./libnxpUSBlib.a(Host_LPC.o)
+ .debug_abbrev  0x0000182c      0x1de ./libnxpUSBlib.a(PipeStream_LPC.o)
+ .debug_abbrev  0x00001a0a      0x17d ./libnxpUSBlib.a(Pipe_LPC.o)
+ .debug_abbrev  0x00001b87      0x108 ./libnxpUSBlib.a(USBController_LPC.o)
+ .debug_abbrev  0x00001c8f      0x2ae ./libnxpUSBlib.a(OHCI.o)
+ .debug_abbrev  0x00001f3d      0x122 ./libnxpUSBlib.a(HCD.o)
+ .debug_abbrev  0x0000205f      0x13e ./libnxpUSBlib.a(HAL_LPC17xx.o)
+ .debug_abbrev  0x0000219d      0x2be ./libnxpUSBlib.a(HIDClassHost.o)
+ .debug_abbrev  0x0000245b      0x1b3 ./libnxpUSBlib.a(HIDParser.o)
+ .debug_abbrev  0x0000260e      0x125 ./libnxpUSBlib.a(USBMemory.o)
 
-.debug_line     0x00000000     0xefb0
+.debug_line     0x00000000     0xefad
  *(.debug_line)
- .debug_line    0x00000000      0x35b mouse.o
- .debug_line    0x0000035b       0x1d /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/core_cm3.o
- .debug_line    0x00000378      0x1e4 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/system_LPC17xx.o
- .debug_line    0x0000055c       0xb1 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/startup_LPC17xx.o
- .debug_line    0x0000060d     0x167b KeyboardHost.o
- .debug_line    0x00001c88      0x220 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_pinsel.o)
- .debug_line    0x00001ea8      0x253 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_rit.o)
- .debug_line    0x000020fb      0x888 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_uart.o)
- .debug_line    0x00002983      0x29a /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_clkpwr.o)
- .debug_line    0x00002c1d       0xc4 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_libcfg_default.o)
- .debug_line    0x00002ce1      0x76c ./libBSP.a(bsp_MCB1700.o)
- .debug_line    0x0000344d      0x328 ./libBSP.a(DataRam.o)
- .debug_line    0x00003775      0x515 ./libCDL.a(lpc17xx_dac.o)
- .debug_line    0x00003c8a      0x759 ./libCDL.a(lpc17xx_gpio.o)
- .debug_line    0x000043e3      0xbbf ./libnxpUSBlib.a(ConfigDescriptor.o)
- .debug_line    0x00004fa2      0xbdb ./libnxpUSBlib.a(HostStandardReq.o)
- .debug_line    0x00005b7d      0xb4b ./libnxpUSBlib.a(USBTask.o)
- .debug_line    0x000066c8      0xd59 ./libnxpUSBlib.a(Host_LPC.o)
- .debug_line    0x00007421      0xe55 ./libnxpUSBlib.a(PipeStream_LPC.o)
- .debug_line    0x00008276      0xc4f ./libnxpUSBlib.a(Pipe_LPC.o)
- .debug_line    0x00008ec5      0xba3 ./libnxpUSBlib.a(USBController_LPC.o)
- .debug_line    0x00009a68     0x13e0 ./libnxpUSBlib.a(OHCI.o)
- .debug_line    0x0000ae48      0xd0a ./libnxpUSBlib.a(HCD.o)
- .debug_line    0x0000bb52      0xda4 ./libnxpUSBlib.a(HAL_LPC17xx.o)
- .debug_line    0x0000c8f6     0x1384 ./libnxpUSBlib.a(HIDClassHost.o)
- .debug_line    0x0000dc7a      0x70e ./libnxpUSBlib.a(HIDParser.o)
- .debug_line    0x0000e388      0xc28 ./libnxpUSBlib.a(USBMemory.o)
+ .debug_line    0x00000000      0x358 mouse.o
+ .debug_line    0x00000358       0x1d /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/core_cm3.o
+ .debug_line    0x00000375      0x1e4 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/system_LPC17xx.o
+ .debug_line    0x00000559       0xb1 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/startup_LPC17xx.o
+ .debug_line    0x0000060a     0x167b KeyboardHost.o
+ .debug_line    0x00001c85      0x220 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_pinsel.o)
+ .debug_line    0x00001ea5      0x253 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_rit.o)
+ .debug_line    0x000020f8      0x888 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_uart.o)
+ .debug_line    0x00002980      0x29a /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_clkpwr.o)
+ .debug_line    0x00002c1a       0xc4 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_libcfg_default.o)
+ .debug_line    0x00002cde      0x76c ./libBSP.a(bsp_MCB1700.o)
+ .debug_line    0x0000344a      0x328 ./libBSP.a(DataRam.o)
+ .debug_line    0x00003772      0x515 ./libCDL.a(lpc17xx_dac.o)
+ .debug_line    0x00003c87      0x759 ./libCDL.a(lpc17xx_gpio.o)
+ .debug_line    0x000043e0      0xbbf ./libnxpUSBlib.a(ConfigDescriptor.o)
+ .debug_line    0x00004f9f      0xbdb ./libnxpUSBlib.a(HostStandardReq.o)
+ .debug_line    0x00005b7a      0xb4b ./libnxpUSBlib.a(USBTask.o)
+ .debug_line    0x000066c5      0xd59 ./libnxpUSBlib.a(Host_LPC.o)
+ .debug_line    0x0000741e      0xe55 ./libnxpUSBlib.a(PipeStream_LPC.o)
+ .debug_line    0x00008273      0xc4f ./libnxpUSBlib.a(Pipe_LPC.o)
+ .debug_line    0x00008ec2      0xba3 ./libnxpUSBlib.a(USBController_LPC.o)
+ .debug_line    0x00009a65     0x13e0 ./libnxpUSBlib.a(OHCI.o)
+ .debug_line    0x0000ae45      0xd0a ./libnxpUSBlib.a(HCD.o)
+ .debug_line    0x0000bb4f      0xda4 ./libnxpUSBlib.a(HAL_LPC17xx.o)
+ .debug_line    0x0000c8f3     0x1384 ./libnxpUSBlib.a(HIDClassHost.o)
+ .debug_line    0x0000dc77      0x70e ./libnxpUSBlib.a(HIDParser.o)
+ .debug_line    0x0000e385      0xc28 ./libnxpUSBlib.a(USBMemory.o)
 
 .debug_frame    0x00000000     0x2860
  *(.debug_frame)
@@ -1784,59 +1804,59 @@ END GROUP
  .debug_frame   0x00002778       0x84 ./libnxpUSBlib.a(HIDParser.o)
  .debug_frame   0x000027fc       0x64 ./libnxpUSBlib.a(USBMemory.o)
 
-.debug_str      0x00000000     0x4df9
+.debug_str      0x00000000     0x4e2f
  *(.debug_str)
- .debug_str     0x00000000      0x70c mouse.o
-                                0x78a (size before relaxing)
- .debug_str     0x0000070c       0x42 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/core_cm3.o
+ .debug_str     0x00000000      0x742 mouse.o
+                                0x7c0 (size before relaxing)
+ .debug_str     0x00000742       0x42 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/core_cm3.o
                                  0xd2 (size before relaxing)
- .debug_str     0x0000074e      0x18b /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/system_LPC17xx.o
+ .debug_str     0x00000784      0x18b /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/system_LPC17xx.o
                                 0x2d5 (size before relaxing)
- .debug_str     0x000008d9      0x9f0 KeyboardHost.o
+ .debug_str     0x0000090f      0x9f0 KeyboardHost.o
                                 0xb3b (size before relaxing)
- .debug_str     0x000012c9      0x235 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_pinsel.o)
+ .debug_str     0x000012ff      0x235 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_pinsel.o)
                                 0x359 (size before relaxing)
- .debug_str     0x000014fe       0x92 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_rit.o)
+ .debug_str     0x00001534       0x92 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_rit.o)
                                 0x1ec (size before relaxing)
- .debug_str     0x00001590      0x7a7 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_uart.o)
+ .debug_str     0x000015c6      0x7a7 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_uart.o)
                                 0xb32 (size before relaxing)
- .debug_str     0x00001d37       0xc4 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_clkpwr.o)
+ .debug_str     0x00001d6d       0xc4 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_clkpwr.o)
                                 0x380 (size before relaxing)
- .debug_str     0x00001dfb       0x30 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_libcfg_default.o)
+ .debug_str     0x00001e31       0x30 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_libcfg_default.o)
                                 0x107 (size before relaxing)
- .debug_str     0x00001e2b      0x316 ./libBSP.a(bsp_MCB1700.o)
+ .debug_str     0x00001e61      0x316 ./libBSP.a(bsp_MCB1700.o)
                                 0xa72 (size before relaxing)
- .debug_str     0x00002141        0xd ./libBSP.a(DataRam.o)
+ .debug_str     0x00002177        0xd ./libBSP.a(DataRam.o)
                                 0x127 (size before relaxing)
- .debug_str     0x0000214e      0x150 ./libCDL.a(lpc17xx_dac.o)
+ .debug_str     0x00002184      0x150 ./libCDL.a(lpc17xx_dac.o)
                                 0x26d (size before relaxing)
- .debug_str     0x0000229e      0x42f ./libCDL.a(lpc17xx_gpio.o)
+ .debug_str     0x000022d4      0x42f ./libCDL.a(lpc17xx_gpio.o)
                                 0x596 (size before relaxing)
- .debug_str     0x000026cd      0x56b ./libnxpUSBlib.a(ConfigDescriptor.o)
+ .debug_str     0x00002703      0x56b ./libnxpUSBlib.a(ConfigDescriptor.o)
                                 0x8cb (size before relaxing)
- .debug_str     0x00002c38      0x1e6 ./libnxpUSBlib.a(HostStandardReq.o)
+ .debug_str     0x00002c6e      0x1e6 ./libnxpUSBlib.a(HostStandardReq.o)
                                 0x80f (size before relaxing)
- .debug_str     0x00002e1e       0x66 ./libnxpUSBlib.a(USBTask.o)
+ .debug_str     0x00002e54       0x66 ./libnxpUSBlib.a(USBTask.o)
                                 0x2a6 (size before relaxing)
- .debug_str     0x00002e84      0x41d ./libnxpUSBlib.a(Host_LPC.o)
+ .debug_str     0x00002eba      0x41d ./libnxpUSBlib.a(Host_LPC.o)
                                 0xa5d (size before relaxing)
- .debug_str     0x000032a1      0x638 ./libnxpUSBlib.a(PipeStream_LPC.o)
+ .debug_str     0x000032d7      0x638 ./libnxpUSBlib.a(PipeStream_LPC.o)
                                 0x82c (size before relaxing)
- .debug_str     0x000038d9      0x1da ./libnxpUSBlib.a(Pipe_LPC.o)
+ .debug_str     0x0000390f      0x1da ./libnxpUSBlib.a(Pipe_LPC.o)
                                 0x997 (size before relaxing)
- .debug_str     0x00003ab3       0xb2 ./libnxpUSBlib.a(USBController_LPC.o)
+ .debug_str     0x00003ae9       0xb2 ./libnxpUSBlib.a(USBController_LPC.o)
                                 0x7df (size before relaxing)
- .debug_str     0x00003b65      0xa51 ./libnxpUSBlib.a(OHCI.o)
+ .debug_str     0x00003b9b      0xa51 ./libnxpUSBlib.a(OHCI.o)
                                0x11fd (size before relaxing)
- .debug_str     0x000045b6       0x58 ./libnxpUSBlib.a(HCD.o)
+ .debug_str     0x000045ec       0x58 ./libnxpUSBlib.a(HCD.o)
                                 0x727 (size before relaxing)
- .debug_str     0x0000460e       0xa9 ./libnxpUSBlib.a(HAL_LPC17xx.o)
+ .debug_str     0x00004644       0xa9 ./libnxpUSBlib.a(HAL_LPC17xx.o)
                                 0x6fb (size before relaxing)
- .debug_str     0x000046b7      0x525 ./libnxpUSBlib.a(HIDClassHost.o)
+ .debug_str     0x000046ed      0x525 ./libnxpUSBlib.a(HIDClassHost.o)
                                0x12c3 (size before relaxing)
- .debug_str     0x00004bdc      0x163 ./libnxpUSBlib.a(HIDParser.o)
+ .debug_str     0x00004c12      0x163 ./libnxpUSBlib.a(HIDParser.o)
                                 0x625 (size before relaxing)
- .debug_str     0x00004d3f       0xba ./libnxpUSBlib.a(USBMemory.o)
+ .debug_str     0x00004d75       0xba ./libnxpUSBlib.a(USBMemory.o)
                                 0x280 (size before relaxing)
 
 .debug_loc      0x00000000     0x3608
@@ -1992,81 +2012,83 @@ END GROUP
  .ARM.attributes
                 0x00000503       0x1b /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/bin/../lib/gcc/arm-none-eabi/4.5.1/thumb2/libgcc.a(_arm_fixdfsi.o)
  .ARM.attributes
-                0x0000051e       0x1b /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/bin/../lib/gcc/arm-none-eabi/4.5.1/thumb2/libgcc.a(_arm_muldivsf3.o)
+                0x0000051e       0x1b /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/bin/../lib/gcc/arm-none-eabi/4.5.1/thumb2/libgcc.a(_arm_addsubsf3.o)
  .ARM.attributes
-                0x00000539       0x1b /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/bin/../lib/gcc/arm-none-eabi/4.5.1/thumb2/libgcc.a(_arm_cmpsf2.o)
+                0x00000539       0x1b /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/bin/../lib/gcc/arm-none-eabi/4.5.1/thumb2/libgcc.a(_arm_muldivsf3.o)
  .ARM.attributes
-                0x00000554       0x1b /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/bin/../lib/gcc/arm-none-eabi/4.5.1/thumb2/libgcc.a(_arm_fixunssfsi.o)
+                0x00000554       0x1b /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/bin/../lib/gcc/arm-none-eabi/4.5.1/thumb2/libgcc.a(_arm_cmpsf2.o)
  .ARM.attributes
-                0x0000056f       0x1b /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/bin/../lib/gcc/arm-none-eabi/4.5.1/thumb2/libgcc.a(_aeabi_uldivmod.o)
+                0x0000056f       0x1b /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/bin/../lib/gcc/arm-none-eabi/4.5.1/thumb2/libgcc.a(_arm_fixunssfsi.o)
  .ARM.attributes
-                0x0000058a       0x29 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/bin/../lib/gcc/arm-none-eabi/4.5.1/thumb2/libgcc.a(bpabi.o)
+                0x0000058a       0x1b /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/bin/../lib/gcc/arm-none-eabi/4.5.1/thumb2/libgcc.a(_aeabi_uldivmod.o)
  .ARM.attributes
-                0x000005b3       0x29 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/bin/../lib/gcc/arm-none-eabi/4.5.1/thumb2/libgcc.a(_divdi3.o)
+                0x000005a5       0x29 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/bin/../lib/gcc/arm-none-eabi/4.5.1/thumb2/libgcc.a(bpabi.o)
  .ARM.attributes
-                0x000005dc       0x29 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/bin/../lib/gcc/arm-none-eabi/4.5.1/thumb2/libgcc.a(_udivdi3.o)
+                0x000005ce       0x29 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/bin/../lib/gcc/arm-none-eabi/4.5.1/thumb2/libgcc.a(_divdi3.o)
  .ARM.attributes
-                0x00000605       0x29 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/arm-none-eabi/lib/thumb2/libcs3.a(start_c.o)
+                0x000005f7       0x29 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/bin/../lib/gcc/arm-none-eabi/4.5.1/thumb2/libgcc.a(_udivdi3.o)
  .ARM.attributes
-                0x0000062e       0x29 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/arm-none-eabi/lib/thumb2/libcs3unhosted.a(unhosted-sbrk.o)
+                0x00000620       0x29 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/arm-none-eabi/lib/thumb2/libcs3.a(start_c.o)
  .ARM.attributes
-                0x00000657       0x19 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/arm-none-eabi/lib/thumb2/libcs3unhosted.a(unhosted-start.o)
+                0x00000649       0x29 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/arm-none-eabi/lib/thumb2/libcs3unhosted.a(unhosted-sbrk.o)
  .ARM.attributes
-                0x00000670       0x29 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/arm-none-eabi/lib/thumb2/libc.a(lib_a-errno.o)
+                0x00000672       0x19 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/arm-none-eabi/lib/thumb2/libcs3unhosted.a(unhosted-start.o)
  .ARM.attributes
-                0x00000699       0x29 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/arm-none-eabi/lib/thumb2/libc.a(lib_a-init.o)
+                0x0000068b       0x29 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/arm-none-eabi/lib/thumb2/libc.a(lib_a-errno.o)
  .ARM.attributes
-                0x000006c2       0x29 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/arm-none-eabi/lib/thumb2/libcs3.a(heap.o)
+                0x000006b4       0x29 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/arm-none-eabi/lib/thumb2/libc.a(lib_a-init.o)
  .ARM.attributes
-                0x000006eb       0x33 KeyboardHost.o
+                0x000006dd       0x29 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/arm-none-eabi/lib/thumb2/libcs3.a(heap.o)
  .ARM.attributes
-                0x0000071e       0x31 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_pinsel.o)
+                0x00000706       0x33 KeyboardHost.o
  .ARM.attributes
-                0x0000074f       0x31 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_rit.o)
+                0x00000739       0x31 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_pinsel.o)
  .ARM.attributes
-                0x00000780       0x31 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_uart.o)
+                0x0000076a       0x31 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_rit.o)
  .ARM.attributes
-                0x000007b1       0x31 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_clkpwr.o)
+                0x0000079b       0x31 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_uart.o)
  .ARM.attributes
-                0x000007e2       0x31 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_libcfg_default.o)
+                0x000007cc       0x31 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_clkpwr.o)
  .ARM.attributes
-                0x00000813       0x33 ./libBSP.a(bsp_MCB1700.o)
+                0x000007fd       0x31 /usr/local/pkg/lpc1700-cmsis-lite-2011.01.26-i686-1/lib/libDriversLPC17xxgnu.a(lpc17xx_libcfg_default.o)
  .ARM.attributes
-                0x00000846       0x33 ./libBSP.a(DataRam.o)
+                0x0000082e       0x33 ./libBSP.a(bsp_MCB1700.o)
  .ARM.attributes
-                0x00000879       0x33 ./libCDL.a(lpc17xx_dac.o)
+                0x00000861       0x33 ./libBSP.a(DataRam.o)
  .ARM.attributes
-                0x000008ac       0x33 ./libCDL.a(lpc17xx_gpio.o)
+                0x00000894       0x33 ./libCDL.a(lpc17xx_dac.o)
  .ARM.attributes
-                0x000008df       0x33 ./libnxpUSBlib.a(ConfigDescriptor.o)
+                0x000008c7       0x33 ./libCDL.a(lpc17xx_gpio.o)
  .ARM.attributes
-                0x00000912       0x33 ./libnxpUSBlib.a(HostStandardReq.o)
+                0x000008fa       0x33 ./libnxpUSBlib.a(ConfigDescriptor.o)
  .ARM.attributes
-                0x00000945       0x33 ./libnxpUSBlib.a(USBTask.o)
+                0x0000092d       0x33 ./libnxpUSBlib.a(HostStandardReq.o)
  .ARM.attributes
-                0x00000978       0x33 ./libnxpUSBlib.a(Host_LPC.o)
+                0x00000960       0x33 ./libnxpUSBlib.a(USBTask.o)
  .ARM.attributes
-                0x000009ab       0x33 ./libnxpUSBlib.a(PipeStream_LPC.o)
+                0x00000993       0x33 ./libnxpUSBlib.a(Host_LPC.o)
  .ARM.attributes
-                0x000009de       0x33 ./libnxpUSBlib.a(Pipe_LPC.o)
+                0x000009c6       0x33 ./libnxpUSBlib.a(PipeStream_LPC.o)
  .ARM.attributes
-                0x00000a11       0x33 ./libnxpUSBlib.a(USBController_LPC.o)
+                0x000009f9       0x33 ./libnxpUSBlib.a(Pipe_LPC.o)
  .ARM.attributes
-                0x00000a44       0x33 ./libnxpUSBlib.a(OHCI.o)
+                0x00000a2c       0x33 ./libnxpUSBlib.a(USBController_LPC.o)
  .ARM.attributes
-                0x00000a77       0x33 ./libnxpUSBlib.a(HCD.o)
+                0x00000a5f       0x33 ./libnxpUSBlib.a(OHCI.o)
  .ARM.attributes
-                0x00000aaa       0x33 ./libnxpUSBlib.a(HAL_LPC17xx.o)
+                0x00000a92       0x33 ./libnxpUSBlib.a(HCD.o)
  .ARM.attributes
-                0x00000add       0x33 ./libnxpUSBlib.a(HIDClassHost.o)
+                0x00000ac5       0x33 ./libnxpUSBlib.a(HAL_LPC17xx.o)
  .ARM.attributes
-                0x00000b10       0x33 ./libnxpUSBlib.a(HIDParser.o)
+                0x00000af8       0x33 ./libnxpUSBlib.a(HIDClassHost.o)
  .ARM.attributes
-                0x00000b43       0x33 ./libnxpUSBlib.a(USBMemory.o)
+                0x00000b2b       0x33 ./libnxpUSBlib.a(HIDParser.o)
  .ARM.attributes
-                0x00000b76       0x29 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/bin/../lib/gcc/arm-none-eabi/4.5.1/thumb2/crtend.o
+                0x00000b5e       0x33 ./libnxpUSBlib.a(USBMemory.o)
  .ARM.attributes
-                0x00000b9f       0x19 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/bin/../lib/gcc/arm-none-eabi/4.5.1/thumb2/crtn.o
+                0x00000b91       0x29 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/bin/../lib/gcc/arm-none-eabi/4.5.1/thumb2/crtend.o
+ .ARM.attributes
+                0x00000bba       0x19 /usr/local/pkg/sourcery-g++-lite-arm-eabi-2010.09.51-i686-1/bin/../lib/gcc/arm-none-eabi/4.5.1/thumb2/crtn.o
 
 /DISCARD/
  *(.note.GNU-stack)

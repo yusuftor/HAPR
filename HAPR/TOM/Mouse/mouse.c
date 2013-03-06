@@ -10,6 +10,8 @@
 #include "Movement.h"
 
 #define INTERVAL 10
+#define LENGTH 6.9f
+#define CONVERT ((float) 800 / 2.5)
 
 void RIT_IRQHandler();
 void cb(uint8_t buttons, int8_t X, int8_t Y);
@@ -17,12 +19,14 @@ void attach();
 void detach();
 void mousepins();
 
-int totX, totY;
+float currentX, currentY;
+float currentTHETA;
 
 int main() 
 {
-	totX = 0;
-	totY = 0;
+	currentX = 0.0f;
+	currentY = 0.0f;
+	currentTHETA = 0.0f;
 	Init_Serial();
 	ConsoleInit_Serial();
 	WriteByte((char) 0xB7);
@@ -35,6 +39,7 @@ int main()
 
 	mousepins();
 	mouse_init(cb, attach, detach);
+	//Backwards(0.4f);
 }
 
 void mousepins()
@@ -56,17 +61,25 @@ void mousepins()
 
 void cb(uint8_t buttons, int8_t X, int8_t Y)
 {
-	totY += Y;
-	totX += X;	
-	ConsoleWrite("x: ");
-	ConsoleWriteInt((int) totX);
-	ConsoleWrite("  y: ");
-	ConsoleWriteInt((int) totY);
+	float adjustedX, adjustedY;
+
+	adjustedX = ((float) X) / CONVERT;
+	adjustedY = ((float) Y) / CONVERT;
+
+	float newX, newY;
+	float newTHETA;
+
+	newTHETA = currentTHETA + ((float)( adjustedY / (float) LENGTH));
+	//newX = oldX(
+
+	ConsoleWrite("THETA: ");
+	ConsoleWriteFloat(newTHETA);
+	//ConsoleWrite("  y: ");
+	//ConsoleWriteInt((int) totY);
 	ConsoleWrite("\n\r");
 	//play("T240O8V10MSC");
-	if(totX < 35){
-	Forward(0.2f);
-	}
+
+	currentTHETA = newTHETA;
 }
 
 void attach()
