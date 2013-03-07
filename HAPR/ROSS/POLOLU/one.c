@@ -27,25 +27,6 @@ bool fiveSecTimer = false;
 int main() {
 	Init();
 
-	while(1) {
-		ConsoleWrite("Fix motors");
-		Move(0.2f);
-		Delay(5000);
-		Stop();
-		Delay(1000);
-		Move(-0.2f);
-		Delay(5000);
-		Stop();
-		Delay(1000);
-		Spin(0.2f);
-		Delay(1500);
-		Stop();
-		Delay(1000);
-		Spin(-0.2f);
-		Delay(1500);
-		Stop();
-		Delay(1000);
-	}
 
   
   	while(1);
@@ -64,7 +45,7 @@ void Init() {
 }
 
 void Delay(int i) { //Delay in ms. 1000 = 1,000 * 10,000 = 1s
-  int c, n;
-  c = i *  10000;
-  for(n = 0; n < c; n++);
+	int c, n;
+	c = i *  10000;
+	for(n = 0; n < c; n++);
 }

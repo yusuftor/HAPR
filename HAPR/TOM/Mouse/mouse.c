@@ -30,6 +30,7 @@ int main()
 	Init_Serial();
 	ConsoleInit_Serial();
 	WriteByte((char) 0xB7);
+	ConsoleWrite("Toms stuff");
 
 	RIT_Init(LPC_RIT);
 	RIT_TimerConfig(LPC_RIT, INTERVAL);
