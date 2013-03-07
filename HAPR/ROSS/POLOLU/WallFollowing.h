@@ -95,7 +95,7 @@ void FindWall() {
   while(1) {
     GetVoltages(RIGHT);
     if((result[0] > 2000) || (result[1] > 2000)) {
-      float diff = 
+      //float diff = 
       FollowWall(0.0f, RIGHT);
     }
     //else {
