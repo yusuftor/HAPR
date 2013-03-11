@@ -8,21 +8,29 @@
 #include "KeyboardHost.h"
 #include "ConsoleDebug.h"
 #include "Movement.h"
+#include "lpc17xx_gpio.h"
 #include <math.h>
 
 #define INTERVAL 10
 #define LENGTH 6.9f
-#define CONVERT ((float) 800 / 2.5)
+#define CONVERT ((float) 940 / 2.5)
 
 void RIT_IRQHandler();
 void cb(uint8_t buttons, int8_t X, int8_t Y);
 void attach();
 void detach();
 void mousepins();
+void turnangle(float angle);
+void movedistance(float distance);
+void initButton();
+void EINT3_IRQHandler();
 
 float currentX;
 float currentY;
 float currentTHETA;
+
+int go;
+int moving = 0;
 
 int main() 
 {
@@ -38,18 +46,22 @@ int main()
 	NVIC_SetPriority(RIT_IRQn, ((0x01<<3)|0x01));	
 	NVIC_EnableIRQ(RIT_IRQn);
 	
+	go = 0;
 
 	mousepins();
 	mouse_init(cb, attach, detach);
-	
-	int tryit = 0;
-	while(!tryit)
-	{
-	if(currentX > 10.0f){
-		tryit++;
-		play(_BEEP);
-	}
-}
+
+	initButton();
+
+	while(!go);
+
+	movedistance(200.0f);
+	Delay(1000);
+	turnangle(-3.14);
+	Delay(1000);
+	movedistance(200.0f);
+
+
 	while(1);
 	return(1);
 }
@@ -85,30 +97,22 @@ void cb(uint8_t buttons, int8_t X, int8_t Y)
 	newX = currentX + (((float) adjustedX) * cosf(currentTHETA));
 	newY = currentY + (((float) adjustedY) * sinf(currentTHETA));
 
-	ConsoleWrite("THETA: ");
-	ConsoleWriteFloat(newTHETA);
-	ConsoleWrite("\n\r");
-	ConsoleWrite("X: ");
-	ConsoleWriteFloat(newX);
-	ConsoleWrite("\n\r");
-	ConsoleWrite("Y: ");
-	ConsoleWriteFloat(newY);
-	ConsoleWrite("\n\r");
-	ConsoleWrite("\n\r");
-	//play("T240O8V10MSC");
-	
 
-	if(newTHETA > 6.28f)
+	if(moving && newTHETA > currentTHETA)
 	{
-	currentTHETA = newTHETA - 6.28f;
-	play(_BEEP);
-	}else if(newTHETA < -6.28f){
-	currentTHETA = newTHETA + 6.28f;
-	play(_BEEP);
-	}else{
-	currentTHETA = newTHETA;
+		rightS--;
+		MotorSet((leftS / 127.0f), (rightS / 127.0f));
+	}else if(moving && newTHETA < currentTHETA)
+	{
+		rightS++;
+		MotorSet((leftS / 127.0f), (rightS / 127.0f));
 	}
 
+
+	
+	currentTHETA = newTHETA;
+	ConsoleWriteFloat(currentTHETA);
+	ConsoleWrite("\n\r");
 	currentX = newX;
 	currentY = newY;
 }
@@ -132,4 +136,92 @@ void RIT_IRQHandler()
 	mouse_poll();	
 	//ConsoleWrite("poll");
 	
+}
+
+void turnangle(float angle)
+{
+
+	angle = -(angle);
+
+
+if(angle > 3.14f)
+{
+angle = -(angle - 3.14f);
+}else if(angle < -3.28f)
+{
+angle = -(angle + 3.14f);
+}
+
+float finalTHETA = currentTHETA + angle;
+ConsoleWriteFloat(currentTHETA);
+ConsoleWriteFloat(finalTHETA);
+float angle10 = angle * 0.1f;
+ConsoleWriteFloat(angle10);
+float prelimTHETA = finalTHETA - angle10;
+ConsoleWriteFloat(prelimTHETA);
+
+if(angle > 0.0f)
+{
+Spin(-0.2f);
+while(currentTHETA < prelimTHETA);
+Spin(-0.15f);
+while(currentTHETA < finalTHETA);
+Stop();
+
+}else if(angle < 0.0f){
+Spin(0.2f);
+while(currentTHETA > prelimTHETA);
+Spin(0.15f);
+while(currentTHETA > finalTHETA);
+Stop();
+}
+
+}
+
+void movedistance(float distance)
+{
+
+float finalX = currentX + distance;
+float distance10 = distance * 0.1f;
+float prelimX = finalX - distance10;
+
+
+if(distance > 0.0f)
+{
+Move(0.2f);
+moving = 1;
+while(currentX < prelimX);
+Move(0.15f);
+
+while(currentX < finalX);
+Stop();
+moving = 0;
+
+}else if(distance < 0.0f){
+Move(-0.2f);
+moving = 1;
+while(currentX > prelimX);
+Move(-0.15f);
+while(currentX > finalX);
+Stop();
+moving = 0;
+}
+
+}
+
+void initButton()
+{
+	GPIO_SetDir(2,(1<<21),0);
+	GPIO_IntCmd(2,(1<<5),0);
+	NVIC_EnableIRQ(EINT3_IRQn);
+}
+
+void EINT3_IRQHandler()
+{
+	NVIC_DisableIRQ(EINT3_IRQn);
+	go = 1;
+	currentX = 0.0f;
+	currentY = 0.0f;
+	currentTHETA = 0.0f;
+	GPIO_ClearInt(2,(1<<5));   	
 }
