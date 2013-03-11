@@ -13,10 +13,9 @@ void GetVoltages(Side s) {
 void FollowWall(float dist, Side s) {
 	int wantedV = 2300; //##Based on dist
 	currentlyFollowing = s;
-	bool toFarOrClose;
-	int loopCount;
-
-	for(loopCount = 0; loopCount < 10000000; loopCount++) {
+	GetVoltages(s);
+	
+	while(result[0] > 800) {
 		toFarOrClose = false;
 		if(!frontInterruptUp) {
 				GetVoltages(s);
@@ -45,7 +44,6 @@ void FollowWall(float dist, Side s) {
 				}
 				if(frontInterruptUp) continue;
 				//check if we arent parallel
-				//if((!toFarOrClose) && (result[0] > (result[1] + 200))) {
 				if(result[0] > (result[1] + 200)) {
 					//Turn away from wall, if left wall turn right, if right wall turn left
 					if(s == LEFT) Pivot(RIGHT, 0.3f);
@@ -58,7 +56,6 @@ void FollowWall(float dist, Side s) {
 					Delay(5);
 				}
 				if(frontInterruptUp) continue;
-				//if((!toFarOrClose) && (result[1] > (result[0] + 200))) {
 				if(result[1] > (result[0] + 200)) {
 					//Turn towards wall, if left wall turn left, if right wall turn right
 					if(s == LEFT) Pivot(LEFT, 0.2f);
@@ -74,33 +71,31 @@ void FollowWall(float dist, Side s) {
 		else {
 			while(!GetDigitalSensorStatus()) {
 				if(fiveSecTimer) {
-					//turn 90 degrees
+					//turn 90 degrees as many times as required until front of robot is clear
 					if(currentlyFollowing == LEFT) SpinAngle(0.25f);
 					else SpinAngle(-0.25f);
-					//fiveSecTimer = false;
 				}
 			}
 
 			ConsoleWrite("\r\nInterrupt area exited.");
 			frontInterruptUp = false;
 			RIT_Cmd(LPC_RIT, DISABLE);
-			ConsoleWrite("\r\nA\r\n");
 		}
 	}
+	Console("\r\nWall following ended.");
 }
 
 void FindWall() {
 	Forward(0.2);
 	while(1) {
 		GetVoltages(RIGHT);
-		if((result[0] > 2000) || (result[1] > 2000)) {
-			//float diff = 
-			FollowWall(0.0f, RIGHT);
+		if((result[0] > 1000) || (result[1] > 1000)) {
+			FollowWall(20.0f, RIGHT);
 		}
 		else {
 			GetVoltages(LEFT);
-			if((result[0] > 2000) || (result[1] > 2000)) {
-				FollowWall(0.0f, LEFT);
+			if((result[0] > 1000) || (result[1] > 1000)) {
+				FollowWall(20.0f, LEFT);
 			}
 		} 
 	}
