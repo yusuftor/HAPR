@@ -13,7 +13,7 @@ void SpeedTranslate(float speed) {
     else if(speed < -1.0f) speed = -1.0f;
   speed = 127.0f * speed;
   leftS = (int) speed;
-  rightS = (int) (0.87f * speed);
+  rightS = (int) (0.94f * speed);
 }
 
 void Stop() { 
