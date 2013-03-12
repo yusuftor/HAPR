@@ -1,7 +1,6 @@
-
 void GetVoltages(Side s) {
 	int i; 
-	float checks = 10.0f;
+	float checks = 1.0f;
 	result[0] = 0;
 	result[1] = 0;
 	for(i = 0; i < checks; i++) {
@@ -23,13 +22,22 @@ void FollowWall(float dist, Side s) {
 	int wantedV = (int) (1000.0f * pow((dist / 37.8f), (1.0f/-1.15f)));
 	bool changedValues;
 	currentlyFollowing = s;
+<<<<<<< HEAD
 	GetVoltages(s);
 	ConsoleWrite("/r/nCalculated V: ");
 	ConsoleWriteInt(wantedV);
-	while(result[0] > 800) {
+	while(result[0] > 1000) {
+=======
+	bool toFarOrClose;
+	int loopCount;
+
+	for(loopCount = 0; loopCount < 10000000; loopCount++) {
+		toFarOrClose = false;
+>>>>>>> parent of beac94a... Wall following can exit
 		if(!frontInterruptUp) {
 				changedValues = true;
 				GetVoltages(s);
+				if(result[0] <= 1000) continue;
 				ConsoleWrite("\r\nFound1 V: ");
 				ConsoleWriteInt(result[0]);
 				ConsoleWrite(" - ");
@@ -50,6 +58,7 @@ void FollowWall(float dist, Side s) {
 				if(frontInterruptUp) continue;
 				if(changedValues) {
 					GetVoltages(s);
+					if(result[0] <= 1000) continue;
 					changedValues = false;
 				}
 				ConsoleWrite("\r\nFound2 V: ");
@@ -71,6 +80,7 @@ void FollowWall(float dist, Side s) {
 				if(frontInterruptUp) continue;
 				if(changedValues) {
 					GetVoltages(s);
+					if(result[0] <= 1000) continue;
 					changedValues = false;
 				}
 				ConsoleWrite("\r\nFound3 V: ");
@@ -78,9 +88,14 @@ void FollowWall(float dist, Side s) {
 				ConsoleWrite(" - ");
 				ConsoleWriteInt(result[1]);
 				//check if we arent parallel
+<<<<<<< HEAD
 				int diff = result[0] - result[1];
 				if(diff > 100) {
 					ConsoleWrite("\r\nC");
+=======
+				//if((!toFarOrClose) && (result[0] > (result[1] + 200))) {
+				if(result[0] > (result[1] + 200)) {
+>>>>>>> parent of beac94a... Wall following can exit
 					//Turn away from wall, if left wall turn right, if right wall turn left
 					if(s == LEFT) Pivot(RIGHT, 0.6f);
 					else Pivot(LEFT, 0.6f);
@@ -88,8 +103,10 @@ void FollowWall(float dist, Side s) {
 					changedValues = true;
 				}
 				if(frontInterruptUp) continue;
+<<<<<<< HEAD
 				if(changedValues) {
 					GetVoltages(s);
+					if(result[0] <= 1000) continue;
 					changedValues = false;
 					diff = result[0] - result[1];
 				}
@@ -99,6 +116,10 @@ void FollowWall(float dist, Side s) {
 				ConsoleWriteInt(result[1]);
 				if(diff < -100) {
 					ConsoleWrite("\r\nD");
+=======
+				//if((!toFarOrClose) && (result[1] > (result[0] + 200))) {
+				if(result[1] > (result[0] + 200)) {
+>>>>>>> parent of beac94a... Wall following can exit
 					//Turn towards wall, if left wall turn left, if right wall turn right
 					if(s == LEFT) Pivot(LEFT, 0.6f);
 					else Pivot(RIGHT, 0.6f);
@@ -112,18 +133,29 @@ void FollowWall(float dist, Side s) {
 		else {
 			while(!GetDigitalSensorStatus()) {
 				if(fiveSecTimer) {
+<<<<<<< HEAD
 					//turn 90 degrees as many times as required until front of robot is clear
+					if(currentlyFollowing == LEFT) RoughSpinAngle(0.25f);
+					else RoughSpinAngle(-0.25f);
+=======
+					//turn 90 degrees
 					if(currentlyFollowing == LEFT) SpinAngle(0.25f);
 					else SpinAngle(-0.25f);
+					//fiveSecTimer = false;
+>>>>>>> parent of beac94a... Wall following can exit
 				}
 			}
 
 			ConsoleWrite("\r\nInterrupt area exited.");
 			frontInterruptUp = false;
 			RIT_Cmd(LPC_RIT, DISABLE);
+			ConsoleWrite("\r\nA\r\n");
 		}
 	}
+<<<<<<< HEAD
 	ConsoleWrite("\r\nWall following ended.");
+=======
+>>>>>>> parent of beac94a... Wall following can exit
 }
 
 void FindWall() {
@@ -131,6 +163,7 @@ void FindWall() {
 	bool foundWall = false;
 	while(!foundWall) {
 		GetVoltages(RIGHT);
+<<<<<<< HEAD
 		if((result[0] > 1000) || (result[1] > 1000)) {
 			FollowWall(20.0f, RIGHT);
 			foundWall = true;
@@ -140,6 +173,16 @@ void FindWall() {
 			if((result[0] > 1000) || (result[1] > 1000)) {
 				FollowWall(20.0f, LEFT);
 				foundWall = true;
+=======
+		if((result[0] > 2000) || (result[1] > 2000)) {
+			//float diff = 
+			FollowWall(0.0f, RIGHT);
+		}
+		else {
+			GetVoltages(LEFT);
+			if((result[0] > 2000) || (result[1] > 2000)) {
+				FollowWall(0.0f, LEFT);
+>>>>>>> parent of beac94a... Wall following can exit
 			}
 		} 
 	}

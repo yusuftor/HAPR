@@ -1,3 +1,11 @@
+//Method: SpeedTranslate(float speed)
+//Author: Ross Court
+//Use: This is a function called at the start of most
+//     movement functions which checks the speed value
+//     given and makes sure it isn't out of bounds. It
+//     then converts this to a value usable by the 3pi
+//     and then reduces the right motor speed due to 
+//     differences in the weight and power on the Pololu.
 int SpeedTranslate(float speed) {
 	if(speed > 1.0f) speed = 1.0f;
 	else if(speed < -1.0f) speed = -1.0f;
@@ -6,28 +14,39 @@ int SpeedTranslate(float speed) {
 	rightS = (int) (0.94f * speed);
 }
 
+//Method: Stop()
+//Author: Ross Court
+//Use: This sets the motors speed to zero to be sure
+//     that the Pololu is completely stopped.
 void Stop() { 
 	char stop[4] = {0xC1, 0x00, 0xC5, 0x00};
 	Write(stop, 4);
 	actSpeed = 0;
 }
 
+//Method: SlowStop()
+//Author: Yusuf Tor
+//Use: This gradually reduces the stored speed to zero
+//     so that the the Pololu slows down as it stops.
 void SlowStop() {
-	if (actSpeed == 0x00) {}
-	else {
+	if (actSpeed != 0) {
 		float i;
 		for (i = ((0.5f*actSpeed) -1); i >= 1; i = (i * 0.5f)) {
 			char stop[4] = {0xC1, (char) i, 0xC5, (char) i};
 			Write(stop, 4);
-		Delay(50);
-								ConsoleWrite("\r\nActSpeed: ");
-		ConsoleWriteFloat(i);
-								ConsoleWrite("\r\n");
+			Delay(50);
+			ConsoleWrite("\r\nActSpeed: ");
+			ConsoleWriteFloat(i);
+			ConsoleWrite("\r\n");
 		}
 		Stop();
 	}
 }
 
+//Method: Move(float speed)
+//Author: Ross Court
+//Use: This either moves the Pololu straight forwards
+//     or backwards.
 void Move(float speed) {
 	SpeedTranslate(speed);
 	actSpeed = rightS;
@@ -41,6 +60,10 @@ void Move(float speed) {
 	}
 }
 
+//Method: MotorSet(float s1, float s2)
+//Author: Ross Court / Yusuf Tor
+//Use: This allows you to specify the speeds and
+//     directions of each of the motors individually.
 void MotorSet(float s1, float s2) {
 	if(s1 > 1.0f) s1 = 1.0f;
 	else if(s1 < -1.0f) s1 = -1.0f; 
@@ -48,10 +71,27 @@ void MotorSet(float s1, float s2) {
 	else if(s2 < -1.0f) s2 = -1.0f;
 	int a1 = (int) 127.0f * s1;
 	int a2 = (int) 127.0f * s2;
-	char forward[4] = {0xC1, (char) a1, 0xC5, (char) a2};
+
+	char forward[4] = {0xC1, 0x00, 0xC5, 0x00};
+	if (a1 < 0) { // If a1 < 0, make the left wheel go backwards
+		forward[0] = 0xC2;
+		a1 *= -1;
+	}
+
+	if (a2 < 0) { // If a2 < 0, make the right wheel go backwards
+		forward[2] = 0xC6;
+		a2 *= -1;
+	}
+
+	forward[1] = (char) a1;
+	forward[3] = (char) a2;
 	Write(forward, 4);
 }
 
+//Method: Spin(float speed)
+//Author: Ross Court
+//Use: This sets the Pololu to spin either clockwise
+//     or anti-clockwise on the spot.
 void Spin(float speed) {
 	SpeedTranslate(speed);
 	char spin[4] = {0x00, 0x00, 0x00, 0x00};
@@ -70,6 +110,11 @@ void Spin(float speed) {
 	Write(spin, 4);
 }
 
+//Method: Pivot(Side w, float speed) 
+//Author: Ross Court
+//Use: This makes the Pololu pivot one a specified wheel,
+//     the wheel given as input will be stationary. The
+//     moving wheel can be going either forwards or backwards.
 void Pivot(Side w, float speed) {
 	SpeedTranslate(speed);
 	char pivot[4] = {0x00, 0x00, 0x00, 0x00};
@@ -100,7 +145,15 @@ void Pivot(Side w, float speed) {
 	Write(pivot, 4);
 }
 
-void SpinAngle(float angle) {
+//Method: RoughSpinAngle(float angle)
+//Author: Ross Court
+//Use: This spins the Pololu a certain angle and direction.
+//     Negative values will spin the Pololu anti-clockwise.
+//     The input is a float representation of the percentage
+//     of a full spin to do (eg 0.5f = 50% of a turn so 180
+//     degrees). This isn't very acurate as it is based on
+//     observation.
+void RoughSpinAngle(float angle) {
 	int time;
 	if(angle < 0) {
 		angle = angle * -1;
@@ -112,9 +165,21 @@ void SpinAngle(float angle) {
 	Stop();
 }
 
-void MoveDistance(float cm) {
-	//set target as current + distance
-	//store target
-	//go forwards until currX&Y roughly = targetX&Y
-	
+//Method: RoughMoveDistance(float cm)
+//Author: Ross Court
+//Use: This moves the Pololu forwards a rough distance
+//     forwards or backwards. This isn't very acurate
+//     as it is based on observation.
+void RoughMoveDistance(float cm) {
+	int time;
+	if(cm < 0) {
+		cm *= -1;
+		Move(-0.15f);
+	}
+	else Move(0.15f);
+	time = (int) 131 * cm;
+	Delay(time);
+	Stop();
+	currentX = currentX + (cm * cosf(currentTHETA));
+	currentY = currentY + (cm * sinf(currentTHETA));
 }
