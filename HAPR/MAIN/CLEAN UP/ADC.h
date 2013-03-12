@@ -1,3 +1,7 @@
+//Method: Init_ADC()
+//Author: Ross Court
+//Use: Initialises each of the four pins which have analogue sensors
+//     and intialises the ADC part of the MBED.
 void Init_ADC() {
 	PINSEL_CFG_Type PinCfg;
 
@@ -17,6 +21,10 @@ void Init_ADC() {
 	ADC_Init(LPC_ADC, 200000); //200KHz
 }
 
+//Method: Get_ADC_Val(char* pin)
+//Author: Ross Court
+//Use: Gets the value of a specific ADC input and returns this as
+//     an int.
 int Get_ADC_Val(char* pin) {
 	int channel, intChannel;
 	if(pin == "P15") {
@@ -46,11 +54,21 @@ int Get_ADC_Val(char* pin) {
 	return (int) adcVal;
 }
 
+//Method: TranslateToDistance(int mv)
+//Author: Ross Court
+//Use: This is the mathematical formula for converting input voltage
+//     to a returned value in centimeters. This is the formula I 
+//     found to be most accurate for our analogue sensors.
 float TranslateToDistance(int mv) {
-	float result = 28.7f *(pow((((float) mv)/1000.0f), (-1.15f)));
+	float result = 37.8f * (pow((((float) mv)/1000.0f), (-1.15f)));
 	return result;
 }
 
+//Method: PrintAllSensors()
+//Author: Ross Court
+//Use: This fuction prints out all of the analogue sensor values to
+//     the debug terminal. This function is for use in debugging to
+//     observe all input values.
 void PrintAllSensors() {
 	char output[20] = "";
 	int result;
