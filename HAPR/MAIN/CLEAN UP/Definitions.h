@@ -8,7 +8,7 @@
 #include <math.h>
 #include <string.h>
 #include <stdbool.h>
-#include "KeyboardHost.h"
+//#include "KeyboardHost.h"
 
 
 
@@ -63,7 +63,8 @@ int sensor5;
 float currentX;
 float currentY;
 float currentTHETA;
-int go;
+bool noFirstCB;
+bool go;
 int moving = 0;
 
 
@@ -121,7 +122,7 @@ void Init_DigitalSensor();
 int GetDigitalSensorStatus();
 void EINT3_IRQHandler();
 
-//DigitalSensor.h
+//PushButton.h
 void Init_Button();
 void EINT0_IRQHandler();
 
@@ -136,6 +137,7 @@ void FindLine();
 void Calibrate();
 
 //Mouse.h
+void WaitForFirstPoll();
 void Cb(uint8_t buttons, int8_t X, int8_t Y);
 void Attach();
 void Detach();
