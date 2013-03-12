@@ -13,6 +13,8 @@ void Init() {
 	ConsoleInit_Serial();
 	Init_ADC();
 	Init_DigitalSensor();
+	Button_Init();
+	mouse_init(Cb, Attach, Detach);
 	
 	currentX = 0.0f;
 	currentY = 0.0f;

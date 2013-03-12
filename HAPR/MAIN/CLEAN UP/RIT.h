@@ -23,12 +23,12 @@ void Init_RIT(int time) {
 //     If the Pololu is travelling the RIT prompts a 
 //     update from the mouse.
 void RIT_IRQHandler() {
-	RIT_GetIntStatus(LPC_RIT);
 	if(currentState == TRAVEL) {
 		RIT_GetIntStatus(LPC_RIT);
 		mouse_poll();
 	}
 	else if(currentState == WALLF) {
+		RIT_GetIntStatus(LPC_RIT);
 		ConsoleWrite("\r\nRIT Timer interrupt.");
 		fiveSecTimer = true;
 	}

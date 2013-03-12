@@ -10,9 +10,14 @@ int main() {
 	// - FW until line reached
 	// - Follow line until dock detected (line following algorithm)
 	if(1) {
+
 		currentState = TRAVEL;
 		Play(BEEP);
-		//RoughMoveDistance(200.0f);
+		Init_RIT(INTERVAL);
+		WaitForFirstPoll();
+		while(!go);
+		MoveDistance(200.0f,0);
+		RIT_Cmd(LPC_RIT, DISABLE);
 
 		currentState = WALLF;
 		Play(BEEP);
@@ -36,7 +41,11 @@ int main() {
 	if(0) {
 		currentState = TRAVEL;
 		Play(BEEP);
-		RoughMoveDistance(200.0f);
+		Init_RIT(INTERVAL);
+		WaitForFirstPoll();
+		while(!go);
+		MoveDistance(200.0f,0);
+		RIT_Cmd(LPC_RIT, DISABLE);
 
 		currentState = WALLF;
 		Play(BEEP);
@@ -44,10 +53,12 @@ int main() {
 
 		currentState = TRAVEL;
 		Play(BEEP);
+		Init_RIT(INTERVAL);
 		TurnAngle(90.0f);
 		RoughMoveDistance(120.0f);
 		TurnAngle(-90.0f);
 		RoughMoveDistance(200.0f);
+		RIT_Cmd(LPC_RIT, DISABLE);
 
 		currentState = WALLF;
 		Play(BEEP);
@@ -56,6 +67,16 @@ int main() {
 		currentState = LINEF;
 		Play(BEEP);
 		StartLineFollowing();
+	}
+
+	if(0) {
+		Calibrate();
+		dockNotFound = true;
+		WriteByte((char) 0xBB); // Start PID
+		WriteByte((char)((int)127.0f*0.4f)); // Max motor speed
+		char parameters[4] = {0x02, 0x01, 0x03, 0x02};
+		Write(parameters, 4); // Parameters to adjust motor speed differences
+		while (dockNotFound);
 	}
 
 	//After the run the Pololu will halt here until it is reset.
