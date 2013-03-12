@@ -12,11 +12,12 @@ void GetVoltages(Side s) {
 }
 
 void FollowWall(float dist, Side s) {
-  int wantedV = 2300; //##Based on dist
+  int wantedV = (int) (1000.0f * pow((dist / 37.8f), (1.0f/-1.15f)));
   currentlyFollowing = s;
   bool toFarOrClose;
   int loopCount;
-
+  ConsoleWrite("\r\nCalculated v: ");
+  ConsoleWriteInt(wantedV);
   for(loopCount = 0; loopCount < 10000000; loopCount++) {
     toFarOrClose = false;
     if(!frontInterruptUp) {
@@ -95,7 +96,7 @@ void FindWall() {
   while(1) {
     GetVoltages(RIGHT);
     if((result[0] > 2000) || (result[1] > 2000)) {
-      float diff = 
+      //float diff = 
       FollowWall(0.0f, RIGHT);
     }
     //else {

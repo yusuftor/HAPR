@@ -1,0 +1,134 @@
+
++--------+
+| libBSP |
++--------+
+
+
+Introduction
+============
+
+LibBSP is a wrapper and communication library for BSP-style computations.
+It provides wrappers for PUB, MPI and implements commuincation functions
+for shared memory machines (via pipes) and sequential computations (with
+1 processor).
+
+
+Installation
+============
+
+For the installation you will need GNU-make and a standard C++ compiler
+(if there is such a thing as a C++ standard). It is tested with the GCC, 
+SunCC, VisualAge C++, HP-C++ and the corresponding operating systems
+(Linux, Solaris, AIX, HP-UX, Darwin).
+
+You have to decide the type of BSP-communications by editing the variable
+"BSP" in the file "config.mk" to one of the types "SEQ, PUB, MPI, SHM".
+In the case of PUB and MPI you will also need the corresponding libraries.
+
+Type "make" and everything should (hopefully) compile.
+
+
+Usage
+=====
+
+Compilation
+-----------
+
+When compiling your programs with libBSP you also have to supply the 
+right define: 
+
+  -DPHI_BSP=1  if BSP=SEQ
+  -DPHI_BSP=2  if BSP=PUB
+  -DPHI_BSP=3  if BSP=MPI
+  -DPHI_BSP=4  if BSP=SHM
+
+adjust the include settings to the libBSP-directory (-I<path_to_libbsp>)
+and add the libBSP-library when linking (-L<path_to_libbsp> -lbsp).
+
+Programming
+-----------
+
+LibBSP provides the following communication functions:
+
+- init( int * argc, char ** argv )
+
+   Initialise the BSP machine. Has to be called before any other libBSP function
+   is used.
+
+- done ()
+
+   Finalise the BSP machine. No BSP functions has to be used after calling this
+   function.
+
+- uint nprocs ()
+  uint pid()
+
+   Return number of processors in BSP machine an local processor id starting
+   from 0.
+
+- sync ()
+
+   Do a global synchronisation. After this, all messages have been send and
+   received by all processors and can be accessed. 
+
+- send   ( uint dest, const void * buf, size_t bsize )
+  hpsend ( uint dest, const void * buf, size_t bsize )
+
+   Send the message "buf" of size "bsize" to the processor "dest".
+   If "send" is used, the buffer "buf" can be reused after the function 
+   returns (content will be copied by libBSP). In the case of "hpsend", 
+   the content of the buffer may not be changed until "sync" (content will 
+   not be copied)
+
+- TMessage get_msg ()
+
+   Return the first message in the queue of the local processor. The message
+   is returned as a "TMessage"-object.
+
+- uint nmsgs ()
+
+   Return the number of messages still in the local queue.
+
+- dsend ( uint dest,   const void * buf, size_t bsize )
+  drecv ( uint source,       void * buf, size_t bsize )
+
+   Allows direct (non-BSP) communication between two processors. Send and
+   receive the message "buf" of size "bsize" to/from processor dest/source.
+   This communication is blocking and may lead to dead-locks if used without
+   care, so use only if you know what you are doing.
+
+- size_t dprobe ( uint source )
+
+   Also part of the direct (non-BSP) communcation functions, "dprobe" returns
+   the size of the message to be received from the processor "source".
+
+- statistics ()
+
+   Print statistics about the BSP-communication, e.g. how many steps, how much
+   data was send/recevied.
+
+The following functions belong to the TMessage class which is used as a wrapper
+for all non-direct, received BSP messages.
+
+- void * data ()
+
+   Return a pointer to the recevied message.
+
+- size_t size ()
+
+   Return the size of the message.
+
+- uint source ()
+
+   Return the source processor of the message.
+
+If possible, an appropriate error code is returned with one of the following
+values:
+
+       NO_ERROR     :  no error occured
+       ERR_ARG      :  error in argument
+       ERR_RES      :  resource not available
+       ERR_SYSCALL  :  error in system call/function
+       ERR_INIT     :  not intialised
+       ERR_MEM      :  memory allocation error
+       ERR_COMM     :  error during communication
