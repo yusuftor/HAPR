@@ -1,6 +1,10 @@
-void GetVoltages(Side s) {
-	int i; 
-	float checks = 1.0f;
+//Method: GetVoltages(Side s)
+//Author: Ross Court
+//Use: This function updates a global variable used by wall following with the values
+//     of a specified side of the Pololu. This function can also be set to use an 
+//     average of a given amount of checks to do.
+void GetVoltages(Side s, float checks) {
+	int i;
 	result[0] = 0;
 	result[1] = 0;
 	for(i = 0; i < checks; i++) {
