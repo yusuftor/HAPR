@@ -50,7 +50,7 @@ int Get_ADC_Val(char* pin) {
 }
 
 float TranslateToDistance(int mv) {
-  float result = 28.7f *(pow((((float) mv)/1000.0f), (-1.15f)));
+  float result = 37.8f *(pow((((float) mv)/1000.0f), (-1.15f)));
   return result;
 }
 

@@ -14,20 +14,23 @@ void Delay();
 void Init_RIT(int time);
 bool fiveSecTimer = false;
 
-//#include "sound.h"
-//#include "RIT.h"
+#include "sound.h"
+#include "RIT.h"
 #include "ConsoleDebug.h"
 #include "Serial.h"
 #include "Movement.h"
-//#include "ADC.h"
-//#include "DigitalSensor.h"
-//#include "WallFollowing.h"
+#include "ADC.h"
+#include "DigitalSensor.h"
+#include "WallFollowing.h"
 
 
 int main() {
 	Init();
 
-
+	while(1) {
+		PrintAllSensors();
+		Delay(1000);
+	}
   
   	while(1);
 }
@@ -35,8 +38,8 @@ int main() {
 void Init() {
 	ConsoleInit_Serial(); 
 	Init_Serial();
-	//Init_ADC();
-	//Init_DigitalSensor();
+	Init_ADC();
+	Init_DigitalSensor();
 	
 
 	WriteByte((char) 0xB7);
