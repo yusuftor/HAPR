@@ -1,3 +1,19 @@
+#include "KeyboardHost.h"
+
+void WaitForFirstPoll() {
+	noFirstCB = true;
+	go = false;
+	while(noFirstCB) {
+		Move(0.3f);
+		Delay(50);
+		Stop();
+		Move(-0.3f);
+		Delay(50);
+		Stop();
+	}
+	Play(ALARM);
+}
+
 //Method: MousePins()
 //Author: Tom Collier
 //Use: This method sets up 2 pins which were shown (in practicals)
@@ -23,6 +39,8 @@ void MousePins() {
 //     controlling the right motor and increasing it's speed or decreasing it based on the change in the angle of
 //     the robot.
 void Cb(uint8_t buttons, int8_t X, int8_t Y) {
+if(noFirstCB) noFirstCB = false;
+
 	float adjustedX, adjustedY;
 
 	adjustedX = ((float) X) / CONVERT; //converting the "dots" values to cm
