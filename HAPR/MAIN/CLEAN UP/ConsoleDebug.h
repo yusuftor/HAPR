@@ -31,12 +31,12 @@ void ConsoleWriteByte(char c) {
 
 void ConsoleWriteFloat(float n) {
 	char output[20] = "";
-	sprintf(output, "%2.2f\r\n", n);
+	sprintf(output, "%2.2f", n);
 	ConsoleWrite(output);
 }
 
 void ConsoleWriteInt(int n) {
 	char output[20] = "";
-	sprintf(output, "%d\r\n", n);
+	sprintf(output, "%d ", n);
 	ConsoleWrite(output);
 }

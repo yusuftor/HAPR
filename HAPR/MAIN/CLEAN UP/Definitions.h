@@ -1,3 +1,18 @@
+//Libraries required for project:
+#include "lpc17xx_uart.h"
+#include "lpc17xx_pinsel.h"
+#include "lpc_types.h"
+#include "lpc17xx_rit.h"
+#include "lpc17xx_adc.h"
+#include <lpc17xx_gpio.h>
+#include <math.h>
+#include <string.h>
+#include <stdbool.h>
+
+
+
+
+//Definitions of global variables:
 //Digital Sensor
 #define SENSOR	(1<<12)
 #define PORT	0	
@@ -12,6 +27,7 @@
 enum side {LEFT, RIGHT};
 typedef enum side Side;
 Side currentlyFollowing;
+bool fiveSecTimer;
 bool frontInterruptUp;
 int result[2];
 
@@ -31,6 +47,9 @@ int sensor5;
 float globalX;
 float globalY;
 float globalR;
+
+
+
 
 //Functions
 //Predefined here for use in headers. 
@@ -97,3 +116,17 @@ void FindWall();
 
 //Mouse.h
 //##
+
+
+
+
+//Drivers made by group:
+#include "General.h"
+#include "Sound.h"
+#include "RIT.h"
+#include "ConsoleDebug.h"
+#include "Serial.h"
+#include "Movement.h"
+#include "ADC.h"
+#include "DigitalSensor.h"
+#include "WallFollowing.h"

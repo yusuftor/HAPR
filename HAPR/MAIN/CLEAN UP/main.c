@@ -1,9 +1,14 @@
 #include "Definitions.h"
-#include "Headers.h"
 
 int main() {
 	//Demo program
 	Init();
+
+	if(1) {
+		Delay(2000);
+		FollowWall(30.0f, LEFT);
+	}
+
 
 	//Short course:
 	//FW 2 meters (using mouse)
