@@ -35,9 +35,6 @@ void SlowStop() {
 			char stop[4] = {0xC1, (char) i, 0xC5, (char) i};
 			Write(stop, 4);
 			Delay(50);
-			ConsoleWrite("\r\nActSpeed: ");
-			ConsoleWriteFloat(i);
-			ConsoleWrite("\r\n");
 		}
 		Stop();
 	}

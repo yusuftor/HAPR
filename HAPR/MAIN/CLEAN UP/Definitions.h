@@ -24,6 +24,11 @@
 #define SENSORBIT	(1<<17)
 #define PORT		0	
 
+//Push Button
+#define BUTTON		(1<<21)
+#define BUTTONBIT	(1<<5)
+#define BUTTONPORT	2		
+
 //Sounds
 #define BEEP 	"T240O8MSC"
 #define ALARM 	"T240O8MSCCC"
