@@ -1,3 +1,8 @@
+int sensor1;
+int sensor2;
+int sensor3;
+int sensor4;
+int sensor5;
 
 void Init_Serial() {
 	UART_CFG_Type UARTConfigStruct;
@@ -30,20 +35,15 @@ void WriteByte(char c) {
 	UART_SendByte((LPC_UART_TypeDef*) LPC_UART3, (uint8_t) c); 	
 }
 
-
-int Read(int length) {
+void Read() {
 	char received[10];
-	int l = UART_Receive((LPC_UART_TypeDef*) LPC_UART3, received, length, BLOCKING);
-	int i;
-	int value = 0;
-	for (i = 0; i < l; i++) {
-		value += (received[i] << (8*i)); //Left shift last byte and add first 							byte received because the bytes are 							sent in reverse order.
-		ConsoleWriteInt(value);
-		
-	}
-	ConsoleWriteInt(value);
-	return value;
+	int l = UART_Receive((LPC_UART_TypeDef*) LPC_UART3, received, 10, BLOCKING);
 	
+	sensor5 = received[0]+(received[1]<<8);
+        sensor4 = received[2]+(received[3]<<8);
+        sensor3 = received[4]+(received[5]<<8);
+        sensor2 = received[6]+(received[7]<<8);
+        sensor1 = received[8]+(received[9]<<8);
 }
 
 char ReadByte() {

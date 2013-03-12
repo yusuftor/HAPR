@@ -1,3 +1,9 @@
+//Method: StartLineFollowing()
+//Author: Yusuf Tor
+//Use: This function is used to transistion into line 
+//     following by moving forwards until the line is 
+//     detected,calibrating and then following it until
+//     the dock has been found.
 void StartLineFollowing() {
     dockNotFound = true;
     FindLine();
@@ -9,6 +15,12 @@ void StartLineFollowing() {
     while (dockNotFound);
 }
 
+//Method: FindLine()
+//Author: Yusuf Tor
+//Use: This will move fowards until a line is detected
+//     under the center of the Pololu. If a line is found
+//     to either side of the front it will move on to the
+//     line more until it is centered.
 void FindLine() {
     while(1) {
         WriteByte((char) 0x86); // Read calibrated sensor values
@@ -41,6 +53,14 @@ void FindLine() {
     }
 }
 
+//Method: Calibrate()
+//Author: Yusuf Tor
+//Use: This function activates the 3pi calibrate function
+//     and then in order to make the calibrate command work
+//     it spins clockwise an angle, then anti-clockwise for
+//     double that angle and then clockwise the amount of
+//     the original angle so that it finishes in the same
+//     position as it started.
 void Calibrate() {
     Spin(0.25f); //Spin clockwise
     int i;

@@ -8,21 +8,26 @@
 #include <math.h>
 #include <string.h>
 #include <stdbool.h>
-//#include "KeyboardHost.h"
+#include "KeyboardHost.h"
 
 
 
 
 //#### Definitions and global variables ####
 //Mouse
-#define INTERVAL 10
-#define LENGTH 6.9f
-#define CONVERT ((float) 945 / 2.5)
+#define INTERVAL	10
+#define LENGTH		6.9f
+#define CONVERT 	((float) 945 / 2.5f)
 
 //Digital Sensor
 #define SENSOR		(1<<12)
 #define SENSORBIT	(1<<17)
 #define PORT		0	
+
+//Push Button
+#define BUTTON		(1<<21)
+#define BUTTONBIT	(1<<5)
+#define BUTTONPORT	2		
 
 //Sounds
 #define BEEP 	"T240O8MSC"
@@ -58,6 +63,8 @@ int sensor5;
 float currentX;
 float currentY;
 float currentTHETA;
+int go;
+int moving = 0;
 
 
 
@@ -114,6 +121,10 @@ void Init_DigitalSensor();
 int GetDigitalSensorStatus();
 void EINT3_IRQHandler();
 
+//DigitalSensor.h
+void Init_Button();
+void EINT0_IRQHandler();
+
 //WallFollowing.h
 void GetVoltages(Side s);
 void FollowWall(float dist, Side s);
@@ -125,17 +136,12 @@ void FindLine();
 void Calibrate();
 
 //Mouse.h
-/*
-Xvoid RIT_IRQHandler();
-void cb(uint8_t buttons, int8_t X, int8_t Y);
-void attach();
-void detach();
-void mousepins();
+void Cb(uint8_t buttons, int8_t X, int8_t Y);
+void Attach();
+void Detach();
+void MousePins();
 void TurnAngle(float angle);
 void MoveDistance(float distance, int xy);
-void initButton();
-Xvoid EINT3_IRQHandler();
-*/
 
 
 
@@ -149,5 +155,7 @@ Xvoid EINT3_IRQHandler();
 #include "Movement.h"
 #include "ADC.h"
 #include "DigitalSensor.h"
+#include "PushButton.h"
 #include "WallFollowing.h"
 #include "LineFollowing.h"
+#include "Mouse.h"

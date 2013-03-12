@@ -14,12 +14,22 @@ void Init_RIT(int time) {
 }
 
 //Method: RIT_IRQHandler()
-//Author: Ross Court
-//Use: This sets a flag to true so that the wall
-//     following method knows to move around the
-//     object
+//Author: Ross Court / Tom Collier
+//Use: The use of this depends on if the Pololu is
+//     wall following or travelling using the mouse.
+//     If wall following sets a flag to true so that
+//     the wall following method knows to move around
+//     the object.
+//     If the Pololu is travelling the RIT prompts a 
+//     update from the mouse.
 void RIT_IRQHandler() {
 	RIT_GetIntStatus(LPC_RIT);
-	ConsoleWrite("\r\nRIT Timer interrupt.");
-	fiveSecTimer = true;
+	if(currentState == TRAVEL) {
+		RIT_GetIntStatus(LPC_RIT);
+		mouse_poll();
+	}
+	else if(currentState == WALLF) {
+		ConsoleWrite("\r\nRIT Timer interrupt.");
+		fiveSecTimer = true;
+	}
 }
