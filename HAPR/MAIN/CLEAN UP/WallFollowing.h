@@ -1,72 +1,113 @@
 
 void GetVoltages(Side s) {
-	if(s == LEFT) {
-		result[0] = Get_ADC_Val("P15");
-		result[1] = Get_ADC_Val("P18");
+	int i; 
+	float checks = 10.0f;
+	result[0] = 0;
+	result[1] = 0;
+	for(i = 0; i < checks; i++) {
+		if(s == LEFT) {
+			result[0] += Get_ADC_Val("P15");
+			result[1] += Get_ADC_Val("P18");
+		}
+		else {
+			result[0] += Get_ADC_Val("P16");
+			result[1] += Get_ADC_Val("P17");
+		}
 	}
-	else {
-		result[0] = Get_ADC_Val("P16");
-		result[1] = Get_ADC_Val("P17");
-	}
+	result[0] = (int) (((float) result[0]) / checks);
+	result[1] = (int) (((float) result[1]) / checks);
 }
 
 void FollowWall(float dist, Side s) {
-	int wantedV = 2300; //##Based on dist
+	dist -= 7.0f;
+	int wantedV = (int) (1000.0f * pow((dist / 37.8f), (1.0f/-1.15f)));
+	bool changedValues;
 	currentlyFollowing = s;
 	GetVoltages(s);
-	
+	ConsoleWrite("/r/nCalculated V: ");
+	ConsoleWriteInt(wantedV);
 	while(result[0] > 800) {
-		toFarOrClose = false;
 		if(!frontInterruptUp) {
+				changedValues = true;
 				GetVoltages(s);
-				if((result[0] > wantedV) && (result[1] > wantedV)) {
+				ConsoleWrite("\r\nFound1 V: ");
+				ConsoleWriteInt(result[0]);
+				ConsoleWrite(" - ");
+				ConsoleWriteInt(result[1]);
+				Move(0.5f);
+				if((result[0] > (wantedV + 200)) && (result[1] > (wantedV + 200))) {
+					ConsoleWrite("\r\nA");
 					//If to close to (left, turn right)/(right, turn left) and go forwards a bit
-					toFarOrClose = true;
-					if(s == LEFT) Pivot(RIGHT, 0.2f);
-					else Pivot(LEFT, 0.2f);
+					if(s == LEFT) Pivot(RIGHT, 0.6f);
+					else Pivot(LEFT, 0.6f);
+					Delay(10);
+					if(frontInterruptUp) continue;
+					Move(0.5f);
+					if(frontInterruptUp) continue;
 					Delay(15);
-					if(frontInterruptUp) continue;
-					Forward(0.6f);
-					if(frontInterruptUp) continue;
-					Delay(10);
+					changedValues = true;
 				}
 				if(frontInterruptUp) continue;
-				if((result[0] < wantedV) && (result[1] < wantedV)) {
+				if(changedValues) {
+					GetVoltages(s);
+					changedValues = false;
+				}
+				ConsoleWrite("\r\nFound2 V: ");
+				ConsoleWriteInt(result[0]);
+				ConsoleWrite(" - ");
+				ConsoleWriteInt(result[1]);
+				if((result[0] < (wantedV - 200)) && (result[1] < (wantedV - 200))) {
+					ConsoleWrite("\r\nB");
 					//If to far from (left, turn left)/(right, turn right) and go forwards a bit
-					toFarOrClose = true;
-					if(s == LEFT) Pivot(LEFT, 0.2f);
-					else Pivot(RIGHT, 0.2f);
+					if(s == LEFT) Pivot(LEFT, 0.6f);
+					else Pivot(RIGHT, 0.6f);
 					Delay(10);
 					if(frontInterruptUp) continue;
-					Forward(0.6f);
+					Move(0.5f);
 					if(frontInterruptUp) continue;
-					Delay(10);
+					Delay(15);
+					changedValues = true;
 				}
 				if(frontInterruptUp) continue;
+				if(changedValues) {
+					GetVoltages(s);
+					changedValues = false;
+				}
+				ConsoleWrite("\r\nFound3 V: ");
+				ConsoleWriteInt(result[0]);
+				ConsoleWrite(" - ");
+				ConsoleWriteInt(result[1]);
 				//check if we arent parallel
-				if(result[0] > (result[1] + 200)) {
+				int diff = result[0] - result[1];
+				if(diff > 100) {
+					ConsoleWrite("\r\nC");
 					//Turn away from wall, if left wall turn right, if right wall turn left
-					if(s == LEFT) Pivot(RIGHT, 0.3f);
-					else Pivot(LEFT, 0.3f);
+					if(s == LEFT) Pivot(RIGHT, 0.6f);
+					else Pivot(LEFT, 0.6f);
 					Delay(10);
-					//while(result[0] > (result[1] + 200));
-					if(frontInterruptUp) continue;
-					//Forward(0.6f);
-					if(frontInterruptUp) continue;
-					Delay(5);
+					changedValues = true;
 				}
 				if(frontInterruptUp) continue;
-				if(result[1] > (result[0] + 200)) {
-					//Turn towards wall, if left wall turn left, if right wall turn right
-					if(s == LEFT) Pivot(LEFT, 0.2f);
-					else Pivot(RIGHT, 0.2f);
-					Delay(10);
-					//while(result[1] > (result[0] + 200));
-					if(frontInterruptUp) continue;
-					//Forward(0.6f);
-					if(frontInterruptUp) continue;
-					Delay(5);
+				if(changedValues) {
+					GetVoltages(s);
+					changedValues = false;
+					diff = result[0] - result[1];
 				}
+				ConsoleWrite("\r\nFound4 V: ");
+				ConsoleWriteInt(result[0]);
+				ConsoleWrite(" - ");
+				ConsoleWriteInt(result[1]);
+				if(diff < -100) {
+					ConsoleWrite("\r\nD");
+					//Turn towards wall, if left wall turn left, if right wall turn right
+					if(s == LEFT) Pivot(LEFT, 0.6f);
+					else Pivot(RIGHT, 0.6f);
+					Delay(20);
+					changedValues = true;
+
+					
+				}
+				Stop();
 		}
 		else {
 			while(!GetDigitalSensorStatus()) {
@@ -82,20 +123,23 @@ void FollowWall(float dist, Side s) {
 			RIT_Cmd(LPC_RIT, DISABLE);
 		}
 	}
-	Console("\r\nWall following ended.");
+	ConsoleWrite("\r\nWall following ended.");
 }
 
 void FindWall() {
-	Forward(0.2);
-	while(1) {
+	Move(0.2f);
+	bool foundWall = false;
+	while(!foundWall) {
 		GetVoltages(RIGHT);
 		if((result[0] > 1000) || (result[1] > 1000)) {
 			FollowWall(20.0f, RIGHT);
+			foundWall = true;
 		}
 		else {
 			GetVoltages(LEFT);
 			if((result[0] > 1000) || (result[1] > 1000)) {
 				FollowWall(20.0f, LEFT);
+				foundWall = true;
 			}
 		} 
 	}
