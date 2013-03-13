@@ -84,8 +84,8 @@ void FollowWall(float dist, Side s) {
 				if(diff > 100) {
 					//Turn away from wall, if left wall turn right, if right wall turn left
 					if(frontInterruptUp) continue;
-					if(s == LEFT) Pivot(RIGHT, 0.6f);
-					else Pivot(LEFT, 0.6f);
+					if(s == LEFT) Pivot(RIGHT, 0.4f);
+					else Pivot(LEFT, 0.4f);
 					Delay(10);
 					changedValues = true;
 				}
@@ -99,9 +99,9 @@ void FollowWall(float dist, Side s) {
 				if(diff < -100) {
 					//Turn towards wall, if left wall turn left, if right wall turn right
 					if(frontInterruptUp) continue;
-					if(s == LEFT) Pivot(LEFT, 0.6f);
-					else Pivot(RIGHT, 0.6f);
-					Delay(20);
+					if(s == LEFT) Pivot(LEFT, 0.4f);
+					else Pivot(RIGHT, 0.4f);
+					Delay(10);
 					changedValues = true;
 				}
 				Stop();

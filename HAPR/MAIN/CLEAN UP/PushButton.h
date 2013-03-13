@@ -4,7 +4,7 @@
 void Button_Init() {
 	GPIO_SetDir(BUTTONPORT, BUTTON, 0);
 	GPIO_IntCmd(BUTTONPORT, BUTTONBIT, 0);
-	NVIC_EnableIRQ(EINT0_IRQn);
+	NVIC_EnableIRQ(EINT3_IRQn);
 }
 
 //Method: EINT0_IRQHandler()
@@ -13,6 +13,7 @@ void Button_Init() {
 //     here it is used as a zero-ing function for the position variables and also to tell the robot
 //     to begin execution of it's program.
 void EINT0_IRQHandler() {
+	ConsoleWrite("BUTTON");
 	NVIC_DisableIRQ(EINT0_IRQn);
 	go = true; //begin execution
 	currentX = 0.0f; //zero position
