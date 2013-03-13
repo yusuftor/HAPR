@@ -14,7 +14,7 @@ void Button_Init() {
 //     to begin execution of it's program.
 void EINT0_IRQHandler() {
 	NVIC_DisableIRQ(EINT0_IRQn);
-	go = 1; //begin execution
+	go = true; //begin execution
 	currentX = 0.0f; //zero position
 	currentY = 0.0f;
 	currentTHETA = 0.0f;
