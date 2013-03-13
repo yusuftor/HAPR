@@ -33,20 +33,27 @@ int GetDigitalSensorStatus() {
 //      dock has been found which will end the 
 //      execution of the demo run
 void EINT3_IRQHandler() {
-	ConsoleWrite("GPIO IRQ Handler\r\n");
+	ConsoleWrite("\r\nGPIO IRQ Handler");
 	if(currentState == TRAVEL) {
-
+		if (GPIO_GetIntStatus(BUTTONPORT, BUTTONBIT, 0)) {
+			ConsoleWrite("\r\nBUTTON");
+			go = true; //begin execution
+			currentX = 0.0f; //zero position
+			currentY = 0.0f;
+			currentTHETA = 0.0f;
+			GPIO_ClearInt(BUTTONPORT, BUTTONBIT);
+		}
 	}
 	else if (currentState == WALLF) {
 		if(!frontInterruptUp) {
-			ConsoleWrite("IRQ Handler Entered\r\n");
+			ConsoleWrite("\r\nIRQ Handler Entered");
 			frontInterruptUp = true;
 			if (GPIO_GetIntStatus(PORT, 17, 1)) {
-				ConsoleWrite("In the IF\r\n");
 				SlowStop();
 				Init_RIT(5000);
-				ConsoleWrite("Timer set\r\n");
+				ConsoleWrite("\r\nTimer set");
 			}	
+			GPIO_ClearInt(PORT, SENSORBIT); 
 		} 
 	}
     else if(currentState == LINEF) {
@@ -55,7 +62,8 @@ void EINT3_IRQHandler() {
             Stop();
             dockNotFound = false;
         }
+        GPIO_ClearInt(PORT, SENSORBIT); 
     }
-	ConsoleWrite("Done, clearing int\r\n");
-	GPIO_ClearInt(PORT, SENSORBIT); 
+	ConsoleWrite("\r\nDone, clearing int");
+	
 } 

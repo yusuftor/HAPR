@@ -8,7 +8,7 @@
 #include <math.h>
 #include <string.h>
 #include <stdbool.h>
-//#include "KeyboardHost.h"
+#include "KeyboardHost.h"
 
 
 
@@ -63,7 +63,6 @@ int sensor5;
 float currentX;
 float currentY;
 float currentTHETA;
-bool noFirstCB;
 bool go;
 int moving = 0;
 
