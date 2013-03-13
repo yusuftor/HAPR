@@ -63,7 +63,6 @@ int sensor5;
 float currentX;
 float currentY;
 float currentTHETA;
-bool noFirstCB;
 bool go;
 int moving = 0;
 
@@ -137,7 +136,6 @@ void FindLine();
 void Calibrate();
 
 //Mouse.h
-void WaitForFirstPoll();
 void Cb(uint8_t buttons, int8_t X, int8_t Y);
 void Attach();
 void Detach();

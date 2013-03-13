@@ -22,7 +22,7 @@ int GetDigitalSensorStatus() {
 }
 
 //Method: EINT3_IRQHandler()
-//Author: Yusuf Tor / Ross Court
+//Author: Yusuf Tor / Ross Court / Tom Collier
 //Use: This handles interrupts on the GPIO port
 //     giving different responses depending on
 //     the state the Pololu is currently in.
@@ -32,30 +32,45 @@ int GetDigitalSensorStatus() {
 //     -If line following it signals that the
 //      dock has been found which will end the 
 //      execution of the demo run
+//     This also handles the press of the A Button,
+//     used to begin execution
 void EINT3_IRQHandler() {
-	ConsoleWrite("GPIO IRQ Handler\r\n");
-	if(currentState == TRAVEL) {
+	
+	if(GPIO_GetIntStatus(PORT,17,1))
+	{
+		ConsoleWrite("GPIO IRQ Handler\r\n");
+		if(currentState == TRAVEL) {
 
-	}
-	else if (currentState == WALLF) {
-		if(!frontInterruptUp) {
-			ConsoleWrite("IRQ Handler Entered\r\n");
-			frontInterruptUp = true;
+		}
+		else if (currentState == WALLF) {
+			if(!frontInterruptUp) {
+				ConsoleWrite("IRQ Handler Entered\r\n");
+				frontInterruptUp = true;
+				if (GPIO_GetIntStatus(PORT, 17, 1)) {
+					ConsoleWrite("In the IF\r\n");
+					SlowStop();
+					Init_RIT(5000);
+					ConsoleWrite("Timer set\r\n");
+				}	
+			} 
+		}
+		else if(currentState == LINEF) {
 			if (GPIO_GetIntStatus(PORT, 17, 1)) {
-				ConsoleWrite("In the IF\r\n");
-				SlowStop();
-				Init_RIT(5000);
-				ConsoleWrite("Timer set\r\n");
-			}	
-		} 
+				WriteByte((char) 0xBC);
+				Stop();
+				dockNotFound = false;
+			}
+		}
+		ConsoleWrite("Done, clearing int\r\n");
+		GPIO_ClearInt(PORT, SENSORBIT);
+	}else if(GPIO_GetIntStatus(BUTTONPORT,BUTTONBIT,0)
+	{
+	
+	go = true; //begin execution
+	currentX = 0.0f; //zero position
+	currentY = 0.0f;
+	currentTHETA = 0.0f;
+	GPIO_ClearInt(BUTTONPORT, BUTTONBIT);
+	
 	}
-    else if(currentState == LINEF) {
-        if (GPIO_GetIntStatus(PORT, 17, 1)) {
-            WriteByte((char) 0xBC);
-            Stop();
-            dockNotFound = false;
-        }
-    }
-	ConsoleWrite("Done, clearing int\r\n");
-	GPIO_ClearInt(PORT, SENSORBIT); 
 } 

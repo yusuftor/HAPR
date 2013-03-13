@@ -14,7 +14,6 @@ int main() {
 		currentState = TRAVEL;
 		Play(BEEP);
 		Init_RIT(INTERVAL);
-		WaitForFirstPoll();
 		while(!go);
 		MoveDistance(200.0f,0);
 		RIT_Cmd(LPC_RIT, DISABLE);
@@ -42,7 +41,6 @@ int main() {
 		currentState = TRAVEL;
 		Play(BEEP);
 		Init_RIT(INTERVAL);
-		WaitForFirstPoll();
 		while(!go);
 		MoveDistance(200.0f,0);
 		RIT_Cmd(LPC_RIT, DISABLE);
