@@ -30,7 +30,7 @@ LDFLAGS=$(CMSISFL) -static -mcpu=cortex-m3 -mthumb -mthumb-interwork \
            -lc -lg -lstdc++ -lsupc++  -lgcc -lm  -Wl,--end-group \
 	   -Xlinker -Map -Xlinker bin/lpc1700.map -Xlinker -T $(LDSCRIPT)
 
-LDFLAGS+=-L$(CMSIS)/lib -lDriversLPC17xxgnu
+LDFLAGS+= KeyboardHost.o -L$(CMSIS)/lib -lDriversLPC17xxgnu -lBSP -lCDL -lnxpUSBlib
 
 EXECNAME	= bin/main
 
