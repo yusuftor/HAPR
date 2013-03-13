@@ -27,30 +27,37 @@ void FindLine() {
         Read();
         Delay(10);
         if (sensor3 > 1600) {//Line under sensor 3, move forwards a bit then calibrate
+            moving = 1;
             Move(0.2f);
             Delay(100);
             break;
         }
         else if (sensor1 > 1600) { //Line under sensor 1 
+            moving = 0;
             Spin(0.2f);
             Delay(50);
+            moving = 1;
             Move(0.2f);
             Delay(50);
             continue;
         }
-        else if (sensor5 > 1600) {//Line under sensor 5
+        else if (sensor5 > 1600) {//Line under sensor 
+            moving = 0;
             Spin(-0.2f);
             Delay(50);
+            moving = 1;
             Move(0.2f);
             Delay(50);
             continue;
         }
         else { // Line not under any sensor, just keep moving forwards
+            moving = 1;
             Move(0.2f);
             Delay(100);
             Stop();
         }
     }
+    moving = 0;
 }
 
 //Method: Calibrate()
